@@ -20,6 +20,6 @@ typedef struct inventory_s {
 	int food;
 } inventory_t;
 
-bool inventory_has(inventory_t *a, inventory_t *b);
+bool inventory_has(inventory_t *to_compare, inventory_t *reference);
 
 #endif /* !INVENTORY_H_ */
