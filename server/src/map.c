@@ -9,16 +9,19 @@
 #include <string.h>
 #include "map.h"
 
-map_t create_map(int width, int height)
+map_t *create_map(int width, int height)
 {
 	int i = -1;
-	map_t map = malloc(sizeof(inventory_t*) * height);
+	map_t *map = malloc(sizeof(map_t));
 
+	if(!map)
+		return (NULL);
+	map->data = malloc(sizeof(inventory_t*) * height);
 	while (++i < height) {
-		map[i] = malloc(sizeof(inventory_t) * width);
-		if (!map[i])
+		map->data[i] = malloc(sizeof(inventory_t) * width);
+		if (!map->data[i])
 			return (NULL);
-		memset(map[i], 0, sizeof(inventory_t) * width);
+		memset(map->data[i], 0, sizeof(inventory_t) * width);
 	}
 	return (map);
 }

@@ -10,8 +10,12 @@
 
 #include "inventory.h"
 
-typedef inventory_t** map_t;
+typedef struct map_s {
+	inventory_t **data;
+	int width;
+	int height;
+} map_t;
 
-map_t create_map(int width, int height);
+map_t *create_map(int width, int height);
 
 #endif /* !MAP_H_ */
