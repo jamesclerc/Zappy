@@ -10,7 +10,8 @@ SRC		:= src/main.c \
 		   src/util/poller.c \
 		   src/util/socket.c \
 		   src/inventory.c \
-		   src/map.c
+		   src/map.c \
+		   src/elevation.c
 
 CC		:= gcc
 RM		:= rm -f
