@@ -6,7 +6,9 @@
 ##
 
 NAME		:= ../zappy_server
-SRC		:= src/main.c
+SRC		:= src/main.c \
+		   src/util/poller.c \
+		   src/util/socket.c
 
 CC		:= gcc
 RM		:= rm -f
