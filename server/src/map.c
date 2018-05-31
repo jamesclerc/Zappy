@@ -9,6 +9,10 @@
 #include <string.h>
 #include "map.h"
 
+/// Creates and allocates a map_t with the given dimensions
+//  `int width`: width of the map
+//  `int height`: height of the map
+//  `int return`: NULL if a malloc failed, the map's adress otherwise
 map_t *create_map(int width, int height)
 {
 	int i = -1;
