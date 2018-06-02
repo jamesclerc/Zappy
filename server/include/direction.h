@@ -9,10 +9,10 @@
 # define DIRECTION_H_
 
 enum Direction {
-	N,
-	S,
-	E,
-	W,
+	DIR_NORTH,
+	DIR_SOUTH,
+	DIR_EAST,
+	DIR_WEST,
 };
 
 #endif /* !DIRECTION_H_ */
