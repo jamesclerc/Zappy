@@ -5,8 +5,7 @@
 ** Inventory
 */
 
-#ifndef INVENTORY_H_
-# define INVENTORY_H_
+#pragma once
 
 #include <stdbool.h>
 
@@ -21,5 +20,3 @@ typedef struct inventory_s {
 } inventory_t;
 
 bool inventory_has(inventory_t *to_compare, inventory_t *reference);
-
-#endif /* !INVENTORY_H_ */

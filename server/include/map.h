@@ -5,8 +5,7 @@
 ** Map header file
 */
 
-#ifndef MAP_H_
-# define MAP_H_
+#pragma once
 
 #include "inventory.h"
 
@@ -17,5 +16,3 @@ typedef struct map_s {
 } map_t;
 
 map_t *create_map(int width, int height);
-
-#endif /* !MAP_H_ */

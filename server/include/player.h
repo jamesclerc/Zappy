@@ -5,23 +5,27 @@
 ** player header
 */
 
-#ifndef PLAYER_H_
-# define PLAYER_H_
+#pragma once
 
 #include "inventory.h"
 #include "direction.h"
 #include "handler.h"
 #include "containers.h"
 
-typedef struct player_s {
+typedef struct player_s player_t;
+typedef struct game_state_s game_state_t;
+
+struct game_state_s {
 	inventory_t inventory;
 	int x;
 	int y;
-	int id;
-	FILE *fs;
 	int level;
-	Direction direction;
-	queue_t *cmd_queue;
-} player_t;
+	direction_t direction;
+};
 
-#endif /* !PLAYER_H_ */
+struct player_s {
+	game_state_t info;
+	FILE *fs;
+	queue_t *cmd_queue;
+	team_t *team;
+};
