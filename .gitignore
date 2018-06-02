@@ -3,7 +3,7 @@
 /zappy_server
 
 # Subject files
-*.pdf
+sujet/*
 
 ### C ###
 # Prerequisites
