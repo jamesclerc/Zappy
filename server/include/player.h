@@ -10,6 +10,8 @@
 
 #include "inventory.h"
 #include "direction.h"
+#include "handler.h"
+#include "containers.h"
 
 typedef struct player_s {
 	inventory_t inventory;
@@ -19,6 +21,7 @@ typedef struct player_s {
 	FILE *fs;
 	int level;
 	Direction direction;
+	queue_t *cmd_queue;
 } player_t;
 
 #endif /* !PLAYER_H_ */
