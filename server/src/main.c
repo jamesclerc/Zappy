@@ -15,7 +15,7 @@
 #include "team.h"
 #include "loop.h"
 
-void printUsage(char *av0, int exit_value)
+void print_usage(char *av0, int exit_value)
 {
 	printf("USAGE: %s -p port -x width -y height -n name1 name2 ... -c "
 		"clientNb -f freq\n\tport\t\tis the port number\n\twidth\t\tis "
@@ -38,7 +38,7 @@ int check_number(char *av0, char *arg)
 	}
 	ret = atoi(arg);
 	if (ret <= 0)
-		printUsage(av0, 84);
+		print_usage(av0, 84);
 	return (ret);
 }
 
@@ -50,7 +50,7 @@ int find_arg(int ac, char **av, char *opt)
 		if (strcmp(av[i], opt) == 0)
 			return (check_number(av[0], av[i + 1]));
 	}
-	printUsage(av[0], 84);
+	print_usage(av[0], 84);
 	return (-1);
 }
 
@@ -78,9 +78,9 @@ int main(int ac, char **av)
 
 	if (ac >= 2 && (strcasecmp(av[1], "-h") == 0
 		|| strcasecmp(av[1], "-help") == 0))
-		printUsage(av[0], 0);
+		print_usage(av[0], 0);
 	if (ac < 14)
-		printUsage(av[0], 84);
+		print_usage(av[0], 84);
 	teams = parse_arguments(ac, av, args);
 	if (!teams || teams[0].slots != 0)
 		return (84);
