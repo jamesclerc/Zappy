@@ -20,6 +20,8 @@ map_t *create_map(int width, int height)
 
 	if(!map)
 		return (NULL);
+	map->width = width;
+	map->height = height;
 	map->data = malloc(sizeof(inventory_t*) * height);
 	while (++i < height) {
 		map->data[i] = malloc(sizeof(inventory_t) * width);

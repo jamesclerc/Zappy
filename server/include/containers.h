@@ -7,10 +7,13 @@
 
 #pragma once
 
+#include <stddef.h>
+
 typedef struct list_link_s list_link_t;
 typedef struct queue_s queue_t;
+typedef list_link_t list_t;
 
-struct list_link_t
+struct list_link_s
 {
 	void *element;
 	list_link_t *prev;

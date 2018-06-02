@@ -11,7 +11,10 @@ SRC		:= src/main.c \
 		   src/util/socket.c \
 		   src/inventory.c \
 		   src/map.c \
-		   src/elevation.c
+		   src/elevation.c \
+		   src/queue.c \
+		   src/team.c \
+		   src/loop.c
 
 CC		:= gcc
 RM		:= rm -f
