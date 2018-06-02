@@ -10,7 +10,7 @@
 typedef struct handler_s {
 	char *name;
 	int duration;
-	void (*handle)(char *args, void **data);
+	void (*handle)(void **data);
 	void (*respond)(void *data);
 } handler_t;
 
