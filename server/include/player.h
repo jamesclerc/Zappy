@@ -7,25 +7,32 @@
 
 #pragma once
 
+#include <stddef.h>
 #include "inventory.h"
 #include "direction.h"
 #include "handler.h"
 #include "containers.h"
 
 typedef struct player_s player_t;
-typedef struct game_state_s game_state_t;
+typedef struct entity_s entity_t;
+typedef struct position_s position_t;
 
-struct game_state_s {
-	inventory_t inventory;
-	int x;
-	int y;
-	int level;
-	direction_t direction;
+struct position_s {
+	size_t x;
+	size_t y;
 };
 
-struct player_s {
-	game_state_t info;
-	FILE *fs;
-	queue_t *cmd_queue;
+struct entity_s {
+	inventory_t inventory;
+	direction_t facing;
+	position_t pos;
 	team_t *team;
+	short level;
+}
+
+struct player_s {
+	entity_t entity;
+	int fd;
+	FILE *steam;
+	queue_t *commands;
 };
