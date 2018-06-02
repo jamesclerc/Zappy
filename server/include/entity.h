@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include <stdio.h>
 #include "containers.h"
 #include "inventory.h"
 #include "space.h"

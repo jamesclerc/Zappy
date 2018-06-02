@@ -16,7 +16,8 @@ SRC		:= src/main.c \
 		   src/loop.c \
 		   src/player.c \
 		   src/containers/list.c \
-		   src/containers/queue.c
+		   src/containers/queue.c \
+		   parse.c
 
 CC		:= gcc
 RM		:= rm -f

@@ -7,5 +7,6 @@
 
 #pragma once
 
-bool loop(map_t *map, team_t *teams, int epoll_fd, int server_fd);
-bool init_loop(map_t *map, team_t *teams, int *args);
+#include "game.h"
+
+bool serv(game_t *game, int *args);

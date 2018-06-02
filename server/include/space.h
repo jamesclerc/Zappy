@@ -23,12 +23,20 @@ enum direction_e
 	DIR_COUNT,
 };
 
-struct position_t
+struct position_s
 {
 	unsigned long x;
 	unsigned long y;
 };
 
-inline direction_t direction_left(direction_t);
-inline direction_t direction_right(direction_t);
-inline position_t position_nudge(position_t, direction_t);
+static inline direction_t direction_left(direction_t dir)
+{
+	if (dir < 2)
+		dir += DIR_COUNT;
+	return (dir - 2);
+}
+
+static inline direction_t direction_right(direction_t dir)
+{
+	return ((dir + 2) % DIR_COUNT);
+}

@@ -5,6 +5,9 @@
 ** player related functions
 */
 
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include "entity.h"
 
 player_t *player_create(int fd)
