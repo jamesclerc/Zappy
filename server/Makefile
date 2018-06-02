@@ -12,9 +12,11 @@ SRC		:= src/main.c \
 		   src/inventory.c \
 		   src/map.c \
 		   src/elevation.c \
-		   src/queue.c \
 		   src/team.c \
-		   src/loop.c
+		   src/loop.c \
+		   src/player.c \
+		   src/containers/list.c \
+		   src/containers/queue.c
 
 CC		:= gcc
 RM		:= rm -f

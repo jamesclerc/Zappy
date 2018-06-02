@@ -5,7 +5,7 @@
 ** player related functions
 */
 
-#include "player.h"
+#include "entity.h"
 
 player_t *player_create(int fd)
 {
