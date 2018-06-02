@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "team.h"
+#include "parse.h"
 
 static int check_number(char *av0, char *arg)
 {
