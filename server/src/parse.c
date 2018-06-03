@@ -11,7 +11,7 @@
 #include "team.h"
 #include "parse.h"
 
-static int check_number(char *av0, char *arg)
+static int check_number(char *arg)
 {
 	int i = -1;
 	int ret;
@@ -21,8 +21,6 @@ static int check_number(char *av0, char *arg)
 			return (-1);
 	}
 	ret = atoi(arg);
-	if (ret <= 0)
-		print_usage(av0, 84);
 	return (ret);
 }
 
@@ -32,21 +30,35 @@ static int find_arg(int ac, char **av, char *opt)
 
 	while (++i < ac - 1) {
 		if (strcmp(av[i], opt) == 0)
-			return (check_number(av[0], av[i + 1]));
+			return (check_number(av[i + 1]));
 	}
-	print_usage(av[0], 84);
 	return (-1);
+}
+
+static void parse_numbers(int ac, char **av, int *args)
+{
+	args[3] = find_arg(ac, av, "-c");
+	if (args[3] == -1)
+		args[3] = 6;
+	args[4] = find_arg(ac, av, "-f");
+	if (args[4] == -1)
+		args[4] = 100;
+	args[0] = find_arg(ac, av, "-p");
+	if (args[0] == -1)
+		args[0] = 4242;
+	args[1] = find_arg(ac, av, "-x");
+	args[2] = find_arg(ac, av, "-y");
+	if (args[1] == -1)
+		args[1] = 16;
+	if (args[2] == -1)
+		args[2] = 16;
 }
 
 team_t *parse_arguments(int ac, char **av, int *args)
 {
 	int i = 0;
 
-	args[0] = find_arg(ac, av, "-p");
-	args[1] = find_arg(ac, av, "-x");
-	args[2] = find_arg(ac, av, "-y");
-	args[3] = find_arg(ac, av, "-c");
-	args[4] = find_arg(ac, av, "-f");
+	parse_numbers(ac, av, args);
 	while (++i < ac - 1) {
 		if (strcmp(av[i], "-n") == 0)
 			return (parse_teams(ac, av, ++i, args[3]));
