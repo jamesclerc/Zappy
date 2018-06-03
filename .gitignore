@@ -5,6 +5,10 @@
 # Subject files
 sujet/*
 
+### Editors ###
+# Visual Studio Code
+/.vscode/
+
 ### C ###
 # Prerequisites
 *.d
