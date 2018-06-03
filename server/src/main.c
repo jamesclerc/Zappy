@@ -36,6 +36,7 @@ int main(int ac, char **av)
 	game.teams = parse_arguments(ac, av, args);
 	if (!game.teams || game.teams[0].slots != 0)
 		return (84);
+	game.freq = args[4];
 	game.map = create_map(args[1], args[2]);
 	if (!game.map)
 		err(84, "malloc");
