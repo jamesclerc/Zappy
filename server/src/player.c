@@ -11,6 +11,7 @@
 #include "containers.h"
 #include "entity.h"
 
+/// Create a player from a file descriptor
 player_t *player_create(int fd)
 {
 	player_t *new = malloc(sizeof(player_t));
@@ -28,6 +29,7 @@ player_t *player_create(int fd)
 	return (new);
 }
 
+/// Find a player in a linked list by its file descriptor
 player_t *player_by_fd(list_t *list, int fd)
 {
 	if (list == NULL)
