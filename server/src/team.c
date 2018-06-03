@@ -7,23 +7,18 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "team.h"
 
-/// Parse team names in program parameters and create a team_t array accordingly
-team_t *parse_teams(int ac, char **av, int i, int slots)
+/// Extract all team names from program arguments
+team_t *team_get_names(char *av[], int start, int slots)
 {
 	team_t *teams = NULL;
 	int count = 0;
 
-	while (i < ac && av[i][0] != '-') {
-		teams = realloc(teams, sizeof(team_t) * (count + 2));
-		if (teams == NULL)
-			return (NULL);
-		teams[count].name = av[i];
-		teams[count].slots = slots;
-		teams[count++].nb_max_lvl = 0;
+	for (; av[start] != NULL && av[start][0] != '-'; start++) {
+		teams = reallocarray(teams, count + 2, sizeof(team_t));
+		teams[count++] = (team_t) {av[start], slots, 0};
 	}
-	memset(&(teams[count]), 0, sizeof(team_t));
+	memset(teams + count, 0, sizeof(team_t));
 	return (teams);
 }

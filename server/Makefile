@@ -21,7 +21,7 @@ CC		:= gcc
 RM		:= rm -f
 
 CFLAGS		:= -Wall -Wextra
-CPPFLAGS	:= -Iinclude
+CPPFLAGS	:= -Iinclude -D_GNU_SOURCE
 
 $(NAME): $(SRC:src/%.c=obj/%.o)
 	$(CC) $(OUTPUT_OPTION) $(CFLAGS) $^ $(LDFLAGS) $(LDLIBS)

@@ -6,13 +6,15 @@
 */
 
 #pragma once
-
 #include <stddef.h>
 
-typedef struct team_s {
+typedef struct team_s team_t;
+
+struct team_s
+{
 	char *name;
 	size_t slots;
-	size_t nb_max_lvl;
-} team_t;
+	size_t overlords;
+};
 
-team_t *parse_teams(int ac, char **av, int i, int slots);
+team_t *team_get_names(char *av[], int start, int slots);
