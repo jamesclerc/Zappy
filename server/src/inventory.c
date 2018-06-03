@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** inventory.c
+** PSU_zappy_2017
 ** File description:
 ** Inventory Handling
 */

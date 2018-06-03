@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** player.c
+** PSU_zappy_2017
 ** File description:
 ** Player Handling
 */

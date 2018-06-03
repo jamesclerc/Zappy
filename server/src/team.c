@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** team.c
+** PSU_zappy_2017
 ** File description:
 ** function
 */

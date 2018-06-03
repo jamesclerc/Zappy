@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** loop.c
+** PSU_zappy_2017
 ** File description:
 ** server's main loop functions
 */

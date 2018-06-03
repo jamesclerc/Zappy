@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2018
-** loop.h
+** PSU_zappy_2017
 ** File description:
 ** header
 */
 
 #pragma once
-
+#include <stdbool.h>
 #include "game.h"
 
-bool serv(game_t *game, int *args);
+bool serve(game_t *game, int *args);

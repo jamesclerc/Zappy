@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2018
-** parse.c
+** PSU_zappy_2017
 ** File description:
 ** arguments parsing functions
 */
@@ -64,7 +64,7 @@ team_t *parse_arguments(int ac, char **av, int *args)
 	parse_numbers(ac, av, args);
 	while (++i < ac - 1) {
 		if (strcmp(av[i], "-n") == 0)
-			return (parse_teams(ac, av, ++i, args[3]));
+			return (team_get_names(ac, av, ++i, args[3]));
 	}
 	print_usage(av[0], 84);
 	return (NULL);

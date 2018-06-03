@@ -20,10 +20,9 @@ void print_usage(char *av0, int exit_value)
 		"clientNb -f freq\n\tport\t\tis the port number\n\twidth\t\tis "
 		"the width of the world\n\theight\t\tis the height of the world"
 		"\n\tnameX\t\tis the name of the team X\n\tclientsNb\tis the "
-		"number of authorized clients per team\n\tfreq\t\tis the reciproc"
-		"al of time unit for execution of actions\n", av0);
+		"number of authorized clients per team\n\tfreq\t\tis the "
+		"reciprocal of time unit for execution of actions\n", av0);
 	exit(exit_value);
-
 }
 
 int main(int ac, char **av)
