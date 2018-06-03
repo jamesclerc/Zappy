@@ -25,6 +25,7 @@ static bool loop(game_t *game, int epoll_fd, int server_fd)
 	return (true);
 }
 
+/// Initializes the server main socket and epoll instance to call the main loop
 bool serv(game_t *game, int *args)
 {
 	int server_fd = socket_listen(args[0], 16);

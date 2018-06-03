@@ -11,6 +11,7 @@
 #include "team.h"
 #include "parse.h"
 
+/// Checks that the given argument is a valid numeric value and retrun it
 static int check_number(char *arg)
 {
 	int i = -1;
@@ -24,6 +25,7 @@ static int check_number(char *arg)
 	return (ret);
 }
 
+/// finds the requested option following the given opt string (ex: "-h")
 static int find_arg(int ac, char **av, char *opt)
 {
 	int i = 0;
@@ -35,6 +37,7 @@ static int find_arg(int ac, char **av, char *opt)
 	return (-1);
 }
 
+/// parses all possible numeric program arguments
 static void parse_numbers(int ac, char **av, int *args)
 {
 	args[3] = find_arg(ac, av, "-c");

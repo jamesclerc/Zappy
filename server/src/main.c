@@ -13,6 +13,7 @@
 #include "game.h"
 #include "parse.h"
 
+/// Prints the program usage message and exits with the given vlue
 void print_usage(char *av0, int exit_value)
 {
 	printf("USAGE: %s -p port -x width -y height -n name1 name2 ... -c "
@@ -37,7 +38,7 @@ int main(int ac, char **av)
 	if (!game.teams || game.teams[0].slots != 0)
 		return (84);
 	game.freq = args[4];
-	game.map = create_map(args[1], args[2]);
+	game.map = map_create(args[1], args[2]);
 	if (!game.map)
 		err(84, "malloc");
 	if (!serv(&game, args))

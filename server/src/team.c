@@ -10,6 +10,7 @@
 #include <ctype.h>
 #include "team.h"
 
+/// Parse team names in program parameters and create a team_t array accordingly
 team_t *parse_teams(int ac, char **av, int i, int slots)
 {
 	team_t *teams = NULL;
