@@ -50,18 +50,19 @@ static bool queue_action(game_t *game, player_t *player, command_t *command)
 	char *argument;
 
 	argument = strtok(NULL, "");
+	if (command->handle != NULL)
+		command->handle(game, player, argument);
 	if (command->duration != 0) {
 		action = malloc(sizeof(action_t));
 		if (action == NULL)
 			return (false);
 		memset(action, 0, sizeof(action_t));
+		gettimeofday(&action->start_time, NULL);
 		action->command = command;
 		if (argument != NULL && strlen(argument) != 0)
 			action->argument = strdup(argument);
 		queue_push(player->commands, action);
 	}
-	if (command->handle != NULL)
-		command->handle(game, player, action->argument);
 	return (true);
 }
 

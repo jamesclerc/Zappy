@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include <time.h>
+#include <sys/time.h>
 #include "entity.h"
 #include "game.h"
 
@@ -21,7 +21,7 @@ struct command_s {
 };
 
 struct action_s {
-	time_t start_time;
+	struct timeval start_time;
 	command_t *command;
 	char *argument;
 };
