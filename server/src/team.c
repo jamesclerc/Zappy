@@ -16,7 +16,7 @@ team_t *team_get_names(char *av[], int start, int slots)
 	int count = 0;
 
 	for (; av[start] != NULL && av[start][0] != '-'; start++) {
-		teams = reallocarray(teams, count + 2, sizeof(team_t));
+		teams = realloc(teams, (count + 2) * sizeof(team_t));
 		teams[count++] = (team_t) {av[start], slots, 0};
 	}
 	memset(teams + count, 0, sizeof(team_t));

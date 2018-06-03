@@ -33,6 +33,7 @@ int main(int ac, char **av)
 	if (ac >= 2 && (strcasecmp(av[1], "-h") == 0
 		|| strcasecmp(av[1], "-help") == 0))
 		print_usage(av[0], 0);
+	memset(&game, 0, sizeof(game_t));
 	game.teams = parse_arguments(ac, av, args);
 	if (!game.teams || game.teams[0].slots != 0)
 		return (84);
@@ -40,7 +41,7 @@ int main(int ac, char **av)
 	game.map = map_create(args[1], args[2]);
 	if (!game.map)
 		err(84, "malloc");
-	if (!serv(&game, args))
+	if (!serve(&game, args))
 		return (84);
 	return (0);
 }
