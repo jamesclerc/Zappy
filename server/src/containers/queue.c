@@ -16,9 +16,9 @@ queue_t *queue_create(size_t element_size)
 	queue_t *queue;
 
 	queue = malloc(sizeof(queue_t));
-	if (queue == NULL)
+	if (!queue)
 		return (NULL);
-	memset(&queue, 0, sizeof(queue_t));
+	memset(queue, 0, sizeof(queue_t));
 	queue->element_size = element_size;
 	return (queue);
 }

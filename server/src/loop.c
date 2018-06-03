@@ -7,6 +7,7 @@
 
 #include <stdbool.h>
 #include <sys/epoll.h>
+#include "commands.h"
 #include "communication.h"
 #include "containers.h"
 #include "space.h"
@@ -19,11 +20,11 @@ static bool loop(game_t *game, int efd, int sfd)
 	int n = 0;
 
 	for (;;) {
+		//printf("Loop !\n");
 		n = epoll_wait(efd, events, QUEUE_SIZE, 0);
 		for (int i = 0; i < n; i++)
 			event_handle(game, events + i, efd, sfd);
-		// TODO: Queue commands to players
-		// TODO: Check players for possibility of execution
+		execute_commands(game);
 	}
 	return (true);
 }

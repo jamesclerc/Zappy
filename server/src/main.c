@@ -35,7 +35,7 @@ int main(int ac, char **av)
 		print_usage(av[0], 0);
 	memset(&game, 0, sizeof(game_t));
 	game.teams = parse_arguments(ac, av, args);
-	if (!game.teams || game.teams[0].slots != 0)
+	if (!game.teams || game.teams[0].slots == 0)
 		return (84);
 	game.freq = args[4];
 	game.map = map_create(args[1], args[2]);

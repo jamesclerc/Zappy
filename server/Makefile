@@ -17,13 +17,14 @@ SRC		:= src/main.c \
 		   src/space.c \
 		   src/team.c \
 		   src/events.c	\
+		   src/commands.c \
 		   src/commands/left.c \
 		   src/commands/right.c
 
 CC		:= gcc
 RM		:= rm -f
 
-CFLAGS		:= -Wall -Wextra
+CFLAGS		:= -Wall -Wextra -g3
 CPPFLAGS	:= -Iinclude
 
 $(NAME): $(SRC:src/%.c=obj/%.o)

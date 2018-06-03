@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include "containers.h"
 #include "entity.h"
+#include "commands.h"
 
 /// Create a player from a file descriptor
 player_t *player_create(int fd)
@@ -20,6 +21,11 @@ player_t *player_create(int fd)
 		return (NULL);
 	memset(new, 0, sizeof(player_t));
 	new->fd = fd;
+	new->commands = queue_create(sizeof(action_t));
+	if (!new->commands) {
+		free(new);
+		return (NULL);
+	}
 	new->stream = fdopen(fd, "r+");
 	if (!new->stream) {
 		free(new);

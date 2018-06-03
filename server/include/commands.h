@@ -27,6 +27,7 @@ struct action_s {
 	char *argument;
 };
 
+void execute_commands(game_t *game);
 bool handle_left(game_t *, player_t *, char *);
 void respond_left(game_t *, player_t *, char *);
 bool handle_right(game_t *, player_t *, char *);

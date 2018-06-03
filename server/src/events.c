@@ -41,6 +41,7 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 		return (false);
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
+	printf("Nouveau client!\n");
 	return (true);
 }
 
