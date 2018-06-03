@@ -6,29 +6,32 @@
 */
 
 #include <stdbool.h>
+#include <sys/epoll.h>
 #include "communication.h"
 #include "containers.h"
 #include "space.h"
 #include "team.h"
 #include "game.h"
 
-static bool loop(game_t *game, int epoll_fd, int server_fd)
+static bool loop(game_t *game, int efd, int sfd)
 {
+	struct epoll_event events[QUEUE_SIZE];
+	int n = 0;
+
 	for (;;) {
-		//Interroger epoll
-		//Ajouter les commandes aux queues des players en question
-		//Checker pour chaque player la commandes a executer
+		n = epoll_wait(efd, events, QUEUE_SIZE, 0);
+		for (int i = 0; i < n; i++)
+			event_handle(game, events + i, efd, sfd);
+		// TODO: Queue commands to players
+		// TODO: Check players for possibility of execution
 	}
-	(void)game;
-	(void)epoll_fd;
-	(void)server_fd;
 	return (true);
 }
 
 /// Initializes the server main socket and epoll instance to call the main loop
 bool serve(game_t *game, int *args)
 {
-	int server_fd = socket_listen(args[0], 16);
+	int server_fd = socket_listen(args[0], QUEUE_SIZE);
 	int epoll_fd;
 
 	if (server_fd < 0)

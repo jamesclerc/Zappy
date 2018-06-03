@@ -5,7 +5,12 @@
 ** New client connection related functions
 */
 
+#include <err.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
 #include <sys/epoll.h>
 #include "game.h"
 #include "entity.h"
@@ -28,7 +33,7 @@ static command_t commands[] = {
 	{NULL, 0, NULL, NULL}
 };
 
-bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
+static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 {
 	player_t *new = player_create(ev->data.fd);
 
@@ -37,4 +42,63 @@ bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
 	return (true);
+}
+
+static bool queue_action(game_t *game, player_t *player, command_t *command)
+{
+	action_t *action;
+	char *argument;
+
+	argument = strtok(NULL, "");
+	if (command->duration != 0) {
+		action = malloc(sizeof(action_t));
+		if (action == NULL)
+			return (false);
+		memset(action, 0, sizeof(action_t));
+		action->command = command;
+		if (argument != NULL && strlen(argument) != 0)
+			action->argument = strdup(argument);
+		queue_push(player->commands, action);
+	}
+	if (command->handle != NULL)
+		command->handle(game, player, action->argument);
+	return (true);
+}
+
+static bool get_message(game_t *game, int fd)
+{
+	player_t *player = player_by_fd(game->players, fd);
+	char *message = NULL;
+	size_t i = 0;
+	bool result;
+
+	if (player == NULL)
+		return (false);
+	if (player->entity.team == NULL)
+		return (false); // TODO: Receive team name, place player and send info
+	getline(&message, &i, player->stream);
+	if (message == NULL)
+		return (false);
+	message[strcspn(message, "\r\n")] = '\0';
+	message = strtok(message, " ");
+	for (i = 0; commands[i].name != NULL; i++)
+		if (strcasecmp(message, commands[i].name) == 0)
+			break;
+	result = queue_action(game, player, commands + i);
+	free(message);
+	return (result);
+}
+
+bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
+{
+	if (ev->events & EPOLLIN && ev->data.fd == sfd)
+		return (accept_client(game, ev, efd));
+	else if (ev->data.fd == sfd)
+		err(84, "pterodactyl scream"); // AAAAAAAAH!
+	else if (ev->events & EPOLLIN)
+		return (get_message(game, ev->data.fd));
+	else {
+		// TODO: Cleanup
+	}
+	return (false);
 }

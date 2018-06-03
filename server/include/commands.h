@@ -16,12 +16,12 @@ typedef struct action_s action_t;
 struct command_s {
 	char *name;
 	int duration;
-	void (*handle)(game_t *, player_t *, void **data);
-	void (*respond)(game_t *, player_t *, void *data);
+	void (*handle)(game_t *, player_t *, char *argument);
+	void (*respond)(game_t *, player_t *, char *argument);
 };
 
 struct action_s {
 	time_t start_time;
-	command_t *cmd;
-	void *data;
+	command_t *command;
+	char *argument;
 };

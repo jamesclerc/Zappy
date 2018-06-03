@@ -33,3 +33,4 @@ struct player_s
 };
 
 player_t *player_create(int fd);
+player_t *player_by_fd(list_t *list, int fd);
