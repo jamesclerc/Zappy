@@ -10,8 +10,8 @@
 typedef struct command_s {
 	char *name;
 	int duration;
-	void (*handle)(void **data);
-	void (*respond)(void *data);
+	void (*handle)(game_t*, player_t*, void **data);
+	void (*respond)(game_t*, player_t*, void *data);
 } command_t;
 
 typedef struct action_s {
