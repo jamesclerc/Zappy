@@ -6,10 +6,10 @@
 */
 
 #include <stdbool.h>
+#include "communication.h"
 #include "containers.h"
 #include "space.h"
 #include "team.h"
-#include "util.h"
 #include "game.h"
 
 static bool loop(game_t *game, int epoll_fd, int server_fd)
