@@ -2,13 +2,15 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** Space-related structures
+** Space-related Structures
 */
 
 #pragma once
+#include "inventory.h"
 
 typedef enum direction_e direction_t;
 typedef struct position_s position_t;
+typedef struct map_s map_t;
 
 enum direction_e
 {
@@ -28,6 +30,17 @@ struct position_s
 	unsigned long x;
 	unsigned long y;
 };
+
+struct map_s
+{
+	inventory_t **cells;
+	unsigned long height;
+	unsigned long width;
+};
+
+map_t *map_create(unsigned long width, unsigned long height);
+void map_destroy(map_t *);
+inventory_t *map_peek(map_t *, position_t *);
 
 static inline direction_t direction_left(direction_t dir)
 {

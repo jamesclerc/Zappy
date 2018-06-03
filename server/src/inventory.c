@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** inventory.c
 ** File description:
-** inventory related functions
+** Inventory Handling
 */
 
 #include <stddef.h>

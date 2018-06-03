@@ -7,7 +7,7 @@
 
 #include <stdbool.h>
 #include "containers.h"
-#include "map.h"
+#include "space.h"
 #include "team.h"
 #include "util.h"
 #include "game.h"

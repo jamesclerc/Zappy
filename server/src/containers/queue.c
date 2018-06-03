@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** Queue implementation with linked lists
+** Queue Implementation
 */
 
 #include <stdlib.h>

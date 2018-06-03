@@ -8,7 +8,7 @@
 #pragma once
 
 #include "containers.h"
-#include "map.h"
+#include "space.h"
 #include "team.h"
 
 typedef struct game_s {

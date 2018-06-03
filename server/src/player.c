@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** player.c
 ** File description:
-** player related functions
+** Player Handling
 */
 
 #include <stdlib.h>
