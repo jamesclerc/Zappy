@@ -11,7 +11,6 @@ SRC		:= src/main.c \
 		   src/util/socket.c \
 		   src/inventory.c \
 		   src/map.c \
-		   src/elevation.c \
 		   src/team.c \
 		   src/loop.c \
 		   src/player.c \

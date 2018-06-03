@@ -1,15 +1,17 @@
 /*
 ** EPITECH PROJECT, 2018
-** inventory.h
+** PSU_zappy_2017
 ** File description:
-** Inventory
+** Inventory Handling
 */
 
 #pragma once
-
 #include <stdbool.h>
 
-typedef struct inventory_s {
+typedef struct inventory_s inventory_t;
+
+struct inventory_s
+{
 	int food;
 	int linemate;
 	int deraumere;
@@ -17,6 +19,11 @@ typedef struct inventory_s {
 	int mendiane;
 	int phiras;
 	int thystame;
-} inventory_t;
+};
 
-bool inventory_has(inventory_t *to_compare, inventory_t *reference);
+bool inventory_has(inventory_t *haystack, inventory_t *needle);
+bool inventory_take(inventory_t *source, inventory_t *amount);
+void inventory_give(inventory_t *destination, inventory_t *amount);
+void inventory_move(inventory_t *destination, inventory_t *source);
+
+extern const inventory_t elevations[8];
