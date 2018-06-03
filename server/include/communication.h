@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** PSU_zappy_2017
 ** File description:
-** Various helpers and wrappers around system functions
+** Basic I/O wrappers
 */
 
 #pragma once

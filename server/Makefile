@@ -7,6 +7,7 @@
 
 NAME		:= ../zappy_server
 SRC		:= src/main.c \
+		   src/communication.c \
 		   src/containers/list.c \
 		   src/containers/queue.c \
 		   src/inventory.c \
@@ -14,9 +15,7 @@ SRC		:= src/main.c \
 		   src/parse.c \
 		   src/player.c \
 		   src/space.c \
-		   src/team.c \
-		   src/util/poller.c \
-		   src/util/socket.c
+		   src/team.c
 
 CC		:= gcc
 RM		:= rm -f
