@@ -16,7 +16,9 @@ SRC		:= src/main.c \
 		   src/player.c \
 		   src/space.c \
 		   src/team.c \
-		   src/events.c
+		   src/events.c	\
+		   src/commands/left.c \
+		   src/commands/right.c
 
 CC		:= gcc
 RM		:= rm -f

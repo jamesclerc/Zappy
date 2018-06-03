@@ -20,7 +20,7 @@
 static command_t commands[] = {
 	{"Forward", 7, NULL, NULL},
 	{"Right", 7, NULL, NULL},
-	{"Left", 7, NULL, NULL},
+	{"Left", 7, &handle_left, &respond_left},
 	{"Look", 7, NULL, NULL},
 	{"Inventory", 1, NULL, NULL},
 	{"Broadcast", 7, NULL, NULL},
@@ -50,8 +50,8 @@ static bool queue_action(game_t *game, player_t *player, command_t *command)
 	char *argument;
 
 	argument = strtok(NULL, "");
-	if (command->handle != NULL)
-		command->handle(game, player, argument);
+	if (command->handle != NULL && !command->handle(game, player, argument))
+		return (false);
 	if (command->duration != 0) {
 		action = malloc(sizeof(action_t));
 		if (action == NULL)
