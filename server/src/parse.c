@@ -63,5 +63,6 @@ team_t *parse_arguments(int ac, char **av, int *args)
 		if (strcmp(av[i], "-n") == 0)
 			return (parse_teams(ac, av, ++i, args[3]));
 	}
+	print_usage(av[0], 84);
 	return (NULL);
 }

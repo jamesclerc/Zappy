@@ -33,8 +33,6 @@ int main(int ac, char **av)
 	if (ac >= 2 && (strcasecmp(av[1], "-h") == 0
 		|| strcasecmp(av[1], "-help") == 0))
 		print_usage(av[0], 0);
-	if (ac < 14)
-		print_usage(av[0], 84);
 	game.teams = parse_arguments(ac, av, args);
 	if (!game.teams || game.teams[0].slots != 0)
 		return (84);
