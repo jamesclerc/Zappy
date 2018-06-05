@@ -67,6 +67,7 @@ void queue_pop(queue_t *queue, void *element)
 		queue->head = NULL;
 	if (transfer == NULL)
 		return;
-	memcpy(element, transfer, queue->element_size);
+	if (element != NULL)
+		memcpy(element, transfer, queue->element_size);
 	free(transfer);
 }
