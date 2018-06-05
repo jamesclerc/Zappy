@@ -50,8 +50,7 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 	new->entity.pos.y = rand() % game->map->height;
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
-	fprintf(new->stream, "WELCOME\n%ld %ld\n", game->map->width,
-		game->map->height);
+	fprintf(new->stream, "WELCOME\n");
 	return (true);
 }
 
@@ -61,7 +60,8 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 
 	if (player->entity.team == NULL) {
 		if (link_player_team(game->teams, player, message)) {
-			fprintf(player->stream, "%i\n", player->fd);
+			fprintf(player->stream, "%i\n%ld %ld\n", player->fd,
+				game->map->width, game->map->height);
 			return (true);
 		}
 		fprintf(player->stream, "ko\n");
