@@ -24,7 +24,7 @@ static command_t commands[] = {
 	{"Right", 7, &handle_right, &respond_right},
 	{"Left", 7, &handle_left, &respond_left},
 	{"Look", 7, NULL, NULL},
-	{"Inventory", 1, NULL, NULL},
+	{"Inventory", 1, &handle_inventory, &respond_inventory},
 	{"Broadcast", 7, NULL, NULL},
 	{"Connect_nbr", 0, NULL, NULL},
 	{"Fork", 42, NULL, NULL},

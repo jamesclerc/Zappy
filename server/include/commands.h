@@ -34,3 +34,5 @@ bool handle_right(game_t *, player_t *, char *);
 void respond_right(game_t *, player_t *, char *);
 bool handle_forward(game_t *, player_t *, char *);
 void respond_forward(game_t *, player_t *, char *);
+bool handle_inventory(game_t *, player_t *, char *);
+void respond_inventory(game_t *, player_t *, char *);
