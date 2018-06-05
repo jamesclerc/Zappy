@@ -32,3 +32,5 @@ bool handle_left(game_t *, player_t *, char *);
 void respond_left(game_t *, player_t *, char *);
 bool handle_right(game_t *, player_t *, char *);
 void respond_right(game_t *, player_t *, char *);
+bool handle_forward(game_t *, player_t *, char *);
+void respond_forward(game_t *, player_t *, char *);

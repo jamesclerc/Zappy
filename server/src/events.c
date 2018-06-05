@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <sys/epoll.h>
 #include "game.h"
 #include "entity.h"
@@ -18,8 +20,8 @@
 #include "commands.h"
 
 static command_t commands[] = {
-	{"Forward", 7, NULL, NULL},
-	{"Right", 7, NULL, NULL},
+	{"Forward", 7, &handle_forward, &respond_forward},
+	{"Right", 7, &handle_right, &respond_right},
 	{"Left", 7, &handle_left, &respond_left},
 	{"Look", 7, NULL, NULL},
 	{"Inventory", 1, NULL, NULL},

@@ -19,7 +19,8 @@ SRC		:= src/main.c \
 		   src/events.c	\
 		   src/commands.c \
 		   src/commands/left.c \
-		   src/commands/right.c
+		   src/commands/right.c \
+		   src/commands/forward.c
 
 CC		:= gcc
 RM		:= rm -f

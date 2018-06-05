@@ -79,5 +79,7 @@ void position_nudge(map_t *map, position_t *pos, direction_t dir)
 	case DIR_EAST:
 		pos->x = (pos->x + 1) % map->width;
 		break;
+	default:
+		break;
 	}
 }
