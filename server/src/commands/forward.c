@@ -22,5 +22,6 @@ bool respond_forward(game_t *game, player_t *p, char *argument)
 {
 	(void)argument;
 	position_nudge(game->map, &p->entity.pos, p->entity.facing);
+	fprintf(p->stream, "ok\n");
 	return (true);
 }
