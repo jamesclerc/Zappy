@@ -56,12 +56,20 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 	size_t i = 0;
 
 	if (player->entity.team == NULL) {
-		link_player_team(game->teams, player, message);
+		if (link_player_team(game->teams, player, message)) {
+			fprintf(player->stream, "%i\n", player->fd);
+			return (true);
+		}
+		fprintf(player->stream, "ko\n");
 		return (false);
 	}
 	for (i = 0; commands[i].name != NULL; i++)
 		if (strcasecmp(message, commands[i].name) == 0)
 			break;
+	if (commands[i].name == NULL) {
+		fprintf(player->stream, "ko\n");
+		return (false);
+	}
 	return (queue_action(game, player, commands + i));
 }
 
