@@ -62,3 +62,22 @@ inventory_t *map_peek(map_t *map, position_t *position)
 		return (&(map->cells[y][x]));
 	return (NULL);
 }
+
+/// Nudge a position in a given direction
+void position_nudge(map_t *map, position_t *pos, direction_t dir)
+{
+	switch (dir) {
+	case DIR_NORTH:
+		pos->y = (pos->y == 0) ? (map->height - 1) : (pos->y - 1);
+		break;
+	case DIR_SOUTH:
+		pos->y = (pos->y + 1) % map->height;
+		break;
+	case DIR_WEST:
+		pos->x = (pos->x == 0) ? (map->width - 1) : (pos->x - 1);
+		break;
+	case DIR_EAST:
+		pos->x = (pos->x + 1) % map->width;
+		break;
+	}
+}
