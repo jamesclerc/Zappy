@@ -21,7 +21,7 @@ static void check_and_exec(game_t *game, player_t *player)
 	if (gettimeofday(&tv[0], NULL) < 0)
 		err(84, "gettimeofday");
 	tv[1].tv_sec = action->command->duration / game->freq;
-	tv[1].tv_usec = (1000 * (action->command->duration % game->freq)
+	tv[1].tv_usec = (1000000 * (action->command->duration % game->freq)
 		/ game->freq);
 	timeradd(&action->start_time, &tv[1], &tv[2]);
 	if (!timercmp(&tv[0], &tv[2], <)) {
