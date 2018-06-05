@@ -12,6 +12,7 @@
 #include "loop.h"
 #include "game.h"
 #include "parse.h"
+#include "entity.h"
 
 /// Prints the program usage message and exits with the given vlue
 void print_usage(char *av0, int exit_value)
@@ -23,6 +24,19 @@ void print_usage(char *av0, int exit_value)
 		"number of authorized clients per team\n\tfreq\t\tis the "
 		"reciprocal of time unit for execution of actions\n", av0);
 	exit(exit_value);
+}
+
+void game_cleanup(game_t *game)
+{
+	list_t *tmp = game->players;
+	player_t *player;
+
+	while (tmp) {
+		player = list_remove(&game->players);
+		player_destroy(player);
+	}
+	teams_destroy(game->teams);
+	map_destroy(game->map);
 }
 
 int main(int ac, char **av)
@@ -43,5 +57,6 @@ int main(int ac, char **av)
 		err(84, "malloc");
 	if (!serve(&game, args))
 		return (84);
+	game_cleanup(&game);
 	return (0);
 }

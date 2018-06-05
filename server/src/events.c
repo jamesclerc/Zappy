@@ -100,6 +100,24 @@ static bool get_message(game_t *game, int fd)
 	return (result);
 }
 
+static bool disconnect_handle(game_t *game, struct epoll_event *ev)
+{
+	list_t *tmp;
+	player_t *player;
+
+	tmp = game->players;
+	while (tmp) {
+		player = (player_t *)tmp->element;
+		if (player->fd == ev->data.fd) {
+			list_remove(&tmp);
+			player_destroy(player);
+			return (true);
+		}
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
 bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 {
 	if (ev->events & EPOLLIN && ev->data.fd == sfd)
@@ -108,8 +126,7 @@ bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 		err(84, "pterodactyl scream"); // AAAAAAAAH!
 	else if (ev->events & EPOLLIN)
 		return (get_message(game, ev->data.fd));
-	else {
-		player_destroy(player_by_fd(game->players, ev->data.fd));
-	}
+	else
+		disconnect_handle(game, ev);
 	return (false);
 }

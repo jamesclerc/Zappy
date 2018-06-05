@@ -22,3 +22,14 @@ team_t *team_get_names(char *av[], int start, int slots)
 	memset(teams + count, 0, sizeof(team_t));
 	return (teams);
 }
+
+/// Destroys a team_t array created by team_get_names
+void teams_destroy(team_t *teams)
+{
+	int i = 0;
+
+	while (teams[i].name != NULL) {
+		free(teams[i].name);
+	}
+	free(teams);
+}

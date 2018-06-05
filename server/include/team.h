@@ -18,3 +18,4 @@ struct team_s
 };
 
 team_t *team_get_names(char *av[], int start, int slots);
+void teams_destroy(team_t *teams);
