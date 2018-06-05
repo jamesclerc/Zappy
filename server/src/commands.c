@@ -8,6 +8,7 @@
 #include <sys/time.h>
 #include <err.h>
 #include <string.h>
+#include <stdlib.h>
 #include "game.h"
 #include "entity.h"
 #include "commands.h"
@@ -45,4 +46,26 @@ void execute_commands(game_t *game)
 		}
 		tmp = tmp->next;
 	}
+}
+
+bool queue_action(game_t *game, player_t *player, command_t *command)
+{
+	action_t *action;
+	char *argument;
+
+	argument = strtok(NULL, "");
+	if (command->handle != NULL && !command->handle(game, player, argument))
+		return (false);
+	if (command->duration != 0) {
+		action = malloc(sizeof(action_t));
+		if (action == NULL)
+			return (false);
+		memset(action, 0, sizeof(action_t));
+		gettimeofday(&action->start_time, NULL);
+		action->command = command;
+		if (argument != NULL && strlen(argument) != 0)
+			action->argument = strdup(argument);
+		queue_push(player->commands, action);
+	}
+	return (true);
 }

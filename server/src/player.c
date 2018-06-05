@@ -56,3 +56,21 @@ void player_destroy(player_t *player)
 	fclose(player->stream);
 	free(player);
 }
+
+/// Searches the team and links the player to it
+//  `team_t *teams`: the team_t array created by team_get_names
+//  `player_t *player`: the player giving the name of his team_t
+//  `char *team_name`: the name of the team asked by the player
+//  `bool return`: returns wether the team was found and linked or not
+bool link_player_team(team_t *teams, player_t *player, char *team_name)
+{
+	int i = -1;
+
+	while (teams[++i].name) {
+		if (strcmp(team_name, teams[i].name) == 0) {
+			player->entity.team = &teams[i];
+			return (true);
+		}
+	}
+	return (false);
+}

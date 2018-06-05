@@ -35,3 +35,4 @@ struct player_s
 player_t *player_create(int fd);
 void player_destroy(player_t *);
 player_t *player_by_fd(list_t *list, int fd);
+bool link_player_team(team_t *teams, player_t *player, char *team_name);

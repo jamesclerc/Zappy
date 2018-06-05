@@ -47,29 +47,22 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 		return (false);
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
+	fprintf(new->stream, "WELCOME\n");
 	return (true);
 }
 
-static bool queue_action(game_t *game, player_t *player, command_t *command)
+static bool interpret_message(game_t *game, player_t *player, char *message)
 {
-	action_t *action;
-	char *argument;
+	size_t i = 0;
 
-	argument = strtok(NULL, "");
-	if (command->handle != NULL && !command->handle(game, player, argument))
+	if (player->entity.team == NULL) {
+		link_player_team(game->teams, player, message);
 		return (false);
-	if (command->duration != 0) {
-		action = malloc(sizeof(action_t));
-		if (action == NULL)
-			return (false);
-		memset(action, 0, sizeof(action_t));
-		gettimeofday(&action->start_time, NULL);
-		action->command = command;
-		if (argument != NULL && strlen(argument) != 0)
-			action->argument = strdup(argument);
-		queue_push(player->commands, action);
 	}
-	return (true);
+	for (i = 0; commands[i].name != NULL; i++)
+		if (strcasecmp(message, commands[i].name) == 0)
+			break;
+	return (queue_action(game, player, commands + i));
 }
 
 static bool get_message(game_t *game, int fd)
@@ -81,8 +74,6 @@ static bool get_message(game_t *game, int fd)
 
 	if (player == NULL)
 		return (false);
-//	if (player->entity.team == NULL)
-//		return (false); // TODO: Receive team name, place player and send info
 	getline(&message, &i, player->stream);
 	if (message == NULL)
 		return (false);
@@ -92,10 +83,7 @@ static bool get_message(game_t *game, int fd)
 		return (true);
 	}
 	message = strtok(message, " ");
-	for (i = 0; commands[i].name != NULL; i++)
-		if (strcasecmp(message, commands[i].name) == 0)
-			break;
-	result = queue_action(game, player, commands + i);
+	result = interpret_message(game, player, message);
 	free(message);
 	return (result);
 }
