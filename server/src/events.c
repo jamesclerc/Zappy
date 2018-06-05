@@ -35,13 +35,16 @@ static command_t commands[] = {
 
 static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 {
-	player_t *new = player_create(ev->data.fd);
+	player_t *new;
+	int client_fd = accept(ev->data.fd, NULL, NULL);
 
+	if (client_fd < 0)
+		return (false);
+	new = player_create(client_fd);
 	if (!new)
 		return (false);
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
-	printf("Nouveau client!\n");
 	return (true);
 }
 

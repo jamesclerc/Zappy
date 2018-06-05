@@ -18,7 +18,6 @@ static void check_and_exec(game_t *game, player_t *player)
 	struct timeval tv[3];
 	action_t memory;
 
-	printf("Check_and_exec...\n");
 	if (!gettimeofday(&tv[0], NULL))
 		err(84, "gettimeofday");
 	tv[1].tv_sec = action->command->duration / game->freq;
@@ -32,7 +31,6 @@ static void check_and_exec(game_t *game, player_t *player)
 			memcpy(&(action->start_time), &tv[0],
 				sizeof(struct timeval));
 	}
-	printf("Fin de check and exec...\n");
 }
 
 void execute_commands(game_t *game)

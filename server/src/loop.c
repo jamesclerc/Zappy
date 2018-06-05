@@ -20,7 +20,6 @@ static bool loop(game_t *game, int efd, int sfd)
 	int n = 0;
 
 	for (;;) {
-		//printf("Loop !\n");
 		n = epoll_wait(efd, events, QUEUE_SIZE, 0);
 		for (int i = 0; i < n; i++)
 			event_handle(game, events + i, efd, sfd);
