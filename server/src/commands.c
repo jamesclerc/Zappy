@@ -18,7 +18,7 @@ static void check_and_exec(game_t *game, player_t *player)
 	struct timeval tv[3];
 	action_t memory;
 
-	if (!gettimeofday(&tv[0], NULL))
+	if (gettimeofday(&tv[0], NULL) < 0)
 		err(84, "gettimeofday");
 	tv[1].tv_sec = action->command->duration / game->freq;
 	tv[1].tv_usec = (1000 * (action->command->duration % game->freq)

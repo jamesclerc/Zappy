@@ -46,7 +46,7 @@ void queue_push(queue_t *queue, void *element)
 
 	if (queue == NULL)
 		return;
-	transfer = malloc(sizeof(queue->element_size));
+	transfer = malloc(queue->element_size);
 	if (transfer == NULL)
 		return;
 	memcpy(transfer, element, queue->element_size);
