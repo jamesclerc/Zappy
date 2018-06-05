@@ -45,9 +45,13 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 	new = player_create(client_fd);
 	if (!new)
 		return (false);
+	new->entity.facing = (rand() % 4) * 2;
+	new->entity.pos.x = rand() % game->map->width;
+	new->entity.pos.y = rand() % game->map->height;
 	list_insert(&(game->players), (void *)new);
 	epoll_watch(epoll_fd, new->fd);
-	fprintf(new->stream, "WELCOME\n");
+	fprintf(new->stream, "WELCOME\n%ld %ld\n", game->map->width,
+		game->map->height);
 	return (true);
 }
 
