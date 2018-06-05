@@ -81,12 +81,16 @@ static bool get_message(game_t *game, int fd)
 
 	if (player == NULL)
 		return (false);
-	if (player->entity.team == NULL)
-		return (false); // TODO: Receive team name, place player and send info
+//	if (player->entity.team == NULL)
+//		return (false); // TODO: Receive team name, place player and send info
 	getline(&message, &i, player->stream);
 	if (message == NULL)
 		return (false);
 	message[strcspn(message, "\r\n")] = '\0';
+	if (strlen(message) == 0) {
+		free(message);
+		return (true);
+	}
 	message = strtok(message, " ");
 	for (i = 0; commands[i].name != NULL; i++)
 		if (strcasecmp(message, commands[i].name) == 0)
@@ -105,7 +109,7 @@ bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 	else if (ev->events & EPOLLIN)
 		return (get_message(game, ev->data.fd));
 	else {
-		// TODO: Cleanup
+		player_destroy(player_by_fd(game->players, ev->data.fd));
 	}
 	return (false);
 }

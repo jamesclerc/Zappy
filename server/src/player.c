@@ -32,6 +32,7 @@ player_t *player_create(int fd)
 		close(fd);
 		return (NULL);
 	}
+	setlinebuf(new->stream);
 	return (new);
 }
 
@@ -44,4 +45,14 @@ player_t *player_by_fd(list_t *list, int fd)
 		&& ((player_t *) list->element)->fd != fd)
 		list = list->next;
 	return (list->element);
+}
+
+/// Destroy a player
+void player_destroy(player_t *player)
+{
+	while (player->commands->head)
+		queue_pop(player->commands, NULL);
+	queue_destroy(player->commands);
+	fclose(player->stream);
+	free(player);
 }
