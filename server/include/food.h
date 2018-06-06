@@ -8,4 +8,4 @@
 #pragma once
 #include "containers.h"
 
-void food_update(list_t *players, int freq);
+void food_update(list_t **players, int freq);

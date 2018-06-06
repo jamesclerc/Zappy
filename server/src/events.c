@@ -18,6 +18,7 @@
 #include "entity.h"
 #include "communication.h"
 #include "commands.h"
+#include "leave.h"
 
 static command_t commands[] = {
 	{"Forward", 7, &handle_forward, &respond_forward},
@@ -86,7 +87,10 @@ static bool get_message(game_t *game, int fd)
 
 	if (player == NULL)
 		return (false);
-	getline(&message, &i, player->stream);
+	if (getline(&message, &i, player->stream) == -1) {
+		player_remove(&game->players, player);
+		return (false);
+	}
 	if (message == NULL)
 		return (false);
 	message[strcspn(message, "\r\n")] = '\0';

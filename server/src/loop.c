@@ -25,7 +25,7 @@ static bool loop(game_t *game, int efd, int sfd)
 		for (int i = 0; i < n; i++)
 			event_handle(game, events + i, efd, sfd);
 		execute_commands(game);
-		food_update(game->players, game->freq);
+		food_update(&game->players, game->freq);
 	}
 	return (true);
 }
