@@ -15,9 +15,8 @@
 
 static void check_and_exec(game_t *game, player_t *player)
 {
-	action_t *action = player->commands->head->element;
+	action_t *action = player->commands->tail->element;
 	struct timeval tv[3];
-	action_t memory;
 
 	if (gettimeofday(&tv[0], NULL) < 0)
 		err(84, "gettimeofday");
@@ -28,10 +27,10 @@ static void check_and_exec(game_t *game, player_t *player)
 	if (!timercmp(&tv[0], &tv[2], <)) {
 		if (!action->command->handle(game, player, action->argument))
 			fprintf(player->stream, "ko\n");
-		queue_pop(player->commands, &memory);
-		if (player->commands->head)
-			memcpy(&(action->start_time), &tv[0],
-				sizeof(struct timeval));
+		queue_pop(player->commands, NULL);
+		if (player->commands->tail)
+			memcpy(&((action_t *)player->commands->tail->element)
+				->start_time, &tv[0], sizeof(struct timeval));
 	}
 }
 
@@ -57,16 +56,14 @@ bool queue_action(player_t *player, command_t *command)
 	argument = strtok(NULL, "");
 	if (command->handle == NULL)
 		return (false);
-	if (command->duration != 0) {
-		action = malloc(sizeof(action_t));
-		if (action == NULL)
-			return (false);
-		memset(action, 0, sizeof(action_t));
-		gettimeofday(&action->start_time, NULL);
-		action->command = command;
-		if (argument != NULL && strlen(argument) != 0)
-			action->argument = strdup(argument);
-		queue_push(player->commands, action);
-	}
+	action = malloc(sizeof(action_t));
+	if (action == NULL)
+		return (false);
+	memset(action, 0, sizeof(action_t));
+	gettimeofday(&action->start_time, NULL);
+	action->command = command;
+	if (argument != NULL && strlen(argument) != 0)
+		action->argument = strdup(argument);
+	queue_push(player->commands, action);
 	return (true);
 }
