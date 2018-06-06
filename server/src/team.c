@@ -47,6 +47,7 @@ bool link_player_team(team_t *teams, player_t *player, char *team_name)
 
 	while (teams[++i].name) {
 		if (strcmp(team_name, teams[i].name) == 0) {
+			gettimeofday(&player->entity.last_meal, NULL);
 			player->entity.team = &teams[i];
 			return (true);
 		}

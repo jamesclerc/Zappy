@@ -25,7 +25,8 @@ SRC		:= src/main.c \
 		   src/commands/forward.c \
 		   src/commands/inventory.c \
 		   src/commands/connect_nbr.c \
-		   src/commands/broadcast.c
+		   src/commands/broadcast.c \
+		   src/commands/look.c
 
 CC		:= gcc
 RM		:= rm -f

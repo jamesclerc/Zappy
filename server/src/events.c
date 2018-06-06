@@ -24,7 +24,7 @@ static command_t commands[] = {
 	{"Forward", 7, NULL, &respond_forward},
 	{"Right", 7, NULL, &respond_right},
 	{"Left", 7, NULL, &respond_left},
-	{"Look", 7, NULL, NULL},
+	{"Look", 7, NULL, &respond_look},
 	{"Inventory", 1, NULL, &respond_inventory},
 	{"Broadcast", 7, NULL, &respond_broadcast},
 	{"Connect_nbr", 0, NULL, &respond_connect_nbr},

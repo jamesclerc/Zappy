@@ -14,13 +14,20 @@
 
 static bool player_init(player_t *new)
 {
+	new->stream = fdopen(new->fd, "r+");
+	if (!new->stream) {
+		free(new);
+		close(new->fd);
+		return (false);
+	}
+	setlinebuf(new->stream);
 	new->commands = queue_create(sizeof(action_t));
 	if (!new->commands) {
 		free(new);
 		return (false);
 	}
-	gettimeofday(&new->entity.last_meal, NULL);
 	new->entity.inventory.food = 10;
+	new->entity.level = 1;
 	return (true);
 }
 
@@ -33,13 +40,6 @@ player_t *player_create(int fd)
 		return (NULL);
 	memset(new, 0, sizeof(player_t));
 	new->fd = fd;
-	new->stream = fdopen(fd, "r+");
-	if (!new->stream) {
-		free(new);
-		close(fd);
-		return (NULL);
-	}
-	setlinebuf(new->stream);
 	if (!player_init(new))
 		return (NULL);
 	return (new);
