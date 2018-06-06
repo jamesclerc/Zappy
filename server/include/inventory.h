@@ -27,3 +27,4 @@ void inventory_give(inventory_t *destination, inventory_t *amount);
 void inventory_move(inventory_t *destination, inventory_t *source);
 
 extern const inventory_t elevations[8];
+extern const char *item_names[8];

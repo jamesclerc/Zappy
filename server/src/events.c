@@ -30,7 +30,7 @@ static command_t commands[] = {
 	{"Connect_nbr", 0, NULL, &respond_connect_nbr},
 	{"Fork", 42, NULL, NULL},
 	{"Eject", 7, NULL, NULL},
-	{"Take", 7, NULL, NULL},
+	{"Take", 7, NULL, &respond_take},
 	{"Set", 7, NULL, NULL},
 	{"Incantation", 300, NULL, NULL},
 	{"Pos", 0, &handle_pos, &handle_pos},	//testing !!!
@@ -58,8 +58,7 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 
 static bool interpret_message(game_t *game, player_t *player, char *message)
 {
-	size_t i = 0;
-
+	int i = 0;
 	if (player->entity.team == NULL) {
 		if (link_player_team(game->teams, player, message)) {
 			fprintf(player->stream, "%i\n%ld %ld\n", player->fd,
@@ -69,9 +68,10 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 		fprintf(player->stream, "ko\n");
 		return (false);
 	}
-	for (i = 0; commands[i].name != NULL; i++)
+	for (i = 0; commands[i].name != NULL; i++) {
 		if (strcasecmp(message, commands[i].name) == 0)
 			break;
+	}
 	if (commands[i].name == NULL) {
 		fprintf(player->stream, "ko\n");
 		return (false);
@@ -103,24 +103,6 @@ static bool get_message(game_t *game, int fd)
 	result = interpret_message(game, player, message);
 	free(message);
 	return (result);
-}
-
-static bool disconnect_handle(game_t *game, struct epoll_event *ev)
-{
-	list_t *tmp;
-	player_t *player;
-
-	tmp = game->players;
-	while (tmp) {
-		player = (player_t *)tmp->element;
-		if (player->fd == ev->data.fd) {
-			list_remove(&tmp);
-			player_destroy(player);
-			return (true);
-		}
-		tmp = tmp->next;
-	}
-	return (false);
 }
 
 bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)

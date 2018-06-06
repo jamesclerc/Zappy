@@ -8,10 +8,11 @@
 #include "game.h"
 #include "entity.h"
 
-static const char *names[7] = {"food", "linemate", "deraumere", "sibur",
-	"mendiane", "phiras", "thystame"};
+const char *item_names[8] = {"food", "linemate", "deraumere", "sibur",
+	"mendiane", "phiras", "thystame", NULL};
 
-static bool show_item(FILE *stream, bool first, size_t item, inventory_t *inv)
+static bool list_cell_items(FILE *stream, bool first, size_t item,
+	inventory_t *inv)
 {
 	int *tab = (int *)inv;
 	int count = -1;
@@ -19,13 +20,13 @@ static bool show_item(FILE *stream, bool first, size_t item, inventory_t *inv)
 	if (tab[item] <= 0)
 		return (false);
 	while (++count < tab[item]) {
-		fprintf(stream, (first) ? "%s" : " %s", names[item]);
+		fprintf(stream, (first) ? "%s" : " %s", item_names[item]);
 		first = false;
 	}
 	return (first);
 }
 
-static bool show_cell_players(FILE *stream, list_t *players, position_t pos,
+static bool list_cell_players(FILE *stream, list_t *players, position_t pos,
 	bool first)
 {
 	list_t *tmp = players;
@@ -47,9 +48,9 @@ static void show_cell(FILE *stream, game_t *game, position_t pos)
 	bool first = true;
 	size_t i = 0;
 
-	first = show_cell_players(stream, game->players, pos, first);
+	first = list_cell_players(stream, game->players, pos, first);
 	while (i < sizeof(inventory_t) / sizeof(int)) {
-		first = show_item(stream, first, i++,
+		first = list_cell_items(stream, first, i++,
 			&game->map->cells[pos.y][pos.x]);
 	}
 }

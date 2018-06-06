@@ -7,6 +7,7 @@
 
 #include "containers.h"
 #include "entity.h"
+#include "game.h"
 
 /// Removes a player from the list of players
 //  `list_t *players`: the adress of the list_t *players pointer in game_t
@@ -26,4 +27,23 @@ void player_remove(list_t **players, player_t *to_remove)
 		tmp = tmp->next;
 	}
 	return;
+}
+
+/// Handles the disconnection of a client
+bool disconnect_handle(game_t *game, struct epoll_event *ev)
+{
+	list_t *tmp;
+	player_t *player;
+
+	tmp = game->players;
+	while (tmp) {
+		player = (player_t *)tmp->element;
+		if (player->fd == ev->data.fd) {
+			list_remove(&tmp);
+			player_destroy(player);
+			return (true);
+		}
+		tmp = tmp->next;
+	}
+	return (false);
 }

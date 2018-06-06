@@ -51,7 +51,7 @@ void execute_commands(game_t *game)
 bool queue_action(game_t *game, player_t *player, command_t *command)
 {
 	action_t *action;
-	char *argument;
+	char *argument = NULL;
 
 	argument = strtok(NULL, "");
 	if (command->respond == NULL)

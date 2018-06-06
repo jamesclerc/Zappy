@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include "sys/epoll.h"
 #include "containers.h"
 #include "space.h"
 #include "team.h"
