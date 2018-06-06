@@ -34,3 +34,5 @@ bool respond_right(game_t *, player_t *, char *);
 bool respond_forward(game_t *, player_t *, char *);
 bool respond_inventory(game_t *, player_t *, char *);
 bool respond_connect_nbr(game_t *, player_t *, char *);
+bool respond_broadcast(game_t *, player_t *, char *);
+bool handle_pos(game_t *, player_t *, char *);

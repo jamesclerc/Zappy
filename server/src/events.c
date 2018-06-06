@@ -26,13 +26,14 @@ static command_t commands[] = {
 	{"Left", 7, NULL, &respond_left},
 	{"Look", 7, NULL, NULL},
 	{"Inventory", 1, NULL, &respond_inventory},
-	{"Broadcast", 7, NULL, NULL},
+	{"Broadcast", 7, NULL, &respond_broadcast},
 	{"Connect_nbr", 0, NULL, &respond_connect_nbr},
 	{"Fork", 42, NULL, NULL},
 	{"Eject", 7, NULL, NULL},
 	{"Take", 7, NULL, NULL},
 	{"Set", 7, NULL, NULL},
 	{"Incantation", 300, NULL, NULL},
+	{"Pos", 0, &handle_pos, &handle_pos},	//testing !!!
 	{NULL, 0, NULL, NULL}
 };
 

@@ -15,13 +15,13 @@ typedef struct map_s map_t;
 enum direction_e
 {
 	DIR_NORTH = 0,
-	DIR_NORTHEAST,
-	DIR_EAST,
-	DIR_SOUTHEAST,
-	DIR_SOUTH,
-	DIR_SOUTHWEST,
-	DIR_WEST,
 	DIR_NORTHWEST,
+	DIR_WEST,
+	DIR_SOUTHWEST,
+	DIR_SOUTH,
+	DIR_SOUTHEAST,
+	DIR_EAST,
+	DIR_NORTHEAST,
 	DIR_COUNT,
 };
 
@@ -45,12 +45,12 @@ void position_nudge(map_t *map, position_t *pos, direction_t dir);
 
 static inline direction_t direction_left(direction_t dir)
 {
-	if (dir < 2)
-		dir += DIR_COUNT;
-	return (dir - 2);
+	return ((dir + 2) % DIR_COUNT);
 }
 
 static inline direction_t direction_right(direction_t dir)
 {
-	return ((dir + 2) % DIR_COUNT);
+	if (dir < 2)
+		dir += DIR_COUNT;
+	return (dir - 2);
 }
