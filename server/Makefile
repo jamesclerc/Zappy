@@ -17,6 +17,7 @@ SRC		:= src/main.c \
 		   src/space.c \
 		   src/team.c \
 		   src/events.c	\
+		   src/food.c \
 		   src/commands.c \
 		   src/commands/left.c \
 		   src/commands/right.c \

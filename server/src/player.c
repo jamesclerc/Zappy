@@ -12,6 +12,18 @@
 #include "entity.h"
 #include "commands.h"
 
+static bool player_init(player_t *new)
+{
+	new->commands = queue_create(sizeof(action_t));
+	if (!new->commands) {
+		free(new);
+		return (false);
+	}
+	gettimeofday(&new->entity.last_meal, NULL);
+	new->entity.inventory.food = 10;
+	return (true);
+}
+
 /// Create a player from a file descriptor
 player_t *player_create(int fd)
 {
@@ -21,11 +33,6 @@ player_t *player_create(int fd)
 		return (NULL);
 	memset(new, 0, sizeof(player_t));
 	new->fd = fd;
-	new->commands = queue_create(sizeof(action_t));
-	if (!new->commands) {
-		free(new);
-		return (NULL);
-	}
 	new->stream = fdopen(fd, "r+");
 	if (!new->stream) {
 		free(new);
@@ -33,6 +40,8 @@ player_t *player_create(int fd)
 		return (NULL);
 	}
 	setlinebuf(new->stream);
+	if (!player_init(new))
+		return (NULL);
 	return (new);
 }
 
@@ -55,22 +64,4 @@ void player_destroy(player_t *player)
 	queue_destroy(player->commands);
 	fclose(player->stream);
 	free(player);
-}
-
-/// Searches the team and links the player to it
-//  `team_t *teams`: the team_t array created by team_get_names
-//  `player_t *player`: the player giving the name of his team_t
-//  `char *team_name`: the name of the team asked by the player
-//  `bool return`: returns wether the team was found and linked or not
-bool link_player_team(team_t *teams, player_t *player, char *team_name)
-{
-	int i = -1;
-
-	while (teams[++i].name) {
-		if (strcmp(team_name, teams[i].name) == 0) {
-			player->entity.team = &teams[i];
-			return (true);
-		}
-	}
-	return (false);
 }

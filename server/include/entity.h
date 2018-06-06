@@ -7,6 +7,7 @@
 
 #pragma once
 #include <stdio.h>
+#include <sys/time.h>
 #include "containers.h"
 #include "inventory.h"
 #include "space.h"
@@ -22,6 +23,7 @@ struct entity_s
 	position_t pos;
 	team_t *team;
 	short level;
+	struct timeval last_meal;
 };
 
 struct player_s

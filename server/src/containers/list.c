@@ -35,7 +35,7 @@ void *list_remove(list_t **list)
 	if (list == NULL || *list == NULL)
 		return (NULL);
 	link = *list;
-	*list = link->next ? link->next : link->prev;
+	*list = link->prev ? link->prev : link->next;
 	if (link->next)
 		link->next->prev = link->prev;
 	if (link->prev)
