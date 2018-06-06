@@ -9,7 +9,7 @@
 #include "game.h"
 #include "entity.h"
 
-bool handle_connect_nbr(game_t *game, player_t *player,  char *argument)
+bool respond_connect_nbr(game_t *game, player_t *player,  char *argument)
 {
 	(void)game;
 	if (argument) {

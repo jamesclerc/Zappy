@@ -8,7 +8,7 @@
 #include "game.h"
 #include "entity.h"
 
-bool handle_forward(game_t *game, player_t *player, char *argument)
+bool respond_forward(game_t *game, player_t *player, char *argument)
 {
 	if (argument) {
 		return (false);

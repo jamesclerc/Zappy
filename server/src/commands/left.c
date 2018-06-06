@@ -8,7 +8,7 @@
 #include "game.h"
 #include "entity.h"
 
-bool handle_left(game_t *game, player_t *player, char *argument)
+bool respond_left(game_t *game, player_t *player, char *argument)
 {
 	(void)game;
 	if (argument)

@@ -18,6 +18,7 @@ struct command_s {
 	char *name;
 	int duration;
 	bool (*handle)(game_t *, player_t *, char *);
+	bool (*respond)(game_t *, player_t *, char *);
 };
 
 struct action_s {
@@ -26,10 +27,10 @@ struct action_s {
 	char *argument;
 };
 
-bool queue_action(player_t *, command_t *);
+bool queue_action(game_t *, player_t *, command_t *);
 void execute_commands(game_t *);
-bool handle_left(game_t *, player_t *, char *);
-bool handle_right(game_t *, player_t *, char *);
-bool handle_forward(game_t *, player_t *, char *);
-bool handle_inventory(game_t *, player_t *, char *);
-bool handle_connect_nbr(game_t *, player_t *, char *);
+bool respond_left(game_t *, player_t *, char *);
+bool respond_right(game_t *, player_t *, char *);
+bool respond_forward(game_t *, player_t *, char *);
+bool respond_inventory(game_t *, player_t *, char *);
+bool respond_connect_nbr(game_t *, player_t *, char *);

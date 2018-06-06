@@ -25,7 +25,7 @@ static void check_and_exec(game_t *game, player_t *player)
 		/ game->freq);
 	timeradd(&action->start_time, &tv[1], &tv[2]);
 	if (!timercmp(&tv[0], &tv[2], <)) {
-		if (!action->command->handle(game, player, action->argument))
+		if (!action->command->respond(game, player, action->argument))
 			fprintf(player->stream, "ko\n");
 		queue_pop(player->commands, NULL);
 		if (player->commands->tail)
@@ -48,13 +48,15 @@ void execute_commands(game_t *game)
 	}
 }
 
-bool queue_action(player_t *player, command_t *command)
+bool queue_action(game_t *game, player_t *player, command_t *command)
 {
 	action_t *action;
 	char *argument;
 
 	argument = strtok(NULL, "");
-	if (command->handle == NULL)
+	if (command->respond == NULL)
+		return (false);
+	if (command->handle && !command->handle(game, player, argument))
 		return (false);
 	action = malloc(sizeof(action_t));
 	if (action == NULL)
