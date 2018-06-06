@@ -10,18 +10,9 @@
 
 bool handle_inventory(game_t *game, player_t *player, char *argument)
 {
-	if (argument) {
-		fprintf(player->stream, "ko\n");
+	(void)game;
+	if (argument)
 		return (false);
-	}
-	(void)game;
-	return (true);
-}
-
-bool respond_inventory(game_t *game, player_t *player, char *argument)
-{
-	(void)argument;
-	(void)game;
 	fprintf(player->stream, "[ food %i, linemate %i, deraumere %i, "
 		"sibur %i, mendiane %i, phiras %i, thystame %i ]\n",
 		player->entity.inventory.food,

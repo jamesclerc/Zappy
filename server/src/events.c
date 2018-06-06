@@ -21,19 +21,19 @@
 #include "leave.h"
 
 static command_t commands[] = {
-	{"Forward", 7, &handle_forward, &respond_forward},
-	{"Right", 7, &handle_right, &respond_right},
-	{"Left", 7, &handle_left, &respond_left},
-	{"Look", 7, NULL, NULL},
-	{"Inventory", 1, &handle_inventory, &respond_inventory},
-	{"Broadcast", 7, NULL, NULL},
-	{"Connect_nbr", 0, NULL, NULL},
-	{"Fork", 42, NULL, NULL},
-	{"Eject", 7, NULL, NULL},
-	{"Take", 7, NULL, NULL},
-	{"Set", 7, NULL, NULL},
-	{"Incantation", 300, NULL, NULL},
-	{NULL, 0, NULL, NULL}
+	{"Forward", 7, &handle_forward},
+	{"Right", 7, &handle_right},
+	{"Left", 7, &handle_left},
+	{"Look", 7, NULL},
+	{"Inventory", 1, &handle_inventory},
+	{"Broadcast", 7, NULL},
+	{"Connect_nbr", 0, NULL},
+	{"Fork", 42, NULL},
+	{"Eject", 7, NULL},
+	{"Take", 7, NULL},
+	{"Set", 7, NULL},
+	{"Incantation", 300, NULL},
+	{NULL, 0, NULL}
 };
 
 static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
@@ -75,7 +75,7 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 		fprintf(player->stream, "ko\n");
 		return (false);
 	}
-	return (queue_action(game, player, commands + i));
+	return (queue_action(player, commands + i));
 }
 
 static bool get_message(game_t *game, int fd)

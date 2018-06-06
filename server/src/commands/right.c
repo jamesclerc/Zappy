@@ -10,18 +10,10 @@
 
 bool handle_right(game_t *game, player_t *player, char *argument)
 {
-	if (argument) {
-		fprintf(player->stream, "ko\n");
+	(void)game;
+	if (argument)
 		return (false);
-	}
-	(void)game;
-	return (true);
-}
-
-void respond_right(game_t *game, player_t *player, char *argument)
-{
-	(void)game;
-	(void)argument;
 	player->entity.facing = direction_right(player->entity.facing);
 	fprintf(player->stream, "ok\n");
+	return (true);
 }

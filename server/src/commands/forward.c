@@ -11,17 +11,9 @@
 bool handle_forward(game_t *game, player_t *player, char *argument)
 {
 	if (argument) {
-		fprintf(player->stream, "ko\n");
 		return (false);
 	}
-	(void)game;
-	return (true);
-}
-
-bool respond_forward(game_t *game, player_t *p, char *argument)
-{
-	(void)argument;
-	position_nudge(game->map, &p->entity.pos, p->entity.facing);
-	fprintf(p->stream, "ok\n");
+	position_nudge(game->map, &player->entity.pos, player->entity.facing);
+	fprintf(player->stream, "ok\n");
 	return (true);
 }
