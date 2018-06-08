@@ -32,7 +32,7 @@ static command_t commands[] = {
 	{"Eject", 7, NULL, NULL},
 	{"Take", 7, NULL, &respond_take},
 	{"Set", 7, NULL, NULL},
-	{"Incantation", 300, NULL, NULL},
+	{"Incantation", 300, &handle_incantation, &respond_incantation},
 	{"Pos", 0, &handle_pos, &handle_pos},	//testing !!!
 	{NULL, 0, NULL, NULL}
 };

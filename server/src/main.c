@@ -37,6 +37,7 @@ void game_cleanup(game_t *game)
 	}
 	teams_destroy(game->teams);
 	map_destroy(game->map);
+	// TODO: cleanup incantions
 }
 
 int main(int ac, char **av)
@@ -55,6 +56,7 @@ int main(int ac, char **av)
 	game.map = map_create(args[1], args[2]);
 	if (!game.map)
 		err(84, "malloc");
+	game.incantations = NULL;
 	if (!serve(&game, args))
 		return (84);
 	game_cleanup(&game);

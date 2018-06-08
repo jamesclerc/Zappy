@@ -12,6 +12,7 @@
 #include "game.h"
 #include "entity.h"
 #include "commands.h"
+#include "incantation.h"
 
 static void check_and_exec(game_t *game, player_t *player)
 {
@@ -48,6 +49,27 @@ void execute_commands(game_t *game)
 	}
 }
 
+static void queue_incantation(game_t *game, player_t *p, action_t *to_queue)
+{
+	incantation_t *element = game->incantations->element;
+	action_t *new;
+	int i = 0;
+
+	while (i < 6 && element->participants[i] != NULL) {
+		if (element->participants[i] != p) {
+			new = malloc(sizeof(action_t));
+			if (!new)
+				return;
+			new->start_time = to_queue->start_time;
+			new->command = to_queue->command;
+			new->argument = (to_queue->argument) ?
+			strdup(to_queue->argument) : NULL;
+			queue_push(element->participants[i]->commands, new);
+		}
+		i++;
+	}
+}
+
 bool queue_action(game_t *game, player_t *player, command_t *command)
 {
 	action_t *action;
@@ -67,5 +89,7 @@ bool queue_action(game_t *game, player_t *player, command_t *command)
 	if (argument != NULL && strlen(argument) != 0)
 		action->argument = strdup(argument);
 	queue_push(player->commands, action);
+	if (command->handle == &handle_incantation)
+		queue_incantation(game, player, action);
 	return (true);
 }

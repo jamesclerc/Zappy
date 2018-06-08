@@ -17,5 +17,6 @@ struct game_s {
 	map_t *map;
 	team_t *teams;
 	list_t *players;
+	list_t *incantations;
 	int freq;
 };
