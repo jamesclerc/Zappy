@@ -71,7 +71,7 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 bool respond_incantation(game_t *game, player_t *p, char *argument)
 {
 	list_t *tmp = game->incantations;
-	incantation_t *inc;
+	incantation_t *i;
 
 	(void)argument;
 	if (!inventory_has(&game->map->cells[p->entity.pos.y][p->entity.pos.x],
@@ -81,10 +81,9 @@ bool respond_incantation(game_t *game, player_t *p, char *argument)
 		return (false);
 	}
 	while (tmp) {
-		inc = tmp->element;
-		if (inc->pos.x == p->entity.pos.x &&
-			inc->pos.y == p->entity.pos.y &&
-			inc->participants[0] == p) {
+		i = tmp->element;
+		if (i->participants[0] == p && i->pos.x == p->entity.pos.x &&
+			i->pos.y == p->entity.pos.y) {
 			list_remove((tmp == game->incantations) ?
 			&game->incantations : &tmp);
 		}
