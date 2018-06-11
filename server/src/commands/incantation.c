@@ -68,6 +68,21 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 	return (true);
 }
 
+static void incantation_remove(list_t **head, list_t *tmp)
+{
+	incantation_t *inc = tmp->element;
+	player_t *p;
+	int i = -1;
+
+	while (++i < 6 && inc->participants[i]) {
+		p = inc->participants[i];
+		fprintf(p->stream, "Current level: %i\n", ++p->entity.level);
+		if (p->entity.level == 8)
+			p->entity.team->overlords++;
+	}
+	list_remove((tmp == *head) ? head : &tmp);
+}
+
 bool respond_incantation(game_t *game, player_t *p, char *argument)
 {
 	list_t *tmp = game->incantations;
@@ -77,18 +92,15 @@ bool respond_incantation(game_t *game, player_t *p, char *argument)
 	if (!inventory_has(&game->map->cells[p->entity.pos.y][p->entity.pos.x],
 	(inventory_t *)(&elevations[p->entity.level - 1])) ||
 		!elevation_check_players(game->players, p, NULL)) {
-		fprintf(p->stream, "ko\n");
 		return (false);
 	}
 	while (tmp) {
 		i = tmp->element;
-		if (i->participants[0] == p && i->pos.x == p->entity.pos.x &&
-			i->pos.y == p->entity.pos.y) {
-			list_remove((tmp == game->incantations) ?
-			&game->incantations : &tmp);
+		if (i->participants[0] == p){
+			incantation_remove(&game->incantations, tmp);
+			break;
 		}
 		tmp =tmp->next;
 	}
-	fprintf(p->stream, "Current level: %i\n", ++p->entity.level);
 	return (true);
 }
