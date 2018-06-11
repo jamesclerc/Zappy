@@ -19,8 +19,8 @@ static graph_command_t graph_commands[] = {
 	{"ppo", &handle_ppo},
 	{"plv", &handle_plv},
 	{"pin", &handle_pin},
-	{"sgt", NULL},
-	{"sst", NULL},
+	{"sgt", &handle_sgt},
+	{"sst", &handle_sst},
 	{NULL, NULL}
 };
 
