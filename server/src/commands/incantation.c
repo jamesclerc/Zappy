@@ -64,7 +64,7 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 			return (false);
 	}
 	list_insert(&game->incantations, new);
-	fprintf(p->stream, "ok\n");
+	fprintf(p->stream, "Elevation underway\n");
 	return (true);
 }
 
@@ -89,6 +89,6 @@ bool respond_incantation(game_t *game, player_t *p, char *argument)
 		}
 		tmp =tmp->next;
 	}
-	fprintf(p->stream, "ok\n");
+	fprintf(p->stream, "Current level: %i\n", ++p->entity.level);
 	return (true);
 }

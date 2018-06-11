@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include "game.h"
 #include "space.h"
 #include "entity.h"
 
@@ -16,3 +17,5 @@ struct incantation_s {
 	bool actions_queued;
 	player_t *participants[6];
 };
+
+void incantations_check(game_t *game);

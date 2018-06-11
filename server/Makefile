@@ -28,7 +28,8 @@ SRC		:= src/main.c \
 		   src/commands/broadcast.c \
 		   src/commands/look.c \
 		   src/commands/take.c \
-		   src/commands/incantation.c
+		   src/commands/incantation.c \
+		   src/incantations.c
 
 CC		:= gcc
 RM		:= rm -f
