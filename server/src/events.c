@@ -29,7 +29,7 @@ static command_t commands[] = {
 	{"Broadcast", 7, NULL, &respond_broadcast},
 	{"Connect_nbr", 0, NULL, &respond_connect_nbr},
 	{"Fork", 42, NULL, NULL},
-	{"Eject", 7, NULL, NULL},
+	{"Eject", 7, NULL, &respond_eject},
 	{"Take", 7, NULL, &respond_take},
 	{"Set", 7, NULL, &respond_set},
 	{"Incantation", 300, &handle_incantation, &respond_incantation},
