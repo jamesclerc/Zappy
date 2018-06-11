@@ -70,3 +70,15 @@ bool handle_pin(game_t *game, char *arguments)
 		inv[4], inv[5], inv[6]);
 	return (true);
 }
+
+bool handle_tna(game_t *game, char *arguments)
+{
+	int i = -1;
+
+	if (arguments)
+		return (false);
+	while (game->teams[++i].name) {
+		fprintf(game->graph_stream, "tna %s\n", game->teams[i].name);
+	}
+	return (true);
+}

@@ -12,13 +12,13 @@
 #include "game.h"
 
 static graph_command_t graph_commands[] = {
-	{"msz", NULL},
-	{"bct", NULL},
-	{"mct", NULL},
-	{"tna", NULL},
-	{"ppo", NULL},
-	{"plv", NULL},
-	{"pin", NULL},
+	{"msz", &handle_msz},
+	{"bct", &handle_bct},
+	{"mct", &handle_mct},
+	{"tna", &handle_tna},
+	{"ppo", &handle_ppo},
+	{"plv", &handle_plv},
+	{"pin", &handle_pin},
 	{"sgt", NULL},
 	{"sst", NULL},
 	{NULL, NULL}

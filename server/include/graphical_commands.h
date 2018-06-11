@@ -20,3 +20,6 @@ bool handle_msz(game_t *, char *);
 bool handle_bct(game_t *, char *);
 bool handle_mct(game_t *, char *);
 bool handle_ppo(game_t *, char *);
+bool handle_pin(game_t *, char *);
+bool handle_plv(game_t *, char *);
+bool handle_tna(game_t *, char *);
