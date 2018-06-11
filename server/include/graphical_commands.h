@@ -16,3 +16,6 @@ struct graph_command_s {
 };
 
 bool get_graph_message(game_t *);
+bool handle_msz(game_t *, char *);
+bool handle_bct(game_t *, char *);
+bool handle_mct(game_t *, char *);
