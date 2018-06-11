@@ -31,7 +31,8 @@ SRC		:= src/main.c \
 		   src/commands/take.c \
 		   src/commands/set.c \
 		   src/commands/incantation.c \
-		   src/commands/eject.c
+		   src/commands/eject.c \
+		   src/graphical_protocol/handle_input.c
 
 CC		:= gcc
 RM		:= rm -f

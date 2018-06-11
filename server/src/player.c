@@ -53,7 +53,7 @@ player_t *player_by_fd(list_t *list, int fd)
 	while (list != NULL && list->element != NULL
 		&& ((player_t *) list->element)->fd != fd)
 		list = list->next;
-	return (list->element);
+	return (list ? list->element : NULL);
 }
 
 /// Destroy a player

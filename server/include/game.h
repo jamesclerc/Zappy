@@ -6,6 +6,7 @@
 */
 
 #pragma once
+#include <stdio.h>
 #include "sys/epoll.h"
 #include "containers.h"
 #include "space.h"
@@ -19,4 +20,5 @@ struct game_s {
 	list_t *players;
 	list_t *incantations;
 	int freq;
+	FILE *graph_stream;
 };

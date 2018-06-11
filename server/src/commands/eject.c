@@ -30,7 +30,8 @@ bool respond_eject(game_t *game, player_t *player, char *argument)
 		return (false);
 	while (list) {
 		tmp = list->element;
-		if (tmp->entity.pos.y == player->entity.pos.y &&
+		if (tmp->entity.team &&
+			tmp->entity.pos.y == player->entity.pos.y &&
 			tmp->entity.pos.x == player->entity.pos.x) {
 			position_nudge(game->map, &tmp->entity.pos,
 				player->entity.facing);

@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <sys/epoll.h>
 #include <string.h>
+#include <unistd.h>
 #include "commands.h"
 #include "communication.h"
 #include "containers.h"
@@ -45,5 +46,7 @@ bool serve(game_t *game, int *args)
 	if (epoll_fd < 0)
 		return (false);
 	loop(game, epoll_fd, server_fd);
+	close(epoll_fd);
+	fclose(game->graph_stream);
 	return (true);
 }

@@ -12,6 +12,7 @@
 #include "inventory.h"
 #include "space.h"
 #include "team.h"
+#include "game.h"
 
 typedef struct entity_s entity_t;
 typedef struct player_s player_t;
@@ -37,4 +38,4 @@ struct player_s
 player_t *player_create(int fd);
 void player_destroy(player_t *);
 player_t *player_by_fd(list_t *list, int fd);
-bool link_player_team(team_t *teams, player_t *player, char *team_name);
+bool link_player_team(game_t *teams, player_t *player, char *team_name);

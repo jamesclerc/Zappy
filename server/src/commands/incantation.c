@@ -15,10 +15,11 @@ static bool el_player_is_valid(player_t *self, player_t *player,
 	bool fill_participants)
 {
 	if (fill_participants)
-		return (player != self && !player->commands &&
+		return (player->entity.team &&
+			player != self && !player->commands &&
 			player->entity.level == self->entity.level);
 	else
-		return (player != self &&
+		return (player->entity.team && player != self &&
 			player->entity.level == self->entity.level);
 }
 

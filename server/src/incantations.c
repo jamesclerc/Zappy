@@ -48,7 +48,9 @@ void incantations_check(game_t *game)
 
 	while (tmp) {
 		inc = tmp->element;
-		if (!inventory_has(&game->map->cells[inc->pos.y][inc->pos.x], (inventory_t *) &elevations[inc->participants[0]->entity.level])
+		if (!inventory_has(&game->map->cells[inc->pos.y][inc->pos.x],
+			(inventory_t *)&elevations[inc->participants[0]
+			->entity.level])
 		||!check_players(inc)) {
 			interrupt_incantation(game, tmp);
 		}

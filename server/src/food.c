@@ -37,7 +37,7 @@ void food_update(list_t **players, int freq)
 	while (tmp) {
 		player = (player_t *)tmp->element;
 		timeradd(&player->entity.last_meal, &one_food_time, &res);
-		if (!timercmp(&cur_time, &res, <)) {
+		if (player->entity.team && !timercmp(&cur_time, &res, <)) {
 			food_take((tmp == *players) ? players : &tmp);
 			return;
 		}

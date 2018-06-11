@@ -18,6 +18,7 @@
 #include "entity.h"
 #include "communication.h"
 #include "commands.h"
+#include "graphical_commands.h"
 #include "leave.h"
 
 static command_t commands[] = {
@@ -59,13 +60,13 @@ static bool accept_client(game_t *game, struct epoll_event *ev, int epoll_fd)
 static bool interpret_message(game_t *game, player_t *player, char *message)
 {
 	int i = 0;
+
 	if (player->entity.team == NULL) {
-		if (link_player_team(game->teams, player, message)) {
+		if (link_player_team(game, player, message)) {
 			fprintf(player->stream, "%i\n%ld %ld\n", player->fd,
 				game->map->width, game->map->height);
 			return (true);
 		}
-		fprintf(player->stream, "ko\n");
 		return (false);
 	}
 	for (i = 0; commands[i].name != NULL; i++) {
@@ -79,15 +80,12 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 	return (queue_action(game, player, commands + i));
 }
 
-static bool get_message(game_t *game, int fd)
+static bool get_message(game_t *game, player_t *player)
 {
-	player_t *player = player_by_fd(game->players, fd);
 	char *message = NULL;
 	size_t i = 0;
 	bool result;
 
-	if (player == NULL)
-		return (false);
 	if (getline(&message, &i, player->stream) == -1) {
 		player_remove(&game->players, player);
 		return (false);
@@ -107,12 +105,20 @@ static bool get_message(game_t *game, int fd)
 
 bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 {
+	player_t *player;
+
 	if (ev->events & EPOLLIN && ev->data.fd == sfd)
 		return (accept_client(game, ev, efd));
 	else if (ev->data.fd == sfd)
 		err(84, "pterodactyl scream"); // AAAAAAAAH!
-	else if (ev->events & EPOLLIN)
-		return (get_message(game, ev->data.fd));
+	else if (ev->events & EPOLLIN) {
+		player = player_by_fd(game->players, ev->data.fd);
+		if (player)
+			return (get_message(game, player));
+		if (game->graph_stream &&
+			ev->data.fd == fileno(game->graph_stream))
+			return (get_graph_message(game));
+	}
 	else
 		disconnect_handle(game, ev);
 	return (false);
