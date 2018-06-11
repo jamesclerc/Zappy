@@ -8,9 +8,6 @@
 #include "game.h"
 #include "entity.h"
 
-const char *item_names[8] = {"food", "linemate", "deraumere", "sibur",
-	"mendiane", "phiras", "thystame", NULL};
-
 static bool list_cell_items(FILE *stream, bool first, size_t item,
 	inventory_t *inv)
 {

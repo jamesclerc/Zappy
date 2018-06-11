@@ -37,6 +37,7 @@ bool respond_connect_nbr(game_t *, player_t *, char *);
 bool respond_broadcast(game_t *, player_t *, char *);
 bool respond_look(game_t *, player_t *, char *);
 bool respond_take(game_t *, player_t *, char *);
+bool respond_set(game_t *, player_t *, char *);
 bool handle_incantation(game_t *, player_t *, char *);
 bool respond_incantation(game_t *, player_t *, char *);
 

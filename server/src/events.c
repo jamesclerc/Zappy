@@ -31,7 +31,7 @@ static command_t commands[] = {
 	{"Fork", 42, NULL, NULL},
 	{"Eject", 7, NULL, NULL},
 	{"Take", 7, NULL, &respond_take},
-	{"Set", 7, NULL, NULL},
+	{"Set", 7, NULL, &respond_set},
 	{"Incantation", 300, &handle_incantation, &respond_incantation},
 	{"Pos", 0, &handle_pos, &handle_pos},	//testing !!!
 	{NULL, 0, NULL, NULL}

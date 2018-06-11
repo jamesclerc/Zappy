@@ -18,6 +18,8 @@ const inventory_t elevations[8] = {
 	{0, 2, 2, 2, 2, 2, 1},
 	{0, 0, 0, 0, 0, 0, 0}
 };
+const char *item_names[8] = {"food", "linemate", "deraumere", "sibur",
+	"mendiane", "phiras", "thystame", NULL};
 
 /// Checks whether an inventory contains everyting another has
 //  `bool return`: Is the needle found in haystack?

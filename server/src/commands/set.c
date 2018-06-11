@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2018
 ** zappy
 ** File description:
-** Take object command related functions
+** Set command related functions
 */
 
 #include <string.h>
 #include "game.h"
 #include "entity.h"
 
-bool respond_take(game_t *game, player_t *player, char *argument)
+bool respond_set(game_t *game, player_t *player, char *argument)
 {
 	inventory_t amount;
 	inventory_t *cell;
@@ -22,11 +22,11 @@ bool respond_take(game_t *game, player_t *player, char *argument)
 		i++;
 	if (!item_names[i])
 		return (false);
-	((int*)(&amount))[i]++;
+	((int *)(&amount))[i]++;
 	cell = &game->map->cells[player->entity.pos.y][player->entity.pos.x];
-	if (!inventory_take(cell, &amount))
+	if (!inventory_take((inventory_t *)player, &amount))
 		return (false);
-	inventory_give(&player->entity.inventory, &amount);
+	inventory_give(cell, &amount);
 	fprintf(player->stream, "ok\n");
 	return (true);
 }
