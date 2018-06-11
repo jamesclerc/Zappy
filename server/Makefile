@@ -30,7 +30,8 @@ SRC		:= src/main.c \
 		   src/commands/look.c \
 		   src/commands/take.c \
 		   src/commands/set.c \
-		   src/commands/incantation.c
+		   src/commands/incantation.c \
+		   src/commands/eject.c
 
 CC		:= gcc
 RM		:= rm -f
