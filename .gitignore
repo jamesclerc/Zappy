@@ -1,5 +1,13 @@
+### Subject ###
+# Binaries
+/zappy_server
 
-# Created by https://www.gitignore.io/api/c,c++
+# Subject files
+sujet/*
+
+### Editors ###
+# Visual Studio Code
+/.vscode/
 
 ### C ###
 # Prerequisites
@@ -56,14 +64,8 @@ Mkfile.old
 dkms.conf
 
 ### C++ ###
-# Prerequisites
-
 # Compiled Object files
 *.slo
-
-# Precompiled Headers
-
-# Compiled Dynamic libraries
 
 # Fortran module files
 *.mod
@@ -71,8 +73,3 @@ dkms.conf
 
 # Compiled Static libraries
 *.lai
-
-# Executables
-
-
-# End of https://www.gitignore.io/api/c,c++

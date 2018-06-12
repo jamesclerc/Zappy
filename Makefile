@@ -5,7 +5,7 @@
 ## Makefile, duh.
 ##
 
-TARGETS		=
+TARGETS		= server
 
 define rules =
 $(1):
