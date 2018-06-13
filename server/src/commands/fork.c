@@ -11,6 +11,8 @@
 #include "entity.h"
 #include "egg.h"
 
+static int egg_id = 0;
+
 void hatch_egg(game_t *game)
 {
 	struct timeval tv[3];
@@ -44,6 +46,7 @@ bool respond_fork(game_t *game, player_t *player, char *argument)
 	egg.pos = player->entity.pos;
 	gettimeofday(&egg.laying_time, NULL);
 	egg.team = player->entity.team;
+	egg.id = ++egg_id;
 	queue_push(game->hatching_eggs, &egg);
 	fprintf(player->stream, "ok\n");
 	return (true);

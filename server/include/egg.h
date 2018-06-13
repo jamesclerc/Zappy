@@ -17,6 +17,7 @@ typedef struct egg_s egg_t;
 
 struct egg_s {
 	position_t pos;
+	int id;
 	team_t *team;
 	struct timeval laying_time;
 };
