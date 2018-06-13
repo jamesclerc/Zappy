@@ -11,7 +11,7 @@
 #include "team.h"
 #include "containers.h"
 
-#define EGG_LAYING_TIME 300
+#define EGG_LAYING_TIME 600
 
 typedef struct egg_s egg_t;
 
