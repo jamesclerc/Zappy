@@ -7,6 +7,7 @@
 
 #pragma once
 #include <stddef.h>
+#include "containers.h"
 
 typedef struct team_s team_t;
 
@@ -15,6 +16,7 @@ struct team_s
 	char *name;
 	size_t slots;
 	size_t overlords;
+	queue_t *eggs;
 };
 
 team_t *team_get_names(char *av[], int start, int slots);

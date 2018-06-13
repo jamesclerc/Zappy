@@ -11,16 +11,20 @@
 #include "entity.h"
 #include "team.h"
 #include "game.h"
+#include "containers.h"
+#include "egg.h"
 
 /// Extract all team names from program arguments
 team_t *team_get_names(char *av[], int start, int slots)
 {
 	team_t *teams = NULL;
+	queue_t *queue;
 	int count = 0;
 
 	for (; av[start] != NULL && av[start][0] != '-'; start++) {
 		teams = realloc(teams, (count + 2) * sizeof(team_t));
-		teams[count++] = (team_t) {av[start], slots, 0};
+		queue = queue_create(sizeof(egg_t));
+		teams[count++] = (team_t) {av[start], slots, 0, queue};
 	}
 	memset(teams + count, 0, sizeof(team_t));
 	return (teams);
@@ -49,6 +53,20 @@ static void remove_graph_from_players(game_t *game, player_t *graph)
 	}
 }
 
+static void init_player_in_team(team_t *team, player_t *player)
+{
+	egg_t memory;
+
+	if (team->slots == 0 && team->eggs) {
+		queue_pop(team->eggs, &memory);
+		player->entity.pos.x = memory.pos.x;
+		player->entity.pos.y = memory.pos.y;
+	} else if (team->slots > 0)
+		team->slots--;
+	gettimeofday(&player->entity.last_meal, NULL);
+	player->entity.team = team;
+}
+
 /// Searches the team and links the player to it
 //  `team_t *teams`: the team_t array created by team_get_names
 //  `player_t *player`: the player giving the name of his team_t
@@ -59,9 +77,9 @@ bool link_player_team(game_t *game, player_t *player, char *team_name)
 	int i = -1;
 
 	while (game->teams[++i].name) {
-		if (strcmp(team_name, game->teams[i].name) == 0) {
-			gettimeofday(&player->entity.last_meal, NULL);
-			player->entity.team = &game->teams[i];
+		if (strcmp(team_name, game->teams[i].name) == 0 &&
+			((game->teams[i].slots > 0) || game->teams[i].eggs)) {
+			init_player_in_team(&game->teams[i], player);
 			return (true);
 		}
 	}

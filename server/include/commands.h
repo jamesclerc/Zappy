@@ -41,6 +41,8 @@ bool respond_set(game_t *, player_t *, char *);
 bool handle_incantation(game_t *, player_t *, char *);
 bool respond_incantation(game_t *, player_t *, char *);
 bool respond_eject(game_t *, player_t *, char *);
+bool respond_fork(game_t *, player_t *, char *);
+bool handle_fork(game_t *, player_t *, char *);
 
 // Testing
 bool handle_pos(game_t *, player_t *, char *);

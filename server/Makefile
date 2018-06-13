@@ -32,6 +32,7 @@ SRC		:= src/main.c \
 		   src/commands/set.c \
 		   src/commands/incantation.c \
 		   src/commands/eject.c \
+		   src/commands/fork.c \
 		   src/graphical_protocol/handle_input.c \
 		   src/graphical_protocol/content_commands.c \
 		   src/graphical_protocol/player_commands.c \

@@ -35,6 +35,7 @@ void game_cleanup(game_t *game)
 		player = list_remove(&game->players);
 		player_destroy(player);
 	}
+	queue_destroy(game->hatching_eggs);
 	teams_destroy(game->teams);
 	map_destroy(game->map);
 	// TODO: cleanup incantions
