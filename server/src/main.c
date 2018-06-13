@@ -34,11 +34,16 @@ void game_cleanup(game_t *game)
 	while (tmp) {
 		player = list_remove(&game->players);
 		player_destroy(player);
+		tmp = game->players;
+	}
+	tmp = game->incantions;
+	while (tmp) {
+		list_remove(&game->incantions);
+		tmp = game->incantions;
 	}
 	queue_destroy(game->hatching_eggs);
 	teams_destroy(game->teams);
 	map_destroy(game->map);
-	// TODO: cleanup incantions
 }
 
 int main(int ac, char **av)
