@@ -53,7 +53,6 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 
 	if (!new)
 		err(84, "malloc");
-	new->pos = p->entity.pos;
 	new->actions_queued = false;
 	new->participants[0] = p;
 	if (argument||!inventory_has(

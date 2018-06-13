@@ -13,7 +13,6 @@
 typedef struct incantation_s incantation_t;
 
 struct incantation_s {
-	position_t pos;
 	bool actions_queued;
 	player_t *participants[6];
 };

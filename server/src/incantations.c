@@ -18,8 +18,8 @@ static void interrupt_incantation(game_t *game, list_t *tmp)
 	incantation_t *inc = tmp->element;
 
 	gettimeofday(&curtime, NULL);
+	fprintf(inc->participants[0]->stream, "ko\n");
 	while (++i < 6 && inc->participants[i]) {
-		fprintf(inc->participants[i]->stream, "ko\n");
 		queue_pop(inc->participants[i]->commands, NULL);
 		if (inc->participants[i]->commands->tail)
 			memcpy(&((action_t*)inc->participants[i]->commands
@@ -29,18 +29,6 @@ static void interrupt_incantation(game_t *game, list_t *tmp)
 	list_remove((tmp == game->incantations) ? &game->incantations : &tmp);
 }
 
-static bool check_players(incantation_t *inc)
-{
-	int i = -1;
-
-	while (++i < 6 && inc->participants[i]) {
-		if (inc->participants[i]->entity.pos.x != inc->pos.x ||
-			inc->participants[i]->entity.pos.y != inc->pos.y)
-			return (false);
-	}
-	return (true);
-}
-
 void incantations_check(game_t *game)
 {
 	list_t *tmp = game->incantations;
@@ -48,10 +36,10 @@ void incantations_check(game_t *game)
 
 	while (tmp) {
 		inc = tmp->element;
-		if (!inventory_has(&game->map->cells[inc->pos.y][inc->pos.x],
-			(inventory_t *)&elevations[inc->participants[0]
-			->entity.level])
-		||!check_players(inc)) {
+		if (!inventory_has(&game->map->cells[inc->participants[0]->
+			entity.pos.y][inc->participants[0]->entity.pos.x],
+			(inventory_t *)&elevations
+			[inc->participants[0]->entity.level])){
 			interrupt_incantation(game, tmp);
 		}
 		tmp = tmp->next;
