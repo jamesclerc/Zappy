@@ -58,7 +58,7 @@ static void init_player_in_team(team_t *team, player_t *player)
 {
 	egg_t memory;
 
-	if (team->slots == 0 && team->eggs) {
+	if (team->slots == 0 && team->eggs->head) {
 		queue_pop(team->eggs, &memory);
 		player->entity.pos.x = memory.pos.x;
 		player->entity.pos.y = memory.pos.y;
@@ -79,7 +79,8 @@ bool link_player_team(game_t *game, player_t *player, char *team_name)
 
 	while (game->teams[++i].name) {
 		if (strcmp(team_name, game->teams[i].name) == 0 &&
-			((game->teams[i].slots > 0) || game->teams[i].eggs)) {
+			((game->teams[i].slots > 0) ||
+			game->teams[i].eggs->head)) {
 			init_player_in_team(&game->teams[i], player);
 			return (true);
 		}
