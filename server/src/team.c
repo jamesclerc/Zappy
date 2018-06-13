@@ -36,6 +36,7 @@ void teams_destroy(team_t *teams)
 	int i = 0;
 
 	while (teams[i].name != NULL) {
+		queue_destroy(teams[i].eggs);
 		free(teams[i].name);
 	}
 	free(teams);
