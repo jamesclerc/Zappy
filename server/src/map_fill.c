@@ -7,16 +7,17 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "space.h"
 
-static void fill_ressource(map_t *map, int item_index, int percent)
+static void fill_ressource(map_t *map, int percent, int item_index)
 {
-	int ressource = map->height * map->width * percent / 100;
+	int ressource = (float)(map->height * map->width) * ((float)percent / 100.0);
 	int x = 0;
 	int j;
 	int i;
 
-	if (item_index < 0 || item_index > 8)
+	if (item_index < 0 || item_index > 6)
 		return;
 	for (unsigned long i = 0; i < map->height; i++)
 		for (unsigned long j = 0; j < map->width; j++)
@@ -31,12 +32,13 @@ static void fill_ressource(map_t *map, int item_index, int percent)
 	}
 }
 
-void map_fill(map_t *map) {
-	fill_ressource(map, 50, 1);
-	fill_ressource(map, 50, 2);
-	fill_ressource(map, 50, 3);
-	fill_ressource(map, 40, 4);
-	fill_ressource(map, 30, 5);
-	fill_ressource(map, 30, 6);
-	fill_ressource(map, 10, 7);
+void map_fill(map_t *map)
+{
+	fill_ressource(map, 30, 0);
+	fill_ressource(map, 20, 1);
+	fill_ressource(map, 20, 2);
+	fill_ressource(map, 20, 3);
+	fill_ressource(map, 15, 4);
+	fill_ressource(map, 12, 5);
+	fill_ressource(map, 5, 6);
 }

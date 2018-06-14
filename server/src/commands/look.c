@@ -52,9 +52,22 @@ static void show_cell(FILE *stream, game_t *game, position_t pos)
 	}
 }
 
+static void show_line(game_t *game, player_t *player, position_t pos, int line)
+{
+	direction_t dir = direction_right(player->entity.facing);
+	int i = -1;
+	int stop = line * 2 + 1;
+
+	while (++i < stop) {
+		fprintf(player->stream, ",");
+		show_cell(player->stream, game, pos);
+		position_nudge(game->map, &pos, dir);
+	}
+}
+
 bool respond_look(game_t *game, player_t *player, char *argument)
 {
-	int i = -1;
+	int i = 0;
 	position_t tmp = player->entity.pos;
 	direction_t dir = player->entity.facing;
 
@@ -63,22 +76,15 @@ bool respond_look(game_t *game, player_t *player, char *argument)
 	fprintf(player->stream, "[");
 	show_cell(player->stream, game, tmp);
 	while (++i <= player->entity.level) {
-		position_nudge(game->map, &tmp, dir);
-		if (i % 2 == 1)
-			dir = direction_left(dir);
-		else
-			dir = direction_right(dir);
-		position_nudge(game->map, &tmp, dir);
-		if (i % 2 == 1)
-			dir = direction_left(dir);
-		else
-			dir = direction_right(dir);
-		for (int j = 0; j < i * 2; ++j) {
-			fprintf(player->stream, ",");
-			show_cell(player->stream, game, tmp);
+		tmp = player->entity.pos;
+		dir = direction_left(player->entity.facing);
+		for (unsigned int j = 0; j < (unsigned int)i; j++)
 			position_nudge(game->map, &tmp, dir);
-		}
+		dir = direction_right(dir);
+		for (unsigned int j = 0; j < (unsigned int)i; j++)
+			position_nudge(game->map, &tmp, dir);
+		dir = direction_right(dir);
+		show_line(game, player, tmp, i);
 	}
-	fprintf(player->stream, "]\n");
-	return (true);
+	return(fprintf(player->stream, "]\n"));
 }

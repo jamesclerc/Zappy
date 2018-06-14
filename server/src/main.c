@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <err.h>
 #include "loop.h"
 #include "game.h"
@@ -52,6 +53,7 @@ int main(int ac, char **av)
 	int args[5];
 	game_t game;
 
+	srand(time(NULL));
 	if (ac >= 2 && (strcasecmp(av[1], "-h") == 0
 		|| strcasecmp(av[1], "-help") == 0))
 		print_usage(av[0], 0);
