@@ -13,6 +13,7 @@
 #include "game.h"
 #include "parse.h"
 #include "entity.h"
+#include "space.h"
 
 /// Prints the program usage message and exits with the given vlue
 void print_usage(char *av0, int exit_value)
@@ -36,10 +37,10 @@ void game_cleanup(game_t *game)
 		player_destroy(player);
 		tmp = game->players;
 	}
-	tmp = game->incantions;
+	tmp = game->incantations;
 	while (tmp) {
-		list_remove(&game->incantions);
-		tmp = game->incantions;
+		list_remove(&game->incantations);
+		tmp = game->incantations;
 	}
 	queue_destroy(game->hatching_eggs);
 	teams_destroy(game->teams);

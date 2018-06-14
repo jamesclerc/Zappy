@@ -20,6 +20,7 @@ SRC		:= src/main.c \
 		   src/food.c \
 		   src/leave.c \
 		   src/incantations.c \
+		   src/map_fill.c \
 		   src/commands.c \
 		   src/commands/left.c \
 		   src/commands/right.c \

@@ -32,6 +32,7 @@ static bool loop(game_t *game, int efd, int sfd)
 		food_update(&game->players, game->freq);
 		incantations_check(game);
 		hatch_egg(game);
+		map_fill(game->map);
 	}
 	return (true);
 }
