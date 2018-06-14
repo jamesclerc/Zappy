@@ -11,10 +11,17 @@
 
 bool respond_connect_nbr(game_t *game, player_t *player,  char *argument)
 {
+	list_t *tmp = player->entity.team->eggs->head;
+	int eggs = 0;
+
 	(void)game;
 	if (argument) {
 		return (false);
 	}
-	fprintf(player->stream, "%i\n", (int)player->entity.team->slots);
+	while (tmp) {
+		eggs++;
+		tmp = tmp->next;
+	}
+	fprintf(player->stream, "%i\n", (int)player->entity.team->slots + eggs);
 	return (true);
 }
