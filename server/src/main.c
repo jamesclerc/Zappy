@@ -8,11 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <err.h>
 #include "loop.h"
 #include "game.h"
 #include "parse.h"
 #include "entity.h"
+#include "space.h"
 
 /// Prints the program usage message and exits with the given vlue
 void print_usage(char *av0, int exit_value)
@@ -34,10 +36,16 @@ void game_cleanup(game_t *game)
 	while (tmp) {
 		player = list_remove(&game->players);
 		player_destroy(player);
+		tmp = game->players;
 	}
+	tmp = game->incantations;
+	while (tmp) {
+		list_remove(&game->incantations);
+		tmp = game->incantations;
+	}
+	queue_destroy(game->hatching_eggs);
 	teams_destroy(game->teams);
 	map_destroy(game->map);
-	// TODO: cleanup incantions
 }
 
 int main(int ac, char **av)
@@ -45,6 +53,7 @@ int main(int ac, char **av)
 	int args[5];
 	game_t game;
 
+	srand(time(NULL));
 	if (ac >= 2 && (strcasecmp(av[1], "-h") == 0
 		|| strcasecmp(av[1], "-help") == 0))
 		print_usage(av[0], 0);
