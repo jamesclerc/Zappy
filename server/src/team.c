@@ -55,7 +55,7 @@ static void remove_graph_from_players(game_t *game, player_t *graph)
 	}
 }
 
-static void init_player_in_team(team_t *team, player_t *player)
+static void init_player_in_team(FILE *stream, team_t *team, player_t *player)
 {
 	egg_t memory;
 
@@ -63,10 +63,12 @@ static void init_player_in_team(team_t *team, player_t *player)
 		queue_pop(team->eggs, &memory);
 		player->entity.pos.x = memory.pos.x;
 		player->entity.pos.y = memory.pos.y;
+		send_edi(stream, memory.id);
 	} else if (team->slots > 0)
 		team->slots--;
 	gettimeofday(&player->entity.last_meal, NULL);
 	player->entity.team = team;
+	send_pnw(stream, player);
 }
 
 /// Searches the team and links the player to it
@@ -82,7 +84,8 @@ bool link_player_team(game_t *game, player_t *player, char *team_name)
 		if (strcmp(team_name, game->teams[i].name) == 0 &&
 			((game->teams[i].slots > 0) ||
 			game->teams[i].eggs->head)) {
-			init_player_in_team(&game->teams[i], player);
+			init_player_in_team(game->graph_stream,
+				&game->teams[i], player);
 			return (true);
 		}
 	}

@@ -9,5 +9,6 @@
 
 void send_pbc(FILE *stream, int id, char *message)
 {
-	fprintf(stream, "pbc %i %s\n", id , message);
+	if (stream)
+		fprintf(stream, "pbc %i %s\n", id , message);
 }

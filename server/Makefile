@@ -40,7 +40,8 @@ SRC		:= src/main.c \
 		   src/graphical_protocol/incantation_notify.c \
 		   src/graphical_protocol/player_notify.c \
 		   src/graphical_protocol/new_player_notify.c \
-		   src/graphical_protocol/event_notify.c
+		   src/graphical_protocol/event_notify.c \
+		   src/graphical_protocol/ressource_notify.c
 
 CC		:= gcc
 RM		:= rm -f

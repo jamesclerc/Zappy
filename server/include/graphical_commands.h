@@ -30,7 +30,7 @@ void send_pet(FILE *, int player_nb);
 void send_pmf(FILE *, int player_nb);
 void send_ptu(FILE *, int player_nb, direction_t dir);
 void send_pex(FILE *, int player_nb);
-void send_pcb(FILE *, int player_nb, char *broadcast);
+void send_pbc(FILE *, int player_nb, char *broadcast);
 void send_pic(FILE *, incantation_t *);
 void send_pie(FILE *, int player_nb, bool result);
 void send_neg(FILE *, egg_t *egg);

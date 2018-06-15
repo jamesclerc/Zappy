@@ -7,6 +7,7 @@
 
 #include "game.h"
 #include "entity.h"
+#include "graphical_commands.h"
 
 static direction_t eject_origin(direction_t eject_facing,
 	direction_t ejected_facing)
@@ -42,5 +43,6 @@ bool respond_eject(game_t *game, player_t *player, char *argument)
 		}
 		list = list->next;
 	}
+	send_pex(game->graph_stream, player->fd);
 	return (ret);
 }

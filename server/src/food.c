@@ -5,25 +5,29 @@
 ** Food units updating related functions
 */
 
+#include <stdio.h>
 #include "containers.h"
 #include "entity.h"
+#include "graphical_commands.h"
 
-static void food_take(list_t **tmp)
+static void food_take(FILE *stream, list_t **tmp)
 {
 	player_t *player;
 
 	player = (player_t *)(*tmp)->element;
 	player->entity.inventory.food--;
+	send_pet(stream, player->fd);
 	if (player->entity.inventory.food <= 0) {
 		player = list_remove(tmp);
 		fprintf(player->stream, "dead\n");
+		send_pdi(stream, player->fd);
 		player_destroy(player);
 		return;
 	}
 	gettimeofday(&player->entity.last_meal, NULL);
 }
 
-void food_update(list_t **players, int freq)
+void food_update(FILE *stream, list_t **players, int freq)
 {
 	list_t *tmp = *players;
 	player_t *player;
@@ -38,7 +42,7 @@ void food_update(list_t **players, int freq)
 		player = (player_t *)tmp->element;
 		timeradd(&player->entity.last_meal, &one_food_time, &res);
 		if (player->entity.team && !timercmp(&cur_time, &res, <)) {
-			food_take((tmp == *players) ? players : &tmp);
+			food_take(stream, (tmp == *players) ? players : &tmp);
 			return;
 		}
 		tmp = tmp->next;

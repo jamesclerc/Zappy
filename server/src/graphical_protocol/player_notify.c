@@ -10,13 +10,16 @@
 
 void send_pmf(FILE *stream, int id)
 {
-	fprintf(stream, "pmf %i\n", id);
+	if (stream)
+		fprintf(stream, "pmf %i\n", id);
 }
 
 void send_ptu(FILE *stream, int id, direction_t dir)
 {
 	int tmp;
 
+	if (!stream)
+		return;
 	if (dir % 4 == 0)
 		tmp = dir / 2 + 1;
 	else
@@ -26,15 +29,18 @@ void send_ptu(FILE *stream, int id, direction_t dir)
 
 void send_pet(FILE *stream, int id)
 {
-	fprintf(stream, "pet %i\n", id);
+	if (stream)
+		fprintf(stream, "pet %i\n", id);
 }
 
 void send_pex(FILE *stream, int id)
 {
-	fprintf(stream, "pex %i\n", id);
+	if (stream)
+		fprintf(stream, "pex %i\n", id);
 }
 
 void send_pdi(FILE *stream, int id)
 {
-	fprintf(stream, "pdi %i\n", id);
+	if (stream)
+		fprintf(stream, "pdi %i\n", id);
 }

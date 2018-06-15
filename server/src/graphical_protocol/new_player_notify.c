@@ -12,6 +12,8 @@ void send_pnw(FILE *stream, player_t *player)
 {
 	int tmp;
 
+	if (!stream)
+		return;
 	if (player->entity.facing % 4 == 0)
 		tmp = player->entity.facing / 2 + 1;
 	else

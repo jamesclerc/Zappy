@@ -10,6 +10,7 @@
 #include "incantation.h"
 #include "containers.h"
 #include "commands.h"
+#include "graphical_commands.h"
 
 static void interrupt_incantation(game_t *game, list_t *tmp)
 {
@@ -19,6 +20,7 @@ static void interrupt_incantation(game_t *game, list_t *tmp)
 
 	gettimeofday(&curtime, NULL);
 	fprintf(inc->participants[0]->stream, "ko\n");
+	send_pie(game->graph_stream, inc->participants[0]->fd, false);
 	while (++i < 6 && inc->participants[i]) {
 		queue_pop(inc->participants[i]->commands, NULL);
 		if (inc->participants[i]->commands->tail)

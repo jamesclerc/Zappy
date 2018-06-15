@@ -29,11 +29,13 @@ static bool loop(game_t *game, int efd, int sfd)
 		for (int i = 0; i < n; i++)
 			event_handle(game, events + i, efd, sfd);
 		execute_commands(game);
-		food_update(&game->players, game->freq);
+		food_update(game->graph_stream, &game->players, game->freq);
 		incantations_check(game);
 		hatch_egg(game);
-		map_fill(game->map);
+		map_fill(game->graph_stream, game->map);
 	}
+	if (game->graph_stream)
+		fprintf(game->graph_stream, "seg\n");
 	return (true);
 }
 
