@@ -35,9 +35,7 @@ SRC		:= src/main.c \
 		   src/commands/eject.c \
 		   src/commands/fork.c \
 		   src/graphical_protocol/handle_input.c \
-		   src/graphical_protocol/content_commands.c \
-		   src/graphical_protocol/player_commands.c \
-		   src/graphical_protocol/time_commands.c
+		   src/graphical_protocol/protocol_init.c \
 
 CC		:= gcc
 RM		:= rm -f

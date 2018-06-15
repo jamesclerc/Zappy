@@ -17,7 +17,7 @@
 | Server | Client | Details |[Comments]|
 |-|-|-|-|
 |msz X Y\n|-|Map size|At the connection|
-|bct X Y q0 q1 q2 q3 q4 q5 q6\n \* X \* Y|-|Content of the map (all the tiles)|At the connection|
+|bct X Y q0 q1 q2 q3 q4 q5 q6\n \* X \* Y|-|Content of the map (all the tiles)|At the connection (line by line, from left to right)|
 |pnw n X Y O L N\n|-|Connection of a new player|At the connection and after|
 |pin n q0 q1 q2 q3 q4 q5 q6\n|pin #n\n|Get player inventory||
 |pnw n X Y O L N\n \* nb||List players already in the game|At the connection|

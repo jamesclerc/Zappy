@@ -12,17 +12,43 @@
 #include "game.h"
 
 static graph_command_t graph_commands[] = {
-	{"msz", &handle_msz},
-	{"bct", &handle_bct},
-	{"mct", &handle_mct},
-	{"tna", &handle_tna},
-	{"ppo", &handle_ppo},
-	{"plv", &handle_plv},
 	{"pin", &handle_pin},
-	{"sgt", &handle_sgt},
-	{"sst", &handle_sst},
+	{"tst", &handle_tst},
 	{NULL, NULL}
 };
+
+bool handle_tst(game_t *game, char *arguments)
+{
+	int freq;
+
+	if (!arguments || arguments[0] < '0' || arguments[0] > '9')
+		return (false);
+	freq = atoi(arguments);
+	game->freq = freq;
+	fprintf(game->graph_stream, "tst %i\n", game->freq);
+	return (true);
+}
+
+bool handle_pin(game_t *game, char *arguments)
+{
+	int player_nb;
+	player_t *player;
+	int *inv;
+
+	if (!arguments || arguments[0] != '#' || !arguments[1] ||
+		arguments[1] < '0' || arguments[1] > '9')
+		return (false);
+	player_nb = atoi(&arguments[1]);
+	player = player_by_fd(game->players, player_nb);
+	if (!player)
+		return (false);
+	inv = (int *)player;
+	fprintf(game->graph_stream, "pin %i %i %i %i %i %i %i %i %i %i\n",
+		player->fd, (int)player->entity.pos.x,
+		(int)player->entity.pos.y, inv[0], inv[1], inv[2], inv[3],
+		inv[4], inv[5], inv[6]);
+	return (true);
+}
 
 static bool choose_command(game_t *game, char *cmd)
 {

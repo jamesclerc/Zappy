@@ -13,6 +13,7 @@
 #include "game.h"
 #include "containers.h"
 #include "egg.h"
+#include "graphical_commands.h"
 
 /// Extract all team names from program arguments
 team_t *team_get_names(char *av[], int start, int slots)
@@ -90,6 +91,7 @@ bool link_player_team(game_t *game, player_t *player, char *team_name)
 		queue_destroy(player->commands);
 		game->graph_stream = player->stream;
 		free(player);
+		graphical_protocol_init(game);
 		return (false);
 	}
 	fprintf(player->stream, "ko\n");
