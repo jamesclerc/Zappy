@@ -10,6 +10,7 @@
 #include "game.h"
 #include "entity.h"
 #include "egg.h"
+#include "graphical_commands.h"
 
 static int egg_id = 0;
 
@@ -32,6 +33,7 @@ void hatch_egg(game_t *game)
 			return;
 		queue_pop(game->hatching_eggs, memory);
 		queue_push(memory->team->eggs, memory);
+		send_heg(game->graph_stream, memory->id);
 	}
 }
 
@@ -49,6 +51,7 @@ bool respond_fork(game_t *game, player_t *player, char *argument)
 	egg.id = ++egg_id;
 	queue_push(game->hatching_eggs, &egg);
 	fprintf(player->stream, "ok\n");
+	send_neg(game->graph_stream, &egg);
 	return (true);
 }
 
