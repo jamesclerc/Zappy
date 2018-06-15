@@ -10,6 +10,7 @@
 #include "game.h"
 #include "entity.h"
 #include "incantation.h"
+#include "graphical_commands.h"
 
 static bool el_player_is_valid(player_t *self, player_t *player,
 	bool fill_participants)
@@ -65,15 +66,17 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 	}
 	list_insert(&game->incantations, new);
 	fprintf(p->stream, "Elevation underway\n");
+	send_pic(game->graph_stream, new);
 	return (true);
 }
 
-static void incantation_remove(list_t **head, list_t *tmp)
+static void incantation_remove(FILE *stream, list_t **head, list_t *tmp, int id)
 {
 	incantation_t *inc = tmp->element;
 	player_t *p;
 	int i = -1;
 
+	send_pie(stream, id, true);
 	while (++i < 6 && inc->participants[i]) {
 		p = inc->participants[i];
 		fprintf(p->stream, "Current level: %i\n", ++p->entity.level);
@@ -92,12 +95,14 @@ bool respond_incantation(game_t *game, player_t *p, char *argument)
 	if (!inventory_has(&game->map->cells[p->entity.pos.y][p->entity.pos.x],
 	(inventory_t *)(&elevations[p->entity.level - 1])) ||
 		!elevation_check_players(game->players, p, NULL)) {
+		send_pie(game->graph_stream, p->fd, false);
 		return (false);
 	}
 	while (tmp) {
 		i = tmp->element;
 		if (i->participants[0] == p){
-			incantation_remove(&game->incantations, tmp);
+			incantation_remove(game->graph_stream,
+				&game->incantations, tmp, p->fd);
 			break;
 		}
 		tmp =tmp->next;

@@ -7,6 +7,7 @@
 
 #pragma once
 #include <sys/time.h>
+#include "game.h"
 #include "space.h"
 #include "team.h"
 #include "containers.h"

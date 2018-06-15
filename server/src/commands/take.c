@@ -8,6 +8,7 @@
 #include <string.h>
 #include "game.h"
 #include "entity.h"
+#include "graphical_commands.h"
 
 bool respond_take(game_t *game, player_t *player, char *argument)
 {
@@ -27,6 +28,7 @@ bool respond_take(game_t *game, player_t *player, char *argument)
 	if (!inventory_take(cell, &amount))
 		return (false);
 	inventory_give(&player->entity.inventory, &amount);
+	send_pgt(game->graph_stream, player->fd, i);
 	fprintf(player->stream, "ok\n");
 	return (true);
 }

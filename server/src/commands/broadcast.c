@@ -8,6 +8,7 @@
 #include "space.h"
 #include "game.h"
 #include "entity.h"
+#include "graphical_commands.h"
 
 static int origin_resolve(unsigned int *dist, direction_t horizontal_dir,
 	direction_t vertical_dir, direction_t to_dir)
@@ -59,14 +60,15 @@ bool respond_broadcast(game_t *game, player_t *player, char *argument)
 
 	if (!argument)
 		return (false);
+	send_pbc(game->graph_stream, player->fd, argument);
 	while (tmp) {
 		if (tmp->element != player
 			&& ((player_t *)tmp->element)->entity.team != NULL)
 			fprintf(((player_t *)tmp->element)->stream,
 				"message %i, %s\n",
 				broadcast_origin(game->map, &player->entity,
-					&(((player_t *)tmp->element)->entity))
-					,argument);
+					&(((player_t *)tmp->element)->entity)),
+					argument);
 		tmp = tmp->next;
 	}
 	return (true);
