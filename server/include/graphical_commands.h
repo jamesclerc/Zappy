@@ -20,7 +20,6 @@ struct graph_command_s {
 };
 
 bool get_graph_message(game_t *);
-bool handle_pin(game_t *game, char *arguments);
 bool handle_tst(game_t *game, char *arguments);
 void graphical_protocol_init(game_t *);
 void send_pnw(FILE *, player_t *);
@@ -38,4 +37,3 @@ void send_neg(FILE *, egg_t *egg);
 void send_heg(FILE *, int egg_nb);
 void send_edi(FILE *, int egg_nb);
 void send_pdi(FILE *, int player_nb);
-void send_seg(FILE *);

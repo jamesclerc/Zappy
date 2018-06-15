@@ -12,7 +12,6 @@
 #include "game.h"
 
 static graph_command_t graph_commands[] = {
-	{"pin", &handle_pin},
 	{"tst", &handle_tst},
 	{NULL, NULL}
 };

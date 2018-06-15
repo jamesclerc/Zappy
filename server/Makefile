@@ -36,6 +36,11 @@ SRC		:= src/main.c \
 		   src/commands/fork.c \
 		   src/graphical_protocol/handle_input.c \
 		   src/graphical_protocol/protocol_init.c \
+		   src/graphical_protocol/egg_notify.c \
+		   src/graphical_protocol/incantation_notify.c \
+		   src/graphical_protocol/player_notify.c \
+		   src/graphical_protocol/new_player_notify.c \
+		   src/graphical_protocol/event_notify.c
 
 CC		:= gcc
 RM		:= rm -f
