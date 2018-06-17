@@ -21,22 +21,34 @@ void game(sf::RenderWindow *app)
 		while (app->pollEvent(event)) {
 		        if (event.type == sf::Event::Closed)
 	                        app->close();
-			if (event.type == sf::Event::TextEntered) {
-				if (event.key.code == sf::Keyboard::Tab)
+			if (event.type == sf::Event::KeyPressed)
+				if (event.key.code == sf::Keyboard::Tab){
 					i++;
-				else {
-					if (i % 2 == 0) {
-						ip += static_cast<char>(event.text.unicode);
-					} else {
-						port += static_cast<char>(event.text.unicode);
-					}
-					//printf("ip is -> %s, port is -> %s\n" , ip.c_str(), port.c_str());
 				}
+			if (event.type == sf::Event::TextEntered) {
+				if (i % 2 == 0) {
+					if (static_cast<char>(event.text.unicode) != '\b')
+						ip.erase(ip.end() - 1, ip.end());
+					if (static_cast<char>(event.text.unicode) != '\t')
+						ip += static_cast<char>(event.text.unicode);
+				} else {
+					port += static_cast<char>(event.text.unicode);
+				}
+				//printf("ip is -> %s, port is -> %s\n" , ip.c_str(), port.c_str());
 			}
 		}
+		sf::Font font;
+		font.loadFromFile("arial.ttf");
+		sf::Text text;
+		text.setFont(font);
+		text.setString(ip);
+		text.setCharacterSize(24);
+		text.setFillColor(sf::Color::Red);
+		text.setStyle(sf::Text::Bold);
+		text.setPosition(75, 350);
 		app->clear();
 		app->draw(menu);
-		//app->draw(text);
+		app->draw(text);
 		app->display();
 	}
 	printf("%s     %s\n" , ip.c_str(), port.c_str());
