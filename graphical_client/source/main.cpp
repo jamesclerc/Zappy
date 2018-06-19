@@ -20,21 +20,23 @@ const sf::IntRect UP(0,Longueur/8 * 3,Largeur/12, Longueur/8);
 int main()
 {
 	sf::RenderWindow app(sf::VideoMode(800, 600, 32), "Zappy zeh", sf::Style::Close | sf::Style::Titlebar); // crée une fenetre
-	//app.setFramerateLimit(60);
-
-	// if (!image.loadFromFile("sprite.png"))
-	// {
-	// 	std::cout << "bug dans le load de l'image" << std::endl;
-	// 	return EXIT_FAILURE;
-	// }
+	app.setFramerateLimit(60);
 	sf::Texture image; //L'image qui sera mis au sprite
 	image.loadFromFile("sprite.png"); // load le sprite via un file
 	sf::Sprite sprite; // le sprite
 	sprite.setTexture(image); // on ajoute l'image
 	sprite.setTextureRect(DOWN); // on choisis le rectangle du sprite calculé plus haut
 	int i = 0;
+	sf::ContextSettings settings = app.getSettings();
+	std::cout << "OpenGL version:"<< settings.majorVersion << "." << settings.minorVersion << std::endl;
 	while (app.isOpen()) // Tant que la window est open
 	{
+		sf::Event event;
+		while(app.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				app.close();
+		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		i++;
 		switch(i) {
@@ -52,7 +54,6 @@ int main()
 			i = 0;
 			break;
 		}
-        	sf::Event event;
         	app.clear(); // Vide tout le dessin en mémoire
 		app.draw(sprite); // draw le sprite actuel
 		sprite.move(5,5); // move le sprite
