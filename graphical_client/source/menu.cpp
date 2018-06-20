@@ -72,12 +72,18 @@ void gpc::Menu::drawFirst()
 
 std::string gpc::Menu::getIp()
 {
+	ip.erase(0, 6);
+	if (ip.empty())
+		return (std::string ());
 	return (ip);
 }
 
 int gpc::Menu::getPort()
 {
-	return ();
+	port.erase(0, 8);
+	if (port.empty())
+		return (-1);
+	return (std::stoi(port));
 }
 
 void gpc::Menu::fillString()
@@ -86,7 +92,6 @@ void gpc::Menu::fillString()
 		i++;
 		return;
 	}
-	printf("%i\n",i);
 	if (i % 2 == 0) {
 		if (static_cast<char>(event.text.unicode) == '\b' && ip.size() > 5)
 			ip.erase(ip.end() - 1, ip.end());
@@ -135,9 +140,10 @@ int main(void)
 {
 	sf::RenderWindow window(sf::VideoMode(960, 640, 32), "Menu", sf::Style::Default);
 	gpc::Menu menu(window);
-	while (window.isOpen()){
+	bool x = false;
+	while (window.isOpen() && x == false){
 		window.clear();
-		menu.draw();
+		x = menu.draw();
 		window.display();
 	}
 	window.close();

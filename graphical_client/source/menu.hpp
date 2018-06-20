@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 
 namespace gpc {
 	class Menu {
@@ -15,7 +16,7 @@ namespace gpc {
 		~Menu();
 		bool draw();
 		std::string getIp();
-		int get_port();
+		int getPort();
 	private:
 		void fillString();
 		void drawFirst();
