@@ -18,6 +18,8 @@ namespace gpc {
 			Tiles(int x, int y);
 			~Tiles();
 			Tiles getTilesInDirection(Direction dir);
+			void addRessource(IEntity *);
+			IEntity *pickRessource(Entities);
 		private:
 			Graphic _graph;
 			std::vector<IEntity *> _entities;

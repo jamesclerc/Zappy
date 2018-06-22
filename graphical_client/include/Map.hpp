@@ -14,9 +14,11 @@
 namespace gpc {
 	class Map {
 		public:
-		Map();
+		Map(int x, int y);
 		~Map();
+		void draw();
+		Tiles * getTiles(int x, int y);
 		private:
-		std::vector<std::vector<Tiles *>> map;
+		std::vector<std::vector<Tiles *>> _map;
 	};
 }

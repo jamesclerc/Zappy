@@ -9,14 +9,29 @@
 
 #include <vector>
 
-#include "Player.h"
+#include "Player.hpp"
+#include "Map.hpp"
+#include "Communication.hpp"
+#include "menu.hpp"
 
 namespace gpc {
-	class GraphicalClient {
+	class GraphicClient {
 		public:
-			~GraphicalClient();
+			static GraphicClient &getInstance();
+			GraphicClient(const GraphicClient&) = delete;
+			GraphicClient& operator=(const GraphicClient&) = delete;
+			~GraphicClient();
+			void run();
 		private:
+			void runMenu();
+			void initConnection();
+			void mainLoop();
+			sf::RenderWindow window;
+			static GraphicClient instance
 			std::vector<Player> _players;
-			GraphicalClient();
+			GraphicClient();
+			Menu _menu;
+			Communication _com;
+			Map _map;
 	};
 }
