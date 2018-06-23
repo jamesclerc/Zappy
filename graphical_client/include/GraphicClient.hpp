@@ -17,21 +17,22 @@
 namespace gpc {
 	class GraphicClient {
 		public:
-			static GraphicClient &getInstance();
+			static GraphicClient *getInstance();
 			GraphicClient(const GraphicClient&) = delete;
 			GraphicClient& operator=(const GraphicClient&) = delete;
 			~GraphicClient();
+			void addPlayer(Player p);
 			void run();
 		private:
 			void runMenu();
 			void initConnection();
 			void mainLoop();
-			sf::RenderWindow window;
-			static GraphicClient instance
-			std::vector<Player> _players;
-			GraphicClient();
-			Menu _menu;
-			Communication _com;
-			Map _map;
+			sf::RenderWindow *_window;
+			static GraphicClient *_instance;
+			std::vector<gpc::Player> _players;
+			GraphicClient(sf::RenderWindow *window, gpc::Menu *menu);
+			gpc::Menu *_menu;
+			gpc::Communication _com;
+			gpc::Map *_map;
 	};
 }

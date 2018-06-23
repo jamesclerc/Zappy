@@ -7,20 +7,21 @@
 
 #include "Ressource.hpp"
 
-Ressource::Ressource(int x, int y, Entities entity) : IEntity(x,y), _idEntity(entity)
+gpc::Ressource::Ressource(int x, int y, Entities entity) : IEntity(x,y)
+{
+	_idEntity = entity;
+}
+
+gpc::Ressource::~Ressource()
 {
 }
 
-Ressource::~Ressource()
-{
-}
-
-gpc::Ressource::draw()
+void gpc::Ressource::draw()
 {
 
 }
 
-gpc::Ressource::update()
+void gpc::Ressource::update()
 {
 
 }

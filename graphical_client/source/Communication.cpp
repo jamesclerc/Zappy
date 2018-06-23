@@ -87,7 +87,7 @@ char *gpc::Communication::getNextLine(int fd)
 		if (size > 0) {
 			mallocsize += 1;
 			buffer[size] = '\0';
-			result = realloc(result, mallocsize);
+			result = (char *)(realloc(result, mallocsize));
 			strcat(result, buffer);
 		}
 		else

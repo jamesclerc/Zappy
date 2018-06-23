@@ -7,28 +7,36 @@
 
 #include "GraphicClient.hpp"
 
-GraphicClient &gpc::GraphicClient::instance;
+gpc::GraphicClient *gpc::GraphicClient::_instance = nullptr;
 
-gpc::GraphicClient::GraphicClient()
+gpc::GraphicClient::GraphicClient(sf::RenderWindow *window, gpc::Menu *menu) : _menu(menu), _window(window)
 {
-	_menu = Menu(window);
 }
 
-GraphicClient &gpc::GraphicClient::getIntance()
+gpc::GraphicClient *gpc::GraphicClient::getInstance()
 {
-	return instance;
+	if (!_instance) {
+		sf::RenderWindow *window = new sf::RenderWindow;
+		_instance = new GraphicClient(window, new gpc::Menu(*window));
+	}
+	return _instance;
 }
 
 void gpc::GraphicClient::initConnection()
 {
-	_com.setIp(_menu.getIp());
-	_com.setPort(_menu.getPort());
+	_com.setIp(_menu->getIp());
+	_com.setPort(_menu->getPort());
 	_com.firstConnection();
+}
+
+void gpc::GraphicClient::addPlayer(Player p)
+{
+	_players.push_back(p);
 }
 
 void gpc::GraphicClient::run()
 {
-	runmenu();
+	runMenu();
 	initConnection();
 	mainLoop();
 }
@@ -38,7 +46,7 @@ void gpc::GraphicClient::runMenu()
 	bool test = false;
 	while (test == false)
 	{
-		test = _menu.draw();
+		test = _menu->draw();
 	}
 }
 
@@ -47,7 +55,7 @@ void gpc::GraphicClient::mainLoop()
 	while(1)
 	{
 		_com.mainLoop();
-		_map.draw();
+		_map->draw();
 		//drawPlayer(); Je sais pas si on va passer par ça
 	}
 }

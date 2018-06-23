@@ -9,7 +9,6 @@
 
 #include <vector>
 
-#include "Player.hpp"
 #include "IEntity.hpp"
 
 namespace gpc {
@@ -17,12 +16,11 @@ namespace gpc {
 		public:
 			Tiles(int x, int y);
 			~Tiles();
-			Tiles getTilesInDirection(Direction dir);
+			gpc::Tiles &getTilesInDirection(gpc::Direction dir);
 			void addRessource(IEntity *);
-			IEntity *pickRessource(Entities);
+			gpc::IEntity *pickRessource(Entities);
 		private:
-			Graphic _graph;
-			std::vector<IEntity *> _entities;
+			std::vector<gpc::IEntity *> _entities;
 			int _x;
 			int _y;
 	};
