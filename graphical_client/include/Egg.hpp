@@ -14,11 +14,10 @@
 namespace gpc {
 	class Egg : public IEntity {
 		public:
-			Egg(int x, int y, Entities entity, int eggId);
+			Egg(int x, int y, gpc::Entities entity, int eggId);
 			~Egg();
 			virtual void draw() final;
 			virtual void update() final;
-
 		private:
 			int _id;
 	};

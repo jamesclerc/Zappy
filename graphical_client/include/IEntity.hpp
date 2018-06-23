@@ -9,9 +9,14 @@
 
 #include <vector>
 
-#include "Graphic.hpp"
-
 namespace gpc {
+
+	enum Direction{
+		NORTH = 0,
+		SOUTH = 1,
+		WEST = 2,
+		EAST = 3
+	};
 
 	enum Entities{
 		FOOD = 0,
@@ -34,10 +39,9 @@ namespace gpc {
 			virtual void update();
 			bool is(Entities entity) const;
 
-		private:
+		protected:
 			int _x;
 			int _y;
-			Graphic _graph;
 			Entities _idEntity;
 	};
 }

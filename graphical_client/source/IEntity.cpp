@@ -7,11 +7,11 @@
 
 #include "IEntity.hpp"
 
-IEntity::IEntity(int x, int y) : _x(x), _y(y)
+gpc::IEntity::IEntity(int x, int y) : _x(x), _y(y)
 {
 }
 
-bool is(Entities entity) const
+bool gpc::IEntity::is(Entities entity) const
 {
 	if (entity == _idEntity)
 		return true;

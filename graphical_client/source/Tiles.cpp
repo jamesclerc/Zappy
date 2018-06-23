@@ -17,7 +17,7 @@ gpc::Tiles::~Tiles()
 
 }
 
-Tiles gpc::Tiles::getTilesinDirection(gpc::Direction dir)
+gpc::Tiles &gpc::Tiles::getTilesInDirection(Direction dir)
 {
 	return *this;
 }
@@ -27,19 +27,19 @@ void gpc::Tiles::addRessource(IEntity *entity)
 	_entities.push_back(entity);
 }
 
-IEntity *gpc::Tiles::pickRessource(Entities ent)
+gpc::IEntity *gpc::Tiles::pickRessource(gpc::Entities ent)
 {
 	int i = 0;
-	IEntity *result = nullptr;
-	for(vector<IEntity *>::iterator it=_entities.begin(); it!=_entities.end(); ++it)
+	gpc::IEntity *result = nullptr;
+	for(std::vector<IEntity *>::iterator it=_entities.begin(); it!=_entities.end(); ++it)
 	{
-		if (*it.is(ent))
+		if (_entities[i]->is(ent))
 		{
-			result_= _entities[i];
+			result= _entities[i];
 			_entities.erase(it);
 			break;
 		}
 		i++;
 	}
-	return *result;
+	return result;
 }
