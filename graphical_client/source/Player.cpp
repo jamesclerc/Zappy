@@ -7,12 +7,13 @@
 
 #include "Player.hpp"
 
-gpc::Player::Player(int x, int y, gpc::Entities entity, int playerId, gpc::Direction dir, gpc::Tiles &tile, int lvl) : 
+gpc::Player::Player(int x, int y, gpc::Entities entity, int playerId, gpc::Direction dir, gpc::Tiles *tile, int lvl, std::string team) :
 	IEntity(x,y),
 	_id(playerId),
 	_direction(dir),
 	_currentTile(tile),
-	_lvl(lvl)
+	_lvl(lvl),
+	_team(team)
 {
 	_idEntity = entity;
 }
@@ -40,9 +41,40 @@ void gpc::Player::setLevel(int lvl)
 	_lvl = lvl;
 }
 
-void gpc::Player::moveForward()
+int gpc::Player::getId()
 {
-	//a coder
+	return _id;
+}
+
+void gpc::Player::setCurrentTile(gpc::Tiles *tile)
+{
+	_currentTile = tile;
+}
+
+void gpc::Player::setDir(gpc::Direction dir)
+{
+	_direction = dir;
+}
+
+void gpc::Player::moveForward(int xmax, int ymax)
+{
+	switch(_direction)
+	{
+		case Direction::NORTH:
+		_y--;
+		break;
+		case Direction::SOUTH:
+		_y++;
+		break;
+		case Direction::WEST:
+		_x--;
+		break;
+		case Direction::EAST:
+		_x++;
+		break;
+	}
+	_y %= ymax;
+	_x %= xmax;
 }
 
 void gpc::Player::addInInventory(gpc::IEntity *entity)
@@ -83,7 +115,7 @@ void gpc::Player::dropInventory(gpc::Entities entitie)
 		}
 		a++;
 	}
-	_currentTile.addRessource(result);
+	_currentTile->addRessource(result);
 }
 
 void gpc::Player::deleteInInventoryByEntities(gpc::Entities entitie)

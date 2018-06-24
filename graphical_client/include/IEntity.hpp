@@ -37,6 +37,8 @@ namespace gpc {
 			virtual ~IEntity();
 			virtual void draw();
 			virtual void update();
+			int getX();
+			int getY();
 			bool is(Entities entity) const;
 
 		protected:

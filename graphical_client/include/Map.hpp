@@ -18,8 +18,12 @@ namespace gpc {
 		~Map();
 		void draw();
 		Tiles * getTiles(int x, int y);
+		int getX();
+		int getY();
 		private:
 		std::vector<Tiles *> getVectorTiles(int x, int y);
 		std::vector<std::vector<Tiles *>> _map;
+		int _x;
+		int _y;
 	};
 }

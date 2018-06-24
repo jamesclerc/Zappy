@@ -7,7 +7,7 @@
 
 #include "Map.hpp"
 
-gpc::Map::Map(int x, int y)
+gpc::Map::Map(int x, int y) : _x(x), _y(y)
 {
 	for (int i = 0; i < x; i++)
 		_map.push_back(getVectorTiles(i, y));
@@ -15,6 +15,16 @@ gpc::Map::Map(int x, int y)
 
 gpc::Map::~Map()
 {
+}
+
+int gpc::Map::getX()
+{
+	return _x;
+}
+
+int gpc::Map::getY()
+{
+	return _y;
 }
 
 std::vector<gpc::Tiles *> gpc::Map::getVectorTiles(int x, int y)

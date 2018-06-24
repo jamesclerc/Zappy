@@ -17,3 +17,13 @@ bool gpc::IEntity::is(Entities entity) const
 		return true;
 	return false;
 }
+
+int gpc::IEntity::getX()
+{
+	return _x;
+}
+
+int gpc::IEntity::getY()
+{
+	return _y;
+}

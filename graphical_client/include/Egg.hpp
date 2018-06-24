@@ -16,9 +16,12 @@ namespace gpc {
 		public:
 			Egg(int x, int y, gpc::Entities entity, int eggId);
 			~Egg();
+			void hatching();
+			int getId();
 			virtual void draw() final;
 			virtual void update() final;
 		private:
+			bool _hatching;
 			int _id;
 	};
 }
