@@ -102,7 +102,7 @@ char *gpc::Communication::getNextLine(int fd)
 
 void gpc::Communication::handleCommand(std::string str)
 {
-	for (int i = 0; i < 3 ; i++)
+	for (int i = 0; i < 18 ; i++)
 	{
 		if (str.compare(tab[i].str) == 0)
 			funcParse(*this, tab[i].func)(str);
@@ -142,6 +142,87 @@ void gpc::Communication::handleBct(std::string str)
 	handleBct2(std::stoi(firstTok, &sz), std::stoi(token, &sz), str);
 }
 
+void gpc::Communication::handlePnw(std::string str)
+{
+	size_t pos = 0;
+	std::string dir;
+	std::string team;
+	std::string token;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	std::vector<int> player;
+	for (int i = 0; i < 3; i++)
+	{
+		pos = str.find(delimiter);
+		token = str.substr(0, pos);
+		str.erase(0, pos + delimiter.length());
+		player.push_back(std::stoi(token, &sz));
+	}
+	pos = str.find(delimiter);
+	dir = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	pos = str.find(delimiter);
+	token = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	player.push_back(std::stoi(str, &sz));
+	team = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	pos = str.find(delimiter);
+	for (int i = 0; i < 6; i++)
+	{
+		pos = str.find(delimiter);
+		token = str.substr(0, pos);
+		str.erase(0, pos + delimiter.length());
+		player.push_back(std::stoi(token, &sz));
+	}
+	player.push_back(std::stoi(str, &sz));
+	_client.addPlayer(dir, team, player);
+}
+
+void gpc::Communication::handleNeg(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string token;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	pos = str.find(delimiter);
+	token = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.createEgg(std::stoi(firstTok, &sz), std::stoi(token, &sz), std::stoi(str, &sz));
+}
+
+void gpc::Communication::handleHeg(std::string str)
+{
+	std::string::size_type sz;
+	_client.hatchingEgg(std::stoi(str, &sz));
+}
+
+void gpc::Communication::handlePic(std::string str)
+{
+	std::vector<int> incantations;
+	size_t pos = 0;
+	std::string token;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	while(pos != std::string::npos)
+	{
+		token = str.substr(0, pos);
+		str.erase(0, pos + delimiter.length());
+		incantations.push_back(std::stoi(token, &sz));
+		pos = str.find(delimiter);
+	}
+	incantations.push_back(std::stoi(token, &sz));
+	_client.addIncantation(incantations);
+}
+
 void gpc::Communication::handleBct2(int x , int y, std::string str)
 {
 	size_t pos = 0;
@@ -160,6 +241,117 @@ void gpc::Communication::handleBct2(int x , int y, std::string str)
 	}
 	ressources.push_back(std::stoi(str, &sz));
 	_client.completeTiles(x, y, ressources);
+}
+
+void gpc::Communication::handleRsp(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string token;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	pos = str.find(delimiter);
+	token = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.ressourcePop(std::stoi(firstTok, &sz), std::stoi(token, &sz), std::stoi(str, &sz));
+}
+
+void gpc::Communication::handlePdr(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.playerDrop(stoi(firstTok, &sz), stoi(str, &sz));
+}
+
+void gpc::Communication::handlePet(std::string str)
+{
+	std::string::size_type sz;
+	_client.playerEat(stoi(str, &sz));
+}
+
+void gpc::Communication::handlePgt(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.playerGet(stoi(firstTok, &sz), stoi(str, &sz));
+}
+
+void gpc::Communication::handlePmf(std::string str)
+{
+	std::string::size_type sz;
+	_client.playerMoveForward(stoi(str, &sz));
+}
+
+void gpc::Communication::handlePtu(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.playerTurn(std::stoi(firstTok, &sz), str);
+}
+
+void gpc::Communication::handlePbc(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.playerBroadcast(std::stoi(firstTok, &sz), str);
+}
+
+void gpc::Communication::handlePie(std::string str)
+{
+	size_t pos = 0;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	pos = str.find(delimiter);
+	firstTok = str.substr(0, pos);
+	str.erase(0, pos + delimiter.length());
+	_client.incantationFinish(std::stoi(firstTok, &sz), str);
+}
+
+void gpc::Communication::handleSeg(std::string str)
+{
+	_client.finishAll();
+}
+
+void gpc::Communication::handleEdi(std::string str)
+{
+	std::string::size_type sz;
+	_client.eggDie(std::stoi(str, &sz));
+}
+
+void gpc::Communication::handlePdi(std::string str)
+{
+	std::string::size_type sz;
+	_client.playerDie(std::stoi(str, &sz));
 }
 
 void gpc::Communication::readCommand(int datafd, int pollfd)

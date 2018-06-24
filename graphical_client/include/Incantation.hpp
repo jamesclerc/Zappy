@@ -21,6 +21,7 @@ namespace gpc {
 			virtual void update() final;
 			void addPlayer(Player *p);
 			void finish(bool incantationResult);
+			gpc::Player *getIncantationPlayer();
 
 		private:
 			std::vector<Player *> _players;

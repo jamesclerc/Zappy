@@ -32,6 +32,21 @@ namespace gpc {
 			void handleTgt(std::string str);
 			void handleMsz(std::string str);
 			void handleBct(std::string str);
+			void handlePnw(std::string str);
+			void handleNeg(std::string str);
+			void handleHeg(std::string str);
+			void handlePic(std::string str);
+			void handleRsp(std::string str);
+			void handlePdr(std::string str);
+			void handlePgt(std::string str);
+			void handlePet(std::string str);
+			void handlePmf(std::string str);
+			void handlePtu(std::string str);
+			void handlePbc(std::string str);
+			void handlePie(std::string str);
+			void handleEdi(std::string str);
+			void handlePdi(std::string str);
+			void handleSeg(std::string str);
 			void setIp(std::string ip);
 			void setPort(int port);
 			void mainLoop();
@@ -60,8 +75,23 @@ struct funcs_s {
 	ptrFunc func;
 } typedef funcs_t;
 
-static funcs_t tab[3] = {
+static funcs_t tab[18] = {
 	{"tgt", &gpc::Communication::handleTgt},
 	{"msz", &gpc::Communication::handleMsz},
-	{"bct", &gpc::Communication::handleBct}
+	{"bct", &gpc::Communication::handleBct},
+	{"pnw", &gpc::Communication::handlePnw},
+	{"neg", &gpc::Communication::handleNeg},
+	{"heg", &gpc::Communication::handleHeg},
+	{"pic", &gpc::Communication::handlePic},
+	{"rsp", &gpc::Communication::handleRsp},
+	{"pdr", &gpc::Communication::handlePdr},
+	{"pgt", &gpc::Communication::handlePgt},
+	{"pet", &gpc::Communication::handlePet},
+	{"pmf", &gpc::Communication::handlePmf},
+	{"ptu", &gpc::Communication::handlePtu},
+	{"pbc", &gpc::Communication::handlePbc},
+	{"pie", &gpc::Communication::handlePie},
+	{"edi", &gpc::Communication::handleEdi},
+	{"pdi", &gpc::Communication::handlePdi},
+	{"seg", &gpc::Communication::handleSeg}
 };
