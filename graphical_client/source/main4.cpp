@@ -6,10 +6,10 @@
 */
 
 #include "GraphicClient.hpp"
-#include "Communication.hpp"
 
 int main()
 {
-	gpc::GraphicClient::getInstance()->run();
+	sf::RenderWindow *window = new sf::RenderWindow;
+	gpc::GraphicClient client(window, new gpc::Menu(*window));
 	return(1);
 }

@@ -6,20 +6,63 @@
 */
 
 #include "GraphicClient.hpp"
+#include "Communication.hpp"
 
 gpc::GraphicClient *gpc::GraphicClient::_instance = nullptr;
 
-gpc::GraphicClient::GraphicClient(sf::RenderWindow *window, gpc::Menu *menu) : _menu(menu), _window(window)
+gpc::GraphicClient::GraphicClient(sf::RenderWindow *window, gpc::Menu *menu) : _menu(menu), _window(window), _com(*this)
 {
 }
 
-gpc::GraphicClient *gpc::GraphicClient::getInstance()
+void gpc::GraphicClient::setTimer(int timer)
 {
-	if (!_instance) {
-		sf::RenderWindow *window = new sf::RenderWindow;
-		_instance = new GraphicClient(window, new gpc::Menu(*window));
+	_timer = timer;
+}
+
+void gpc::GraphicClient::constructMap(int x, int y)
+{
+	_map = new Map(x, y);
+}
+
+void gpc::GraphicClient::completeTiles(int x, int y, std::vector<int> ressources)
+{
+	Tiles *tile = _map->getTiles(x, y);
+	int i = 0;
+	for(std::vector<int>::iterator it=ressources.begin(); it!=ressources.end(); ++it)
+	{
+		switch(i)
+		{
+			case 0:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::FOOD));
+			break;
+			case 1:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::LINEMATE));
+			break;
+			case 2:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::DERAUMERE));
+			break;
+			case 3:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::SIBUR));
+			break;
+			case 4:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::MENDIANE));
+			break;
+			case 5:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::PHIRAS));
+			break;
+			case 6:
+			for (int y = 0; y < ressources[i];y++)
+				tile->addRessource(new Ressource(x, y, gpc::Entities::THYSTAME));
+			break;
+		}
+		i++;
 	}
-	return _instance;
 }
 
 void gpc::GraphicClient::initConnection()

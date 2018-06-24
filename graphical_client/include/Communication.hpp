@@ -22,23 +22,29 @@
 #define funcParse(objet,pointeur)  ((objet).*(pointeur))
 
 namespace gpc {
+	class GraphicClient;
 	class Communication {
 		public:
-			Communication();
+			Communication(GraphicClient &client);
 			~Communication();
 			int firstConnection();
 			void handleCommand(std::string str);
+			void handleTgt(std::string str);
+			void handleMsz(std::string str);
+			void handleBct(std::string str);
 			void setIp(std::string ip);
 			void setPort(int port);
 			void mainLoop();
 		private:
 			bool testError(int i);
+			void handleBct2(int x, int y, std::string str);
 			void raz(char *str);
 			char *getNextLine(int fd);
 			void readCommand(int datafd, int pollfd);
 			int epollWatch();
 			int epollPrepare();
 			int socketConnect();
+			GraphicClient &_client;
 			struct epoll_event *_events;
 			std::string _ip;
 			int _port;
@@ -54,6 +60,8 @@ struct funcs_s {
 	ptrFunc func;
 } typedef funcs_t;
 
-static funcs_t tab[1] = {
-	{"str", &gpc::Communication::handleCommand}
+static funcs_t tab[3] = {
+	{"tgt", &gpc::Communication::handleTgt},
+	{"msz", &gpc::Communication::handleMsz},
+	{"bct", &gpc::Communication::handleBct}
 };

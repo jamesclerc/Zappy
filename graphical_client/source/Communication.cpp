@@ -6,9 +6,10 @@
 */
 
 #include "Communication.hpp"
+#include "GraphicClient.hpp"
 
 
-gpc::Communication::Communication()
+gpc::Communication::Communication(GraphicClient &client) : _client(client)
 {
 	_events = (struct epoll_event *)calloc(MAXEVENTS, sizeof(struct epoll_event));
 }
@@ -101,11 +102,64 @@ char *gpc::Communication::getNextLine(int fd)
 
 void gpc::Communication::handleCommand(std::string str)
 {
-	for (int i = 0; i < 1 ; i++)
+	for (int i = 0; i < 3 ; i++)
 	{
 		if (str.compare(tab[i].str) == 0)
 			funcParse(*this, tab[i].func)(str);
 	}
+}
+
+void gpc::Communication::handleTgt(std::string str)
+{
+	std::string::size_type sz;
+
+	_client.setTimer(std::stoi(str, &sz));
+}
+
+void gpc::Communication::handleMsz(std::string str)
+{
+	size_t pos = 0;
+	std::string token;
+	std::string::size_type sz;
+
+	pos = str.find(" ");
+	token = str.substr(0, pos);
+	str.erase(0, pos + 1);
+	_client.constructMap(std::stoi(token, &sz), std::stoi(str, &sz));
+}
+
+void gpc::Communication::handleBct(std::string str)
+{
+	size_t pos = 0;
+	std::string token;
+	std::string firstTok;
+	std::string::size_type sz;
+
+	pos = str.find(" ");
+	token = str.substr(0, pos);
+	firstTok = token;
+	str.erase(0, pos + 1);
+	handleBct2(std::stoi(firstTok, &sz), std::stoi(token, &sz), str);
+}
+
+void gpc::Communication::handleBct2(int x , int y, std::string str)
+{
+	size_t pos = 0;
+	std::string token;
+	std::string firstTok;
+	std::string delimiter = " ";
+	std::string::size_type sz;
+
+	std::vector<int> ressources;
+	for (int i = 0; i < 6; i++)
+	{
+		pos = str.find(delimiter);
+		token = str.substr(0, pos);
+		str.erase(0, pos + delimiter.length());
+		ressources.push_back(std::stoi(token, &sz));
+	}
+	ressources.push_back(std::stoi(str, &sz));
+	_client.completeTiles(x, y, ressources);
 }
 
 void gpc::Communication::readCommand(int datafd, int pollfd)
