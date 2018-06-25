@@ -11,7 +11,8 @@
 
 gpc::Communication::Communication(GraphicClient &client) : _client(client)
 {
-	_events = (struct epoll_event *)calloc(MAXEVENTS, sizeof(struct epoll_event));
+	(void)entitie;
+	_events = new struct epoll_event[42];
 }
 
 gpc::Communication::~Communication()
@@ -100,12 +101,33 @@ char *gpc::Communication::getNextLine(int fd)
 	return (result);
 }
 
+void gpc::Communication::handleWelcome(std::string str)
+{
+	write(_fd, "GRAPHIC\n", 8);
+}
+
 void gpc::Communication::handleCommand(std::string str)
 {
-	for (int i = 0; i < 18 ; i++)
+	size_t pos = 0;
+	std::string token;
+	std::string::size_type sz;
+
+	pos = str.find(" ");
+	token = str.substr(0, pos);
+	str.erase(0, pos + 1);
+	std::cout << str << std::endl;
+	for (int i = 0; i < 19 ; i++)
 	{
 		if (str.compare(tab[i].str) == 0)
+		{
 			funcParse(*this, tab[i].func)(str);
+			return;
+		}
+		if (token.compare(tab[i].str) == 0)
+		{
+			funcParse(*this, tab[i].func)(str);
+			return;
+		}
 	}
 }
 
@@ -339,6 +361,7 @@ void gpc::Communication::handlePie(std::string str)
 
 void gpc::Communication::handleSeg(std::string str)
 {
+	str = str;
 	_client.finishAll();
 }
 
@@ -362,7 +385,7 @@ void gpc::Communication::readCommand(int datafd, int pollfd)
 		handleCommand(std::string(cmd));
 	}
 	else {
-		epoll_ctl(_pollfd, EPOLL_CTL_DEL, datafd, NULL);
+		epoll_ctl(pollfd, EPOLL_CTL_DEL, datafd, NULL);
 		shutdown(datafd, SHUT_RDWR);
 	}
 }

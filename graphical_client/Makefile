@@ -5,22 +5,32 @@
 ## Makefile for zappy project
 ##
 
-CC		=		g++
+CXX		=		g++
 
-CFLAGS		+=		-W -Wall -Wextra -g3
+CXXFLAGS	+=		-W -Wall -Wextra -g3
 
-CFLAGS		+=		-I./include
+CPPFLAGS	+=		-Iinclude
 
-CFLAGS		+=		$(DEBUG)
+CXXFLAGS	+=		$(DEBUG)
 
-LDFLAGS		+=
+LDFLAGS		+=		 -lsfml-graphics -lsfml-system -lsfml-window -lsfml-audio
 
 NAME		=		../zappy_graphical
 
 SRCDIR		=		source
 
-SRCS		=		$(addprefix $(SRCDIR)/,	
-				main.cpp)
+SRCS		=		$(addprefix $(SRCDIR)/, \
+				IEntity.cpp \
+				Incantation.cpp \
+				Map.cpp \
+				Ressource.cpp \
+				menu.cpp \
+				Player.cpp \
+				Tiles.cpp \
+				Egg.cpp \
+				Communication.cpp \
+				GraphicClient.cpp \
+				main4.cpp)
 
 OBJDIR		=		build
 
@@ -31,11 +41,11 @@ all:		$(NAME)
 
 $(NAME):	buildrepo $(OBJS)
 		@echo "Linking $(NAME)"
-		@$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+		@$(CXX) $(CXXFLAGS) $(OUTPUT_OPTION) $(OBJS) $(LDFLAGS) $(LDLIBS)
 
-$(OBJDIR)/%.o:	$(SRCDIR)/%.c
+$(OBJDIR)/%.o:	$(SRCDIR)/%.cpp
 		@echo "->" $<
-		@$(CC) -c $< -o $@ $(CFLAGS)
+		@$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $(OUTPUT_OPTION) $^
 
 tests_run:
 		@[ -d tests ] && make --no-print-directory -C tests || echo -n

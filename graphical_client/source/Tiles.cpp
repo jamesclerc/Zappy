@@ -17,11 +17,6 @@ gpc::Tiles::~Tiles()
 
 }
 
-gpc::Tiles &gpc::Tiles::getTilesInDirection(Direction dir)
-{
-	return *this;
-}
-
 void gpc::Tiles::addRessource(IEntity *entity)
 {
 	_entities.push_back(entity);

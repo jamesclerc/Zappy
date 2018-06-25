@@ -7,13 +7,16 @@
 
 #include "Player.hpp"
 
-gpc::Player::Player(int x, int y, gpc::Entities entity, int playerId, gpc::Direction dir, gpc::Tiles *tile, int lvl, std::string team) :
+gpc::Player::Player(int x, int y, gpc::Entities entity, int playerId, gpc::Direction dir, gpc::Tiles *tile, int lvl, std::string team, sf::Sprite &pokemon, std::vector<std::vector<sf::IntRect>> &vector, sf::RenderTexture &window) :
 	IEntity(x,y),
 	_id(playerId),
 	_direction(dir),
 	_currentTile(tile),
 	_lvl(lvl),
-	_team(team)
+	_team(team),
+	_pokemon_s(pokemon),
+	_vector(vector),
+	_window_f(window)
 {
 	_idEntity = entity;
 }

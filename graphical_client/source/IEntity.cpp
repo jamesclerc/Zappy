@@ -11,6 +11,10 @@ gpc::IEntity::IEntity(int x, int y) : _x(x), _y(y)
 {
 }
 
+gpc::IEntity::~IEntity()
+{
+}
+
 bool gpc::IEntity::is(Entities entity) const
 {
 	if (entity == _idEntity)

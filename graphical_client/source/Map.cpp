@@ -6,6 +6,7 @@
 */
 
 #include "Map.hpp"
+#include <iostream>
 
 gpc::Map::Map(int x, int y) : _x(x), _y(y)
 {
@@ -43,4 +44,5 @@ gpc::Tiles * gpc::Map::getTiles(int x, int y)
 
 void gpc::Map::draw()
 {
+	// std::cout << "draw of the map" << std::endl;
 }
