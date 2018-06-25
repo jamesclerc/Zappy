@@ -21,7 +21,7 @@ namespace gpc {
 			virtual void draw() final;
 			virtual void update() final;
 		private:
-			bool _hatching;
 			int _id;
+			bool _hatching;
 	};
 }

@@ -8,6 +8,8 @@
 #pragma once
 
 #include <vector>
+#include <SFML/Graphics.hpp>
+
 
 namespace gpc {
 
@@ -35,8 +37,8 @@ namespace gpc {
 		public:
 			IEntity(int x, int y);
 			virtual ~IEntity();
-			virtual void draw();
-			virtual void update();
+			virtual void draw() = 0;
+			virtual void update() = 0;
 			int getX();
 			int getY();
 			bool is(Entities entity) const;

@@ -47,6 +47,7 @@ namespace gpc {
 			void handleEdi(std::string str);
 			void handlePdi(std::string str);
 			void handleSeg(std::string str);
+			void handleWelcome(std::string str);
 			void setIp(std::string ip);
 			void setPort(int port);
 			void mainLoop();
@@ -75,7 +76,7 @@ struct funcs_s {
 	ptrFunc func;
 } typedef funcs_t;
 
-static funcs_t tab[18] = {
+static funcs_t tab[19] = {
 	{"tgt", &gpc::Communication::handleTgt},
 	{"msz", &gpc::Communication::handleMsz},
 	{"bct", &gpc::Communication::handleBct},
@@ -93,5 +94,6 @@ static funcs_t tab[18] = {
 	{"pie", &gpc::Communication::handlePie},
 	{"edi", &gpc::Communication::handleEdi},
 	{"pdi", &gpc::Communication::handlePdi},
-	{"seg", &gpc::Communication::handleSeg}
+	{"seg", &gpc::Communication::handleSeg},
+	{"WELCOME", &gpc::Communication::handleWelcome}
 };

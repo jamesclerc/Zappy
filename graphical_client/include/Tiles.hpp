@@ -16,7 +16,6 @@ namespace gpc {
 		public:
 			Tiles(int x, int y);
 			~Tiles();
-			gpc::Tiles &getTilesInDirection(gpc::Direction dir);
 			void addRessource(IEntity *);
 			gpc::IEntity *pickRessource(Entities);
 		private:
