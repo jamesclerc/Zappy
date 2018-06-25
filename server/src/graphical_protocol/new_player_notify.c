@@ -18,7 +18,8 @@ void send_pnw(FILE *stream, player_t *player)
 		tmp = player->entity.facing / 2 + 1;
 	else
 		tmp = player->entity.facing % 6 + 2;
-	fprintf(stream, "pnw %li %li %i %i %s ",
+	fprintf(stream, "pnw %i %li %li %i %i %s ",
+		player->fd,
 		player->entity.pos.x, player->entity.pos.y, tmp,
 		player->entity.level, player->entity.team->name);
 	for (unsigned int i = 0; i < 7; i++)
