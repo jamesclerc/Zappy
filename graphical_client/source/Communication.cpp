@@ -115,20 +115,22 @@ void gpc::Communication::handleCommand(std::string str)
 	pos = str.find(" ");
 	token = str.substr(0, pos);
 	str.erase(0, pos + 1);
-	std::cout << str << std::endl;
 	for (int i = 0; i < 19 ; i++)
 	{
 		if (str.compare(tab[i].str) == 0)
 		{
+			std::cout << "STR : " << str << "FUNC : " << tab[i].str << std::endl;
 			funcParse(*this, tab[i].func)(str);
 			return;
 		}
 		if (token.compare(tab[i].str) == 0)
 		{
+			std::cout << "TOKEN FUNC : " << tab[i].str << " ARGS : " << str << std::endl;
 			funcParse(*this, tab[i].func)(str);
 			return;
 		}
 	}
+	std::cout << "Unknown cmd" << std::endl;
 }
 
 void gpc::Communication::handleTgt(std::string str)
