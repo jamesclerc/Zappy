@@ -14,7 +14,7 @@
 namespace gpc {
 	class Map {
 		public:
-		Map(int x, int y);
+		Map(int x, int y, sf::Sprite &floor, sf::RenderTexture &window);
 		~Map();
 		void draw();
 		Tiles * getTiles(int x, int y);
@@ -25,5 +25,7 @@ namespace gpc {
 		std::vector<std::vector<Tiles *>> _map;
 		int _x;
 		int _y;
+		sf::Sprite &_floor;
+		sf::RenderTexture &_window;
 	};
 }

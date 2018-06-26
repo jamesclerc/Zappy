@@ -8,7 +8,7 @@
 #include "Map.hpp"
 #include <iostream>
 
-gpc::Map::Map(int x, int y) : _x(x), _y(y)
+gpc::Map::Map(int x, int y, sf::Sprite &floor, sf::RenderTexture &window) : _x(x), _y(y), _floor(floor), _window(window)
 {
 	for (int i = 0; i < x; i++)
 		_map.push_back(getVectorTiles(i, y));
@@ -33,7 +33,7 @@ std::vector<gpc::Tiles *> gpc::Map::getVectorTiles(int x, int y)
 	std::vector<gpc::Tiles *> tiles;
 
 	for(int i = 0; i < y; i++)
-		tiles.push_back(new Tiles(x, i));
+		tiles.push_back(new Tiles(x, i, _floor, _window));
 	return tiles;
 }
 
@@ -44,5 +44,12 @@ gpc::Tiles * gpc::Map::getTiles(int x, int y)
 
 void gpc::Map::draw()
 {
-	// std::cout << "draw of the map" << std::endl;
+	_window.clear();
+	for (int i = 0; i < _x; i++)
+	{
+		for (int j = 0; j < _y; j++) {
+			_map[i][j]->draw();
+		}
+	}
+	_window.display();
 }

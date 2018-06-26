@@ -51,7 +51,7 @@ bool gpc::Communication::testError(int i)
 
 void gpc::Communication::mainLoop()
 {
-	int n = epoll_wait (_pollfd, _events, MAXEVENTS, -1);
+	int n = epoll_wait (_pollfd, _events, MAXEVENTS, 0);
 	for (int i = 0; i < n; i++) {
 		if (testError(i))
 			continue;
@@ -163,6 +163,9 @@ void gpc::Communication::handleBct(std::string str)
 	token = str.substr(0, pos);
 	firstTok = token;
 	str.erase(0, pos + 1);
+	pos = str.find(" ");
+	token = str.substr(0, pos);
+	str.erase(0, pos + 1);
 	handleBct2(std::stoi(firstTok, &sz), std::stoi(token, &sz), str);
 }
 
@@ -176,6 +179,7 @@ void gpc::Communication::handlePnw(std::string str)
 	std::string::size_type sz;
 
 	std::vector<int> player;
+	std::cout << str << std::endl;
 	for (int i = 0; i < 3; i++)
 	{
 		pos = str.find(delimiter);
@@ -183,25 +187,31 @@ void gpc::Communication::handlePnw(std::string str)
 		str.erase(0, pos + delimiter.length());
 		player.push_back(std::stoi(token, &sz));
 	}
+	std::cout << str << std::endl;
 	pos = str.find(delimiter);
 	dir = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());
+	std::cout << str << std::endl;	
 	pos = str.find(delimiter);
 	token = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());
-	player.push_back(std::stoi(str, &sz));
+	player.push_back(std::stoi(token, &sz));
+	std::cout << str << std::endl;
+	pos = str.find(delimiter);
 	team = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());
-	pos = str.find(delimiter);
+	std::cout << str << std::endl;
 	for (int i = 0; i < 6; i++)
 	{
 		pos = str.find(delimiter);
 		token = str.substr(0, pos);
 		str.erase(0, pos + delimiter.length());
+		std::cout << str << std::endl;
 		player.push_back(std::stoi(token, &sz));
 	}
 	player.push_back(std::stoi(str, &sz));
-	_client.addPlayer(dir, team, player);
+	std::cout << str << std::endl;
+	_client.addPlayer(std::stoi(dir, &sz), team, player);
 }
 
 void gpc::Communication::handleNeg(std::string str)
@@ -332,7 +342,7 @@ void gpc::Communication::handlePtu(std::string str)
 	pos = str.find(delimiter);
 	firstTok = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());
-	_client.playerTurn(std::stoi(firstTok, &sz), str);
+	_client.playerTurn(std::stoi(firstTok, &sz), std::stoi(str, &sz));
 }
 
 void gpc::Communication::handlePbc(std::string str)

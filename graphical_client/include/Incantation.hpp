@@ -15,7 +15,7 @@
 namespace gpc {
 	class Incantation : public IEntity {
 		public:
-			Incantation(int x, int y, Entities entity);
+			Incantation(int x, int y, Entities entity, sf::RenderTexture &window);
 			~Incantation();
 			virtual void draw() final;
 			virtual void update() final;

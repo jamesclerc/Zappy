@@ -14,13 +14,19 @@
 namespace gpc {
 	class Tiles {
 		public:
-			Tiles(int x, int y);
+			Tiles(int x, int y, sf::Sprite &floor, sf::RenderTexture &window);
 			~Tiles();
 			void addRessource(IEntity *);
 			gpc::IEntity *pickRessource(Entities);
+			void draw();
+			int getX();
+			int getY();
 		private:
 			std::vector<gpc::IEntity *> _entities;
 			int _x;
 			int _y;
+			void drawEntities();
+			sf::Sprite _floor;
+			sf::RenderTexture &_window;
 	};
 }

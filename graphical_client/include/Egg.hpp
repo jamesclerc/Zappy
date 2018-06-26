@@ -14,7 +14,7 @@
 namespace gpc {
 	class Egg : public IEntity {
 		public:
-			Egg(int x, int y, gpc::Entities entity, int eggId);
+			Egg(int x, int y, gpc::Entities entity, int eggId, sf::RenderTexture &window);
 			~Egg();
 			void hatching();
 			int getId();

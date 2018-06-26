@@ -7,7 +7,7 @@
 
 #include "Egg.hpp"
 
-gpc::Egg::Egg(int x, int y, Entities entity, int eggId) : IEntity(x,y), _id(eggId), _hatching(false)
+gpc::Egg::Egg(int x, int y, Entities entity, int eggId, sf::RenderTexture &window) : IEntity(x,y, window), _id(eggId), _hatching(false)
 {
 	_idEntity = entity;
 }

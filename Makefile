@@ -5,7 +5,9 @@
 ## Makefile, duh.
 ##
 
-TARGETS		= server
+TARGETS		= server \
+		graphical_client
+
 
 define rules =
 $(1):

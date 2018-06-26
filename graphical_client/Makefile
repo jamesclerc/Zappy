@@ -30,7 +30,7 @@ SRCS		=		$(addprefix $(SRCDIR)/, \
 				Egg.cpp \
 				Communication.cpp \
 				GraphicClient.cpp \
-				main4.cpp)
+				main.cpp)
 
 OBJDIR		=		build
 

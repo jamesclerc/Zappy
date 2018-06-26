@@ -35,17 +35,21 @@ namespace gpc {
 
 	class IEntity {
 		public:
-			IEntity(int x, int y);
+			IEntity(int x, int y, sf::RenderTarget &window);
 			virtual ~IEntity();
 			virtual void draw() = 0;
 			virtual void update() = 0;
 			int getX();
 			int getY();
+			void setX(int x);
+			void setY(int y);
+			Entities getEntities();
 			bool is(Entities entity) const;
 
 		protected:
 			int _x;
 			int _y;
+			sf::RenderTarget &_window;
 			Entities _idEntity;
 	};
 }

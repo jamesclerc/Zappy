@@ -7,7 +7,7 @@
 
 #include "Incantation.hpp"
 
-gpc::Incantation::Incantation(int x, int y, Entities entity) : IEntity(x,y)
+gpc::Incantation::Incantation(int x, int y, Entities entity, sf::RenderTexture &window) : IEntity(x,y, window)
 {
 	_idEntity = entity;
 }
