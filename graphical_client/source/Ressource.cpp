@@ -46,6 +46,12 @@ gpc::Ressource::Ressource(int x, int y, Entities entity, sf::RenderTexture &wind
 			_pixel_y = 64 * y + 48;
 			_sprite.setScale(0.1f, 0.1f);
 			break;
+		case EGG:
+			break;
+		case PLAYER:
+			break;
+		case INCANTATION:
+			break;
 	}
 }
 

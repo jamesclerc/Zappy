@@ -103,6 +103,7 @@ char *gpc::Communication::getNextLine(int fd)
 
 void gpc::Communication::handleWelcome(std::string str)
 {
+	(void)str;
 	write(_fd, "GRAPHIC\n", 8);
 }
 
@@ -110,7 +111,6 @@ void gpc::Communication::handleCommand(std::string str)
 {
 	size_t pos = 0;
 	std::string token;
-	std::string::size_type sz;
 
 	pos = str.find(" ");
 	token = str.substr(0, pos);
@@ -191,7 +191,7 @@ void gpc::Communication::handlePnw(std::string str)
 	pos = str.find(delimiter);
 	dir = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());
-	std::cout << str << std::endl;	
+	std::cout << str << std::endl;
 	pos = str.find(delimiter);
 	token = str.substr(0, pos);
 	str.erase(0, pos + delimiter.length());

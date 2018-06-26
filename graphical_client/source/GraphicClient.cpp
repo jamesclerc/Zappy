@@ -657,7 +657,7 @@ void gpc::GraphicClient::initPlayerSprites()
 
 void gpc::GraphicClient::drawPlayers()
 {
-	for (int i = 0; i < _players.size(); i++) {
+	for (size_t i = 0; i < _players.size(); i++) {
 		_players[i]->draw();
 	}
 }

@@ -53,7 +53,7 @@ gpc::IEntity *gpc::Tiles::pickRessource(gpc::Entities ent)
 
 void gpc::Tiles::drawEntities()
 {
-	for (int i = 0; i < _entities.size(); i++) {
+	for (size_t i = 0; i < _entities.size(); i++) {
 		_entities[i]->draw();
 	}
 }

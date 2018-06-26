@@ -9,6 +9,7 @@
 
 int main()
 {
+	(void)entitie;
 	std::cout << sizeof(gpc::Menu) << std::endl;
 	gpc::GraphicClient client;
 	client.run();
