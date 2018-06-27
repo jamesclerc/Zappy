@@ -21,6 +21,7 @@ namespace gpc {
 			void draw();
 			int getX();
 			int getY();
+			void setIncantation(bool state);
 		private:
 			std::vector<gpc::IEntity *> _entities;
 			int _x;
@@ -28,5 +29,6 @@ namespace gpc {
 			void drawEntities();
 			sf::Sprite _floor;
 			sf::RenderTexture &_window;
+			bool _incantation;
 	};
 }

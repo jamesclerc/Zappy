@@ -8,7 +8,7 @@
 #include "Tiles.hpp"
 #include <iostream>
 
-gpc::Tiles::Tiles(int x, int y, sf::Sprite &floor, sf::RenderTexture &window) : _x(x), _y(y), _floor(floor), _window(window)
+gpc::Tiles::Tiles(int x, int y, sf::Sprite &floor, sf::RenderTexture &window) : _x(x), _y(y), _floor(floor), _window(window), _incantation(false)
 {
 
 }
@@ -21,6 +21,11 @@ gpc::Tiles::~Tiles()
 int gpc::Tiles::getX()
 {
 	return _x;
+}
+
+void gpc::Tiles::setIncantation(bool state)
+{
+	_incantation = state;
 }
 
 int gpc::Tiles::getY()

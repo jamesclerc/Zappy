@@ -23,6 +23,11 @@ gpc::Player::~Player()
 {
 }
 
+gpc::Tiles *gpc::Player::getCurrentTile()
+{
+	return _currentTile;
+}
+
 void gpc::Player::draw()
 {
 	int i;

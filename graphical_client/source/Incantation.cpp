@@ -16,6 +16,11 @@ gpc::Incantation::~Incantation()
 {
 }
 
+void gpc::Incantation::setIncantationOnTile()
+{
+	_players[0]->getCurrentTile()->setIncantation(true);
+}
+
 void gpc::Incantation::draw()
 {
 }
@@ -47,4 +52,5 @@ void gpc::Incantation::finish(bool incantationResult)
 		}
 		i++;
 	}
+	_players[0]->getCurrentTile()->setIncantation(false);
 }

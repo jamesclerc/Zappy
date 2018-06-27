@@ -20,6 +20,7 @@ namespace gpc {
 			virtual void draw() final;
 			virtual void update() final;
 			void addPlayer(Player *p);
+			void setIncantationOnTile();
 			void finish(bool incantationResult);
 			gpc::Player *getIncantationPlayer();
 
