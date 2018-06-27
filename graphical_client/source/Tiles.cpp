@@ -74,6 +74,7 @@ void gpc::Tiles::draw()
 		sol_c.a = 235;
 	else
 		sol_c.a = 255;
+	_floor.setColor(sol_c);
 	if (_incantation)
 		_floor.setColor(sf::Color(108, 132, 51));
 	else
