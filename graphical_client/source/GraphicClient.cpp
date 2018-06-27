@@ -323,6 +323,11 @@ void gpc::GraphicClient::handleMoveEvent(sf::Event &event)
 
 void gpc::GraphicClient::handleEvent(sf::Event &event)
 {
+	if (event.type == sf::Event::MouseButtonPressed) {
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(_window); 
+        	sf::Vector2f worldPos = window_f.mapPixelToCoords(pixelPos);
+        	printf("%f %f\n", worldPos.x / 64.f, worldPos.y / 64.f);
+	}
 	if (event.type == sf::Event::MouseWheelScrolled && !sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
 		handleMoveEvent(event);
 		window_f.setView(view);
