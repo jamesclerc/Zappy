@@ -253,7 +253,7 @@ void gpc::Communication::handlePic(std::string str)
 		incantations.push_back(std::stoi(token, &sz));
 		pos = str.find(delimiter);
 	}
-	incantations.push_back(std::stoi(token, &sz));
+	incantations.push_back(std::stoi(str, &sz));
 	_client.addIncantation(incantations);
 }
 
