@@ -5,6 +5,7 @@
 ** Client exit related functions
 */
 
+#include "graphical_commands.h"
 #include "containers.h"
 #include "entity.h"
 #include "game.h"
@@ -35,12 +36,17 @@ bool disconnect_handle(game_t *game, struct epoll_event *ev)
 	list_t *tmp;
 	player_t *player;
 
+	if (ev->data.fd == fileno(game->graph_stream)) {
+		game->graph_stream = NULL;
+		return (true);
+	}
 	tmp = game->players;
 	while (tmp) {
 		player = (player_t *)tmp->element;
 		if (player->fd == ev->data.fd) {
 			list_remove(&tmp);
 			player_destroy(player);
+			send_pdi(game->graph_stream, player->id);
 			return (true);
 		}
 		tmp = tmp->next;
