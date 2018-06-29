@@ -16,6 +16,7 @@ gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 	initFront();
 	initMaterial();
 	initPlayerSprites();
+	initEgg();
 	_view_is_init = false;
 	_scaling = 1.f;
 	_menu = new Menu(_window);
@@ -622,6 +623,19 @@ void gpc::GraphicClient::initMaterial()
 	initMendiane(material_t);
 	initPhiras(material_t);
 	initThystame(material_t);
+}
+
+void gpc::GraphicClient::initEgg()
+{
+	sf::Sprite *sprite = new sf::Sprite;
+	sf::Sprite *sprite_hatch = new sf::Sprite;
+
+	egg_t.loadFromFile("./graphical_client/sprite/eggs.png");
+	sprite->setTexture(egg_t);
+	_egg.push_back(*sprite);
+	eggHatch_t.loadFromFile("./graphical_client/sprite/hatching_egg.png");
+	sprite_hatch->setTexture(eggHatch_t);
+	_egg.push_back(*sprite_hatch);
 }
 
 void gpc::GraphicClient::initLevelSprites(sf::IntRect rect)
