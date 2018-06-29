@@ -166,7 +166,7 @@ void gpc::Player::deleteInInventoryByEntities(gpc::Entities entitie)
 		if (_inventory[a]->is(entitie))
 		{
 			_inventory.erase(it);
-			break;
+			return;
 		}
 		a++;
 	}
