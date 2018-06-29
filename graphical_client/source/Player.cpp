@@ -23,6 +23,10 @@ gpc::Player::~Player()
 {
 }
 
+gpc::Tiles *gpc::Player::getCurrentTile()
+{
+	return _currentTile;
+}
 void gpc::Player::draw()
 {
 	int i;
@@ -54,6 +58,7 @@ void gpc::Player::update()
 
 void gpc::Player::levelUp()
 {
+	std::cout << "PLAYER LELELUP" << std::endl;
 	_lvl++;
 }
 
@@ -113,7 +118,7 @@ void gpc::Player::deleteInInventory(gpc::IEntity *entity)
 		if (_inventory[a] == entity)
 		{
 			_inventory.erase(it);
-			break;
+			return;;
 		}
 		a++;
 	}
@@ -156,12 +161,17 @@ void gpc::Player::dropInventory(gpc::Entities entitie)
 void gpc::Player::deleteInInventoryByEntities(gpc::Entities entitie)
 {
 	int a = 0;
+	if (_inventory.size() == 0)
+	{
+		std::cout << "INVENTORY VIDE" << std::endl;
+		return;
+	}
 	for(auto it=_inventory.begin(); it!=_inventory.end(); ++it)
 	{
 		if (_inventory[a]->is(entitie))
 		{
 			_inventory.erase(it);
-			break;
+			return;
 		}
 		a++;
 	}

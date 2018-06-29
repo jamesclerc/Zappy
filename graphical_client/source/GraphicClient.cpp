@@ -16,6 +16,7 @@ gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 	initFront();
 	initMaterial();
 	initPlayerSprites();
+	initEgg();
 	_view_is_init = false;
 	_scaling = 1.f;
 	_menu = new Menu(_window);
@@ -54,7 +55,7 @@ void gpc::GraphicClient::completeTiles(int x, int y, std::vector<int> ressources
 
 void gpc::GraphicClient::createEgg(int x, int y, int id)
 {
-	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f));
+	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f, _egg));
 }
 
 void gpc::GraphicClient::ressourcePop(int x, int y, int i)
@@ -78,6 +79,10 @@ void gpc::GraphicClient::playerDrop(int n, int i)
 void gpc::GraphicClient::playerEat(int n)
 {
 	Player *p = getPlayer(n);
+	if (p == nullptr) {
+		std::cout << "PLAYER NULL IN EAT" << std::endl;
+		return;
+	}
 	p->deleteInInventoryByEntities(gpc::Entities::FOOD);
 }
 
@@ -122,8 +127,10 @@ void gpc::GraphicClient::finishAll()
 void gpc::GraphicClient::incantationFinish(int n, std::string result)
 {
 	gpc::Incantation *inc = getIncantation(n);
-	if (inc == nullptr)
+	if (inc == nullptr) {
+		std::cout << "inc nullptr" << std::endl;
 		return;
+	}
 	if (result.compare("ok"))
 		inc->finish(true);
 	else
@@ -169,8 +176,10 @@ void gpc::GraphicClient::hatchingEgg(int id)
 gpc::Player *gpc::GraphicClient::getPlayer(int id)
 {
 	int i = 0;
+	std::cout << "GET PLAYER : " << std::to_string(id) << std::endl;
 	for(auto it=_players.begin(); it!=_players.end(); it++)
 	{
+		std::cout << "Player ID = " << std::to_string(_players[i]->getId()) << std::endl;
 		if (_players[i]->getId() == id)
 			return _players[i];
 		i++;
@@ -323,6 +332,11 @@ void gpc::GraphicClient::handleMoveEvent(sf::Event &event)
 
 void gpc::GraphicClient::handleEvent(sf::Event &event)
 {
+	if (event.type == sf::Event::MouseButtonPressed) {
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(_window); 
+        	sf::Vector2f worldPos = window_f.mapPixelToCoords(pixelPos);
+        	printf("%f %f\n", worldPos.x / 64.f, worldPos.y / 64.f);
+	}
 	if (event.type == sf::Event::MouseWheelScrolled && !sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
 		handleMoveEvent(event);
 		window_f.setView(view);
@@ -341,7 +355,7 @@ void gpc::GraphicClient::mainLoop()
 		sf::Event event;
 		while (_window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				_window.close();				
+				_window.close();
 			}
 			handleEvent(event);
 		}
@@ -359,7 +373,7 @@ void gpc::GraphicClient::mainLoop()
 			_window.draw(sprite);
 			_window.draw(front_s);
 			_window.display();
-		}		
+		}
 	}
 }
 
@@ -619,6 +633,18 @@ void gpc::GraphicClient::initMaterial()
 	initThystame(material_t);
 }
 
+void gpc::GraphicClient::initEgg()
+{
+	sf::Sprite *sprite = new sf::Sprite;
+	sf::Sprite *sprite_hatch = new sf::Sprite;
+
+	egg_t.loadFromFile("./graphical_client/sprite/eggs.png");
+	sprite->setTexture(egg_t);
+	_egg.push_back(*sprite);
+	eggHatch_t.loadFromFile("./graphical_client/sprite/hatching_egg.png");
+	sprite_hatch->setTexture(eggHatch_t);
+	_egg.push_back(*sprite_hatch);
+}
 void gpc::GraphicClient::initLevelSprites(sf::IntRect rect)
 {
 	sf::Sprite *tmp;

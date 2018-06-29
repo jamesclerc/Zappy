@@ -111,6 +111,11 @@ namespace gpc {
 			void initLevelSprites(sf::IntRect rect);
 			std::vector<std::vector<sf::Sprite>> player_sprites;
 			sf::Texture player_texture;
+
+			sf::Texture egg_t;
+			sf::Texture eggHatch_t;
+			void initEgg();;
+			std::vector<sf::Sprite> _egg;
 	};
 }
 

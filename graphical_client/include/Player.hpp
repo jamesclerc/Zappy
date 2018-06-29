@@ -23,6 +23,7 @@ namespace gpc {
 			virtual void update() final;
 			int getId();
 			void levelUp();
+			gpc::Tiles *getCurrentTile();
 			void setDir(gpc::Direction dir);
 			void setLevel(int lvl);
 			void setCurrentTile(gpc::Tiles *tile);
