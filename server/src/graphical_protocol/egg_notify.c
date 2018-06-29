@@ -11,8 +11,8 @@
 void send_neg(FILE *stream, egg_t *egg)
 {
 	if (stream)
-		fprintf(stream, "%li %li %s %i\n",
-		egg->pos.x, egg->pos.y, egg->team->name,
+		fprintf(stream, "neg %li %li %i\n",
+		egg->pos.x, egg->pos.y,
 		egg->id);
 }
 
