@@ -9,4 +9,4 @@
 #include <stdio.h>
 #include "containers.h"
 
-void food_update(FILE *stream, list_t **players, int freq);
+void food_update(FILE *stream, list_t **players, int freq, int efd);

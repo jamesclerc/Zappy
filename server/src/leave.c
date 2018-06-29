@@ -36,8 +36,9 @@ bool disconnect_handle(game_t *game, struct epoll_event *ev, int efd)
 	list_t *tmp;
 	player_t *player;
 
-	if (ev->data.fd == fileno(game->graph_stream)) {
+	if (game->graph_stream && ev->data.fd == fileno(game->graph_stream)) {
 		epoll_ctl(efd, EPOLL_CTL_DEL, fileno(game->graph_stream), NULL);
+		fclose(game->graph_stream);
 		game->graph_stream = NULL;
 		return (true);
 	}
@@ -45,9 +46,11 @@ bool disconnect_handle(game_t *game, struct epoll_event *ev, int efd)
 	while (tmp) {
 		player = (player_t *)tmp->element;
 		if (player->fd == ev->data.fd) {
-			list_remove(&tmp);
-			player_destroy(player);
+			list_remove((tmp == game->players) ?
+				&game->players : &tmp);
+			epoll_ctl(efd, EPOLL_CTL_DEL, player->fd, NULL);
 			send_pdi(game->graph_stream, player->id);
+			player_destroy(player);
 			return (true);
 		}
 		tmp = tmp->next;

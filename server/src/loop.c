@@ -29,7 +29,8 @@ static bool loop(game_t *game, int efd, int sfd)
 		for (int i = 0; i < n; i++)
 			event_handle(game, events + i, efd, sfd);
 		execute_commands(game);
-		food_update(game->graph_stream, &game->players, game->freq);
+		food_update(game->graph_stream, &game->players, game->freq,
+			efd);
 		incantations_check(game);
 		hatch_egg(game);
 		map_fill(game->graph_stream, game);
