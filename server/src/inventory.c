@@ -71,3 +71,16 @@ void inventory_move(inventory_t *destination, inventory_t *source)
 	inventory_give(destination, source);
 	inventory_take(source, source);
 }
+
+bool inventory_check_inc(inventory_t *inventory, inventory_t *required)
+{
+	if (inventory == NULL || required == NULL) {
+		return (false);
+	}
+	return (inventory->linemate == required->linemate &&
+		inventory->deraumere == required->deraumere &&
+		inventory->sibur == required->sibur &&
+		inventory->mendiane == required->mendiane &&
+		inventory->phiras == required->phiras &&
+		inventory->thystame == required->thystame);
+}

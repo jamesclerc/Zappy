@@ -16,6 +16,6 @@ bool respond_forward(game_t *game, player_t *player, char *argument)
 	}
 	position_nudge(game->map, &player->entity.pos, player->entity.facing);
 	fprintf(player->stream, "ok\n");
-	send_pmf(game->graph_stream, player->fd);
+	send_pmf(game->graph_stream, player->id);
 	return (true);
 }

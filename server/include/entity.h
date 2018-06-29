@@ -32,6 +32,7 @@ struct player_s
 	entity_t entity;
 	FILE *stream;
 	int fd;
+	unsigned int id;
 	queue_t *commands;
 };
 

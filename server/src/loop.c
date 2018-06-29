@@ -32,7 +32,7 @@ static bool loop(game_t *game, int efd, int sfd)
 		food_update(game->graph_stream, &game->players, game->freq);
 		incantations_check(game);
 		hatch_egg(game);
-		map_fill(game->graph_stream, game->map);
+		map_fill(game->graph_stream, game);
 	}
 	if (game->graph_stream)
 		fprintf(game->graph_stream, "seg\n");

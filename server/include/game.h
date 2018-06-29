@@ -23,3 +23,5 @@ struct game_s {
 	int freq;
 	FILE *graph_stream;
 };
+
+void map_fill(FILE *, game_t*);

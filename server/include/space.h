@@ -43,7 +43,6 @@ map_t *map_create(unsigned long width, unsigned long height);
 void map_destroy(map_t *);
 inventory_t *map_peek(map_t *, position_t *);
 void position_nudge(map_t *map, position_t *pos, direction_t dir);
-void map_fill(FILE *, map_t *);
 
 static inline direction_t direction_left(direction_t dir)
 {
