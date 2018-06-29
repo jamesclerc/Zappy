@@ -176,8 +176,10 @@ void gpc::GraphicClient::hatchingEgg(int id)
 gpc::Player *gpc::GraphicClient::getPlayer(int id)
 {
 	int i = 0;
+	std::cout << "GET PLAYER : " << std::to_string(id) << std::endl;
 	for(auto it=_players.begin(); it!=_players.end(); it++)
 	{
+		std::cout << "Player ID = " << std::to_string(_players[i]->getId()) << std::endl;
 		if (_players[i]->getId() == id)
 			return _players[i];
 		i++;
