@@ -41,7 +41,7 @@ void incantations_check(game_t *game)
 		if (!inventory_has(&game->map->cells[inc->participants[0]->
 			entity.pos.y][inc->participants[0]->entity.pos.x],
 			(inventory_t *)&elevations
-			[inc->participants[0]->entity.level])){
+			[inc->participants[0]->entity.level - 1])){
 			interrupt_incantation(game, tmp);
 		}
 		tmp = tmp->next;
