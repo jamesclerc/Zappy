@@ -123,8 +123,10 @@ void gpc::GraphicClient::finishAll()
 void gpc::GraphicClient::incantationFinish(int n, std::string result)
 {
 	gpc::Incantation *inc = getIncantation(n);
-	if (inc == nullptr)
+	if (inc == nullptr) {
+		std::cout << "inc nullptr" << std::endl;
 		return;
+	}
 	if (result.compare("ok"))
 		inc->finish(true);
 	else
