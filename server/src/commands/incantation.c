@@ -56,7 +56,7 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 		err(84, "malloc");
 	new->actions_queued = false;
 	new->participants[0] = p;
-	if (argument||!inventory_has(
+	if (argument||!inventory_check_inc(
 		&game->map->cells[p->entity.pos.y][p->entity.pos.x],
 		(inventory_t *)&elevations[p->entity.level - 1]) ||
 		!elevation_check_players(game->players, p, new->participants)) {
@@ -92,17 +92,17 @@ bool respond_incantation(game_t *game, player_t *p, char *argument)
 	incantation_t *i;
 
 	(void)argument;
-	if (!inventory_has(&game->map->cells[p->entity.pos.y][p->entity.pos.x],
+	if (!inventory_check_inc(&game->map->cells[p->entity.pos.y][p->entity.pos.x],
 	(inventory_t *)(&elevations[p->entity.level - 1])) ||
 		!elevation_check_players(game->players, p, NULL)) {
-		send_pie(game->graph_stream, p->fd, false);
+		send_pie(game->graph_stream, p->id, false);
 		return (false);
 	}
 	while (tmp) {
 		i = tmp->element;
 		if (i->participants[0] == p){
 			incantation_remove(game->graph_stream,
-				&game->incantations, tmp, p->fd);
+				&game->incantations, tmp, p->id);
 			break;
 		}
 		tmp =tmp->next;

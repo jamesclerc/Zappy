@@ -16,7 +16,10 @@ gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 	initFront();
 	initMaterial();
 	initPlayerSprites();
+<<<<<<< HEAD
 	initEgg();
+=======
+>>>>>>> 3d9bf1fdfb2af18b87c361c74c6081c20522588f
 	_view_is_init = false;
 	_scaling = 1.f;
 	_menu = new Menu(_window);
@@ -55,7 +58,11 @@ void gpc::GraphicClient::completeTiles(int x, int y, std::vector<int> ressources
 
 void gpc::GraphicClient::createEgg(int x, int y, int id)
 {
+<<<<<<< HEAD
 	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f, _egg));
+=======
+	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f));
+>>>>>>> 3d9bf1fdfb2af18b87c361c74c6081c20522588f
 }
 
 void gpc::GraphicClient::ressourcePop(int x, int y, int i)
@@ -349,7 +356,7 @@ void gpc::GraphicClient::mainLoop()
 		sf::Event event;
 		while (_window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				_window.close();				
+				_window.close();
 			}
 			handleEvent(event);
 		}
@@ -367,7 +374,7 @@ void gpc::GraphicClient::mainLoop()
 			_window.draw(sprite);
 			_window.draw(front_s);
 			_window.display();
-		}		
+		}
 	}
 }
 
@@ -639,7 +646,6 @@ void gpc::GraphicClient::initEgg()
 	sprite_hatch->setTexture(eggHatch_t);
 	_egg.push_back(*sprite_hatch);
 }
-
 void gpc::GraphicClient::initLevelSprites(sf::IntRect rect)
 {
 	sf::Sprite *tmp;

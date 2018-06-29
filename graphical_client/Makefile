@@ -7,7 +7,11 @@
 
 CXX		=		g++
 
+<<<<<<< HEAD
 CXXFLAGS	+=		-W -Wall -Wextra -g3 -std=c++11
+=======
+CXXFLAGS	+=		-W -Wall -Wextra -g3
+>>>>>>> 3d9bf1fdfb2af18b87c361c74c6081c20522588f
 
 CPPFLAGS	+=		-Iinclude
 

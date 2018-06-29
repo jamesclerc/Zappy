@@ -43,6 +43,6 @@ bool respond_eject(game_t *game, player_t *player, char *argument)
 		}
 		list = list->next;
 	}
-	send_pex(game->graph_stream, player->fd);
+	send_pex(game->graph_stream, player->id);
 	return (ret);
 }

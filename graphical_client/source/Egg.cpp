@@ -37,7 +37,6 @@ void gpc::Egg::draw()
 		_sprite[1].setPosition(_x * 64 + 32, _y * 64 + 32);
 		_window.draw(_sprite[1]);
 	}
-		
 }
 
 void gpc::Egg::update()

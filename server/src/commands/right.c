@@ -16,6 +16,6 @@ bool respond_right(game_t *game, player_t *player, char *argument)
 		return (false);
 	player->entity.facing = direction_right(player->entity.facing);
 	fprintf(player->stream, "ok\n");
-	send_ptu(game->graph_stream, player->fd, player->entity.facing);
+	send_ptu(game->graph_stream, player->id, player->entity.facing);
 	return (true);
 }
