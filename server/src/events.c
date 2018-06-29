@@ -110,6 +110,8 @@ bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 		return (accept_client(game, ev, efd));
 	else if (ev->data.fd == sfd)
 		err(84, "pterodactyl scream"); // AAAAAAAAH!
+	else if (ev->events & (EPOLLRDHUP | EPOLLERR))
+		disconnect_handle(game, ev, efd);
 	else if (ev->events & EPOLLIN) {
 		player = player_by_fd(game->players, ev->data.fd);
 		if (player)
@@ -118,7 +120,5 @@ bool event_handle(game_t *game, struct epoll_event *ev, int efd, int sfd)
 			ev->data.fd == fileno(game->graph_stream))
 			return (get_graph_message(game));
 	}
-	else
-		disconnect_handle(game, ev);
 	return (false);
 }

@@ -31,12 +31,13 @@ void player_remove(list_t **players, player_t *to_remove)
 }
 
 /// Handles the disconnection of a client
-bool disconnect_handle(game_t *game, struct epoll_event *ev)
+bool disconnect_handle(game_t *game, struct epoll_event *ev, int efd)
 {
 	list_t *tmp;
 	player_t *player;
 
 	if (ev->data.fd == fileno(game->graph_stream)) {
+		epoll_ctl(efd, EPOLL_CTL_DEL, fileno(game->graph_stream), NULL);
 		game->graph_stream = NULL;
 		return (true);
 	}
