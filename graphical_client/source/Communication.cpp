@@ -246,6 +246,7 @@ void gpc::Communication::handlePic(std::string str)
 	std::string::size_type sz;
 
 	pos = str.find(delimiter);
+	std::cout << "Handle PIC, POS : " << std::to_string(pos) << std::endl;
 	while(pos != std::string::npos)
 	{
 		token = str.substr(0, pos);
