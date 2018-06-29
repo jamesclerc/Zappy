@@ -10,12 +10,23 @@
 
 gpc::Tiles::Tiles(int x, int y, sf::Sprite &floor, sf::RenderTexture &window) : _x(x), _y(y), _floor(floor), _window(window), _incantation(false)
 {
-
+	initGroundColor();
 }
 
 gpc::Tiles::~Tiles()
 {
 
+}
+
+void gpc::Tiles::initGroundColor()
+{
+	_sol_c = _floor.getColor();
+	if (_y % 2 == 0 && _x % 2 == 0)
+		_sol_c.a = 235;
+	else if (_y % 2 == 1 && _x % 2 == 1)
+		_sol_c.a = 235;
+	else
+		_sol_c.a = 255;
 }
 
 int gpc::Tiles::getX()
@@ -25,6 +36,7 @@ int gpc::Tiles::getX()
 
 void gpc::Tiles::setIncantation(bool state)
 {
+	std::cout << "Changement state : " << std::boolalpha << state << std::endl;
 	_incantation = state;
 }
 
@@ -65,19 +77,10 @@ void gpc::Tiles::drawEntities()
 
 void gpc::Tiles::draw()
 {
-	sf::Color sol_c;
-
-	sol_c = _floor.getColor();
-	if (_y % 2 == 0 && _x % 2 == 0)
-		sol_c.a = 235;
-	else if (_y % 2 == 1 && _x % 2 == 1)
-		sol_c.a = 235;
-	else
-		sol_c.a = 255;
 	if (_incantation)
 		_floor.setColor(sf::Color(108, 132, 51));
 	else
-		_floor.setColor(sol_c);
+		_floor.setColor(_sol_c);
 	_floor.setPosition(_x * 64., _y * 64.);
 	_window.draw(_floor);
 	drawEntities();

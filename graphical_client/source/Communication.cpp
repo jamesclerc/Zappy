@@ -130,7 +130,7 @@ void gpc::Communication::handleCommand(std::string str)
 			return;
 		}
 	}
-	std::cout << "Unknown cmd" << std::endl;
+	std::cout << "Unknown cmd "<< token << " str : " << str << std::endl;
 }
 
 void gpc::Communication::handleTgt(std::string str)

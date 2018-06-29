@@ -196,6 +196,8 @@ void gpc::GraphicClient::addIncantation(std::vector<int> incantation)
 		inc->addPlayer(getPlayer(incantation[i]));
 		i++;
 	}
+	inc->setIncantationOnTile();
+	_incantations.push_back(inc);
 }
 
 void gpc::GraphicClient::playerTurn(int n, int dir)
@@ -305,7 +307,7 @@ void gpc::GraphicClient::initView()
 		view.setSize(sf::Vector2f(y * 64 * (656.f / 437.f), y * 64));
 	else
 		view.setSize(sf::Vector2f(x * 64, x * 64 * (437.f / 656.f)));
-	view.setViewport(sf::FloatRect((20.f / 1024.f), (71.f / 519.f), (656.f / 1024.f), (437.f / 519.f)));	
+	view.setViewport(sf::FloatRect((20.f / 1024.f), (71.f / 519.f), (656.f / 1024.f), (437.f / 519.f)));
 	window_f.setView(view);
 	_view_is_init = true;
 }
@@ -333,7 +335,7 @@ void gpc::GraphicClient::handleMoveEvent(sf::Event &event)
 void gpc::GraphicClient::handleEvent(sf::Event &event)
 {
 	if (event.type == sf::Event::MouseButtonPressed) {
-		sf::Vector2i pixelPos = sf::Mouse::getPosition(_window); 
+		sf::Vector2i pixelPos = sf::Mouse::getPosition(_window);
         	sf::Vector2f worldPos = window_f.mapPixelToCoords(pixelPos);
         	printf("%f %f\n", worldPos.x / 64.f, worldPos.y / 64.f);
 	}
@@ -367,6 +369,7 @@ void gpc::GraphicClient::mainLoop()
 			tmp.zoom(_scaling);
 			window_f.setView(tmp);
 			_map->draw();
+			drawEggs();
 			drawPlayers();
 			texture = window_f.getTexture();
 			sprite.setTexture(texture);
@@ -379,132 +382,6 @@ void gpc::GraphicClient::mainLoop()
 
 gpc::GraphicClient::~GraphicClient()
 {
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initCanarticho()
-{
-	std::vector<sf::IntRect> Canarticho;
-	sf::IntRect D (0, 0, 384 / 12, 256 / 8);
-	sf::IntRect L (0, 256 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (0, 256 / 8 * 2, 384 / 12, 256 / 8);
-	sf::IntRect U (0, 256 / 8 * 3, 384 / 12, 256 / 8);
-	Canarticho.push_back(D);
-	Canarticho.push_back(L);	
-	Canarticho.push_back(R);
-	Canarticho.push_back(U);
-	return (Canarticho);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initTaurus()
-{
-	std::vector<sf::IntRect> Taurus;
-	sf::IntRect D (384 * 4 / 12, 0, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 4 / 12, 256 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 4 / 12, 256 *  2 / 8 * 2, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 4 / 12, 256 / 8 * 3, 384 / 12, 256 / 8);
-	Taurus.push_back(D);
-	Taurus.push_back(L);	
-	Taurus.push_back(R);
-	Taurus.push_back(U);
-	return (Taurus);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initScarabrut()
-{
-	std::vector<sf::IntRect> Scarabrut;
-	sf::IntRect D (384 * 7 / 12, 0, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 7 / 12, 256 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 7 / 12, 256 / 8 * 2, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 7 / 12, 256 / 8 * 3, 384 / 12, 256 / 8);
-	Scarabrut.push_back(D);
-	Scarabrut.push_back(L);	
-	Scarabrut.push_back(R);
-	Scarabrut.push_back(U);
-	return (Scarabrut);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initSecateur()
-{
-	std::vector<sf::IntRect> Secateur;
-	sf::IntRect D (384 * 10 / 12, 0, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 10 / 12, 256 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 10 / 12, 256 / 8 * 2, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 10 / 12, 256 / 8 * 3, 384 / 12, 256 / 8);
-	Secateur.push_back(D);
-	Secateur.push_back(L);	
-	Secateur.push_back(R);
-	Secateur.push_back(U);
-	return (Secateur);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initEletrick()
-{
-	std::vector<sf::IntRect> Electrick;
-	sf::IntRect D (384 * 10 / 12, 256 * 4 / 8, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 10 / 12, 256 * 5 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 10 / 12, 256 * 6 / 8 * 2, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 10 / 12, 256 * 7 / 8 * 3, 384 / 12, 256 / 8);
-	Electrick.push_back(D);
-	Electrick.push_back(L);	
-	Electrick.push_back(R);
-	Electrick.push_back(U);
-	return (Electrick);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initLangue()
-{
-	std::vector<sf::IntRect> Langue;
-	sf::IntRect D (384 * 7 / 12, 256 * 4 / 8, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 7 / 12, 256 * 5 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 7 / 12, 256 * 6 / 8, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 7 / 12, 256 * 7 / 8, 384 / 12, 256 / 8);
-	Langue.push_back(D);
-	Langue.push_back(L);	
-	Langue.push_back(R);
-	Langue.push_back(U);
-	return (Langue);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initMagmar()
-{
-	std::vector<sf::IntRect> Magmar;
-	sf::IntRect D (0, 256 * 4 / 8, 384 / 12, 256 / 8);
-	sf::IntRect L (0, 256 * 5 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (0, 256 * 6 / 8, 384 / 12, 256 / 8);
-	sf::IntRect U (0, 256 * 7 / 8, 384 / 12, 256 / 8);
-	Magmar.push_back(D);
-	Magmar.push_back(L);	
-	Magmar.push_back(R);
-	Magmar.push_back(U);
-	return (Magmar);
-}
-
-std::vector<sf::IntRect> gpc::GraphicClient::initRonflex()
-{
-	std::vector<sf::IntRect> Ronflex;
-	sf::IntRect D (384 * 4 / 12, 256 * 4 / 8, 384 / 12, 256 / 8);
-	sf::IntRect L (384 * 4 / 12, 256 * 5 / 8, 384 / 12, 256 / 8);
-	sf::IntRect R (384 * 4 / 12, 256 * 6 / 8, 384 / 12, 256 / 8);
-	sf::IntRect U (384 * 4 / 12, 256 * 7 / 8, 384 / 12, 256 / 8);
-	Ronflex.push_back(D);
-	Ronflex.push_back(L);	
-	Ronflex.push_back(R);
-	Ronflex.push_back(U);
-	return (Ronflex);
-}
-
-void gpc::GraphicClient::init_pokemon(std::string path)
-{
-	pokemon.loadFromFile(path);
-	pokemon_s.setTexture(pokemon);
-	_vector.push_back(initCanarticho());
-	_vector.push_back(initTaurus());
-	_vector.push_back(initScarabrut());
-	_vector.push_back(initSecateur());
-	_vector.push_back(initEletrick());
-	_vector.push_back(initLangue());
-	_vector.push_back(initMagmar());
-	_vector.push_back(initRonflex());
 }
 
 void gpc::GraphicClient::initRenderWindow()
@@ -528,7 +405,7 @@ void gpc::GraphicClient::initThystame(sf::Texture &texture)
 {
 	sf::IntRect ressource;
 	sf::Sprite *sprite = new sf::Sprite;
-	
+
 	ressource.left = 670;
 	ressource.top = 10;
 	ressource.width = 356 - 270;
@@ -685,5 +562,12 @@ void gpc::GraphicClient::drawPlayers()
 {
 	for (size_t i = 0; i < _players.size(); i++) {
 		_players[i]->draw();
+	}
+}
+
+void gpc::GraphicClient::drawEggs()
+{
+	for (size_t i = 0; i < _eggs.size(); i++) {
+		_eggs[i]->draw();
 	}
 }

@@ -62,19 +62,6 @@ namespace gpc {
 			gpc::Map *_map;
 
 			//init vectors players
-			void init_pokemon(std::string path);
-			std::vector<sf::IntRect> initCanarticho();
-			std::vector<sf::IntRect> initTaurus();
-			std::vector<sf::IntRect> initScarabrut();
-			std::vector<sf::IntRect> initSecateur();
-			std::vector<sf::IntRect> initEletrick();
-			std::vector<sf::IntRect> initLangue();
-			std::vector<sf::IntRect> initMagmar();
-			std::vector<sf::IntRect> initRonflex();
-			std::vector<std::vector<sf::IntRect>> _vector;
-			sf::Texture pokemon;
-			sf::Sprite pokemon_s;
-
 			void initRenderTexture();
 			sf::RenderTexture window_f;
 
@@ -114,8 +101,9 @@ namespace gpc {
 
 			sf::Texture egg_t;
 			sf::Texture eggHatch_t;
-			void initEgg();;
+			void initEgg();
 			std::vector<sf::Sprite> _egg;
+			void drawEggs();
 	};
 }
 
