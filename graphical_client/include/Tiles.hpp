@@ -22,10 +22,13 @@ namespace gpc {
 			int getX();
 			int getY();
 			void setIncantation(bool state);
+			void initGroundColor();
+
 		private:
 			std::vector<gpc::IEntity *> _entities;
 			int _x;
 			int _y;
+			sf::Color _sol_c;
 			void drawEntities();
 			sf::Sprite _floor;
 			sf::RenderTexture &_window;
