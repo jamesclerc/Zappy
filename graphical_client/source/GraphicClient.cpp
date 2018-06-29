@@ -95,11 +95,12 @@ void gpc::GraphicClient::playerMoveForward(int n)
 
 gpc::Incantation *gpc::GraphicClient::getIncantation(int n)
 {
-	Player *p = getPlayer(n);
 	int i = 0;
+	std::cout << "Incantation size = " << std::to_string(_incantation.size()) << std::endl;
 	for(auto it=_incantations.begin(); it!=_incantations.end(); it++)
 	{
-		if (_incantations[i]->getIncantationPlayer() == p)
+		std::cout << "get Incantation : " << std::to_string(i) << std::endl;
+		if (_incantations[i]->getIncantationPlayer()->getId() == n)
 			return _incantations[i];
 		i++;
 	}
