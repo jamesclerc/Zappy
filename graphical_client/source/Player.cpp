@@ -118,7 +118,7 @@ void gpc::Player::deleteInInventory(gpc::IEntity *entity)
 		if (_inventory[a] == entity)
 		{
 			_inventory.erase(it);
-			break;
+			return;;
 		}
 		a++;
 	}
