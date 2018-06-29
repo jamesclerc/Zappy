@@ -59,6 +59,7 @@ void gpc::Player::update()
 
 void gpc::Player::levelUp()
 {
+	std::cout << "PLAYER LELELUP" << std::endl;
 	_lvl++;
 }
 

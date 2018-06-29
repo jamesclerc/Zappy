@@ -43,9 +43,11 @@ void gpc::Incantation::addPlayer(Player *p)
 
 void gpc::Incantation::finish(bool incantationResult)
 {
+	std::cout << "Incantation FInish" << std::endl;
 	int i = 0;
 	if (incantationResult == true)
 	{
+		std::cout << "Incantation result : true" << std::endl;
 		for(auto it=_players.begin(); it!=_players.end(); ++it)
 		{
 			_players[i]->levelUp();
