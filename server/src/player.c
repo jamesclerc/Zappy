@@ -12,6 +12,8 @@
 #include "entity.h"
 #include "commands.h"
 
+static unsigned int player_id = 1;
+
 static bool player_init(player_t *new)
 {
 	new->stream = fdopen(new->fd, "r+");
@@ -28,6 +30,7 @@ static bool player_init(player_t *new)
 	}
 	new->entity.inventory.food = 10;
 	new->entity.level = 1;
+	new->id = player_id++;
 	return (true);
 }
 
