@@ -79,8 +79,8 @@ void gpc::GraphicClient::playerDrop(int n, int i)
 void gpc::GraphicClient::playerEat(int n)
 {
 	Player *p = getPlayer(n);
-	if (player == nullptr) {
-		std::cout "PLAYER NULL IN EAT" << std::endl;
+	if (p == nullptr) {
+		std::cout << "PLAYER NULL IN EAT" << std::endl;
 		return;
 	}
 	p->deleteInInventoryByEntities(gpc::Entities::FOOD);
