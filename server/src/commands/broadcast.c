@@ -71,5 +71,6 @@ bool respond_broadcast(game_t *game, player_t *player, char *argument)
 					argument);
 		tmp = tmp->next;
 	}
+	fprintf(player->stream, "ok\n");
 	return (true);
 }

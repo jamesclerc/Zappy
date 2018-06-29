@@ -72,7 +72,7 @@ static void send_initial_players(game_t *game)
 void graphical_protocol_init(game_t *game)
 {
 	fprintf(game->graph_stream, "tgt %i\n", game->freq);
-	fprintf(game->graph_stream, "msz %li %li", game->map->width,
+	fprintf(game->graph_stream, "msz %li %li\n", game->map->width,
 		game->map->height);
 	for (unsigned int i = 0; i < game->map->height; i++) {
 		for (unsigned int j = 0; j < game->map->width; j++) {
