@@ -73,12 +73,3 @@ bool respond_broadcast(game_t *game, player_t *player, char *argument)
 	}
 	return (true);
 }
-
-bool handle_pos(game_t *game, player_t *player, char *argument)
-{
-	(void)game;
-	(void)argument;
-	fprintf(player->stream, "x: %i\ny: %i\n", (int) player->entity.pos.x,
-		(int) player->entity.pos.y);
-	return (false);
-}

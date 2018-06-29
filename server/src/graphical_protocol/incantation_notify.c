@@ -15,9 +15,9 @@ void send_pic(FILE *stream, incantation_t *inc)
 
 	if (!stream)
 		return;
-	fprintf(stream, "pic %i", tmp->fd);
+	fprintf(stream, "pic %i", tmp->id);
 	while (++i < 6 && inc->participants[i])
-		fprintf(stream, " %i", inc->participants[i]->fd);
+		fprintf(stream, " %i", inc->participants[i]->id);
 	fprintf(stream, "\n");
 }
 

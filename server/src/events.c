@@ -34,7 +34,6 @@ static command_t commands[] = {
 	{"Take", 7, NULL, &respond_take},
 	{"Set", 7, NULL, &respond_set},
 	{"Incantation", 300, &handle_incantation, &respond_incantation},
-	{"Pos", 0, &handle_pos, &handle_pos},	//testing !!!
 	{NULL, 0, NULL, NULL}
 };
 
@@ -63,7 +62,7 @@ static bool interpret_message(game_t *game, player_t *player, char *message)
 
 	if (player->entity.team == NULL) {
 		if (link_player_team(game, player, message)) {
-			fprintf(player->stream, "%i\n%ld %ld\n", player->fd,
+			fprintf(player->stream, "%i\n%ld %ld\n", player->id,
 				game->map->width, game->map->height);
 			return (true);
 		}

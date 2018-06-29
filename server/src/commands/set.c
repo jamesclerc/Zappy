@@ -28,7 +28,7 @@ bool respond_set(game_t *game, player_t *player, char *argument)
 	if (!inventory_take((inventory_t *)player, &amount))
 		return (false);
 	inventory_give(cell, &amount);
-	send_pdr(game->graph_stream, player->fd, i);
+	send_pdr(game->graph_stream, player->id, i);
 	fprintf(player->stream, "ok\n");
 	return (true);
 }
