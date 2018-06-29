@@ -7,7 +7,7 @@
 
 CXX		=		g++
 
-CXXFLAGS	+=		-W -Wall -Wextra -g3
+CXXFLAGS	+=		-W -Wall -Wextra -g3 -std=c++11
 
 CPPFLAGS	+=		-Iinclude
 
