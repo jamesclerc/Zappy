@@ -14,7 +14,7 @@
 namespace gpc {
 	class Egg : public IEntity {
 		public:
-			Egg(int x, int y, gpc::Entities entity, int eggId, sf::RenderTexture &window);
+			Egg(int x, int y, gpc::Entities entity, int eggId, sf::RenderTexture &window, std::vector<sf::Sprite> &sprite);
 			~Egg();
 			void hatching();
 			int getId();
@@ -23,5 +23,6 @@ namespace gpc {
 		private:
 			int _id;
 			bool _hatching;
+			std::vector<sf::Sprite> &_sprite;
 	};
 }

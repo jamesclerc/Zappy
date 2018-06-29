@@ -55,7 +55,7 @@ void gpc::GraphicClient::completeTiles(int x, int y, std::vector<int> ressources
 
 void gpc::GraphicClient::createEgg(int x, int y, int id)
 {
-	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f));
+	_eggs.push_back(new Egg(x, y, Entities::EGG, id, window_f, _egg));
 }
 
 void gpc::GraphicClient::ressourcePop(int x, int y, int i)
