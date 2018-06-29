@@ -60,7 +60,7 @@ bool respond_broadcast(game_t *game, player_t *player, char *argument)
 
 	if (!argument)
 		return (false);
-	send_pbc(game->graph_stream, player->fd, argument);
+	send_pbc(game->graph_stream, player->id, argument);
 	while (tmp) {
 		if (tmp->element != player
 			&& ((player_t *)tmp->element)->entity.team != NULL)

@@ -16,11 +16,11 @@ static void food_take(FILE *stream, list_t **tmp, int efd)
 
 	player = (player_t *)(*tmp)->element;
 	player->entity.inventory.food--;
-	send_pet(stream, player->fd);
+	send_pet(stream, player->id);
 	if (player->entity.inventory.food <= 0) {
 		player = list_remove(tmp);
 		fprintf(player->stream, "dead\n");
-		send_pdi(stream, player->fd);
+		send_pdi(stream, player->id);
 		epoll_ctl(efd, EPOLL_CTL_DEL, player->fd, NULL);
 		player_destroy(player);
 		return;
