@@ -161,6 +161,11 @@ void gpc::Player::dropInventory(gpc::Entities entitie)
 void gpc::Player::deleteInInventoryByEntities(gpc::Entities entitie)
 {
 	int a = 0;
+	if (_inventory.size() == 0)
+	{
+		std::cout << "INVENTORY VIDE" << std::endl;
+		return;
+	}
 	for(auto it=_inventory.begin(); it!=_inventory.end(); ++it)
 	{
 		if (_inventory[a]->is(entitie))
