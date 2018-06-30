@@ -24,5 +24,5 @@ void send_pic(FILE *stream, incantation_t *inc)
 void send_pie(FILE *stream, int id, bool result)
 {
 	if (stream)
-		fprintf(stream, "pie %i %s", id, (result) ? "ok" : "ko");
+		fprintf(stream, "pie %i %s\n", id, (result) ? "ok" : "ko");
 }
