@@ -51,7 +51,6 @@ bool disconnect_handle(game_t *game, struct epoll_event *ev, int efd)
 			epoll_ctl(efd, EPOLL_CTL_DEL, player->fd, NULL);
 			send_pdi(game->graph_stream, player->id);
 			player_destroy(player);
-			send_pdi(game->graph_stream, player->id);
 			return (true);
 		}
 		tmp = tmp->next;

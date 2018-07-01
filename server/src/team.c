@@ -48,9 +48,11 @@ static void remove_graph_from_players(game_t *game, player_t *graph)
 	list_t *tmp = game->players;
 
 	while (tmp) {
-		if (tmp->element == graph)
+		if (tmp->element == graph) {
 			list_remove((tmp == game->players) ?
 				&game->players : &tmp);
+			return;
+		}
 		tmp = tmp->next;
 	}
 }
