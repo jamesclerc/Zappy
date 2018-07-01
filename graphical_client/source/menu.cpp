@@ -172,10 +172,10 @@ void gpc::Menu::stringHandle()
 
 void gpc::Menu::fillString()
 {
-	if (i % 2 == 1 && static_cast<char>(event.text.unicode) == '\r') {
-		_state = END;
-		return;
-	}
+	// if (i % 2 == 1 && static_cast<char>(event.text.unicode) == '\r') {
+	// 	_state = END;
+	// 	return;
+	// }
 	if (static_cast<char>(event.text.unicode) == '\t'
 		|| static_cast<char>(event.text.unicode) == '\r') {
 		i++;
@@ -197,6 +197,10 @@ void gpc::Menu::drawSecond()
 		{
 			m_window.close();
 			exit(0);
+		}
+		if (i % 2 == 1 && static_cast<char>(event.text.unicode) == '\r') {
+			_state = END;
+			return;
 		}
 		if (event.type == sf::Event::TextEntered) {
 			fillString();

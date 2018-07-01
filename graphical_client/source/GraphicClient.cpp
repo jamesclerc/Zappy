@@ -11,6 +11,7 @@
 gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 {
 	initSound();
+	_tileFocus = nullptr;
 	initRenderWindow();
 	initRenderTexture();
 	initFloor();
@@ -279,12 +280,12 @@ int gpc::GraphicClient::initConnection()
 void gpc::GraphicClient::run()
 {
 	runMenu();
-	if (initConnection() != 0)
-		run();
-	else {
-		_window.clear();
-		mainLoop();
+	while (initConnection() != 0) {
+		runMenu();
 	}
+	_window.clear();
+	mainLoop();
+
 }
 
 void gpc::GraphicClient::setTimer(int timer)
@@ -623,6 +624,7 @@ void gpc::GraphicClient::initSound()
 {
 	if (!_buffer.loadFromFile("./graphical_client/sounds/pokemonMenu.wav")) {
 		std::cout << "Error loading wav" << std::endl;
+		return;
 	}
 	_sound.setBuffer(_buffer);
 	_sound.play();
