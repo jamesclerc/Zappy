@@ -18,7 +18,9 @@ static bool el_player_is_valid(player_t *self, player_t *player,
 	if (fill_participants)
 		return (player->entity.team &&
 			player != self && !player->commands->head &&
-			player->entity.level == self->entity.level);
+			player->entity.level == self->entity.level &&
+			player->entity.pos.x == self->entity.pos.x &&
+			player->entity.pos.y == self->entity.pos.y);
 	else
 		return (player->entity.team && player != self &&
 			player->entity.level == self->entity.level);
