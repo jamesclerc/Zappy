@@ -1,6 +1,7 @@
 
 from enum import Enum
 import sys
+import os
 import json
 from math import sqrt
 
@@ -80,6 +81,7 @@ class Player:
     tmp = 0
     moving_action = False
     random_dir = None
+    nb_fork = 0
 
     def __init__(self, conn, team):
         self.conn = conn
@@ -580,6 +582,24 @@ class Player:
         elif not self.elevating:
             print("DO_NOTHING LAST")
             self.do_nothing()
+         #self.get_unused_slots()
+        #if self.can_fork():
+        #    self.true_fork()
+
+    def can_fork(self):
+        print("---can_fork")
+        print(self.nb_fork == int(self.level / 2))
+        return self.nb_fork == int(self.level / 2)
+
+    def true_fork(self):
+        print("---true_fork")
+        self.nb_fork += 1
+        pid = os.fork()
+        if pid == 0:
+            os.execv(sys.argv[0], (sys.argv[0], "-p", str(self.conn.port), "-n", str(self.team),))
+            print("EXIT FILS")
+            sys.exit(0)
+        pass
 
     def has_food_on_tile(self, x, y):
         tile = self.last_look[self.get_nb_case(x, y)]
@@ -592,7 +612,7 @@ class Player:
         else:
             self.last_action_succeded = False
             self.last_action = "send_message"
-            self.conn.send("Broadcast " + message)
+            self.conn.send("Broadcast " + message + " TEAM:" + self.team)
 
     def transform_messages(self, message):
         print("---transform_messages(" + message + ")")
@@ -642,6 +662,8 @@ class Player:
                     print("continue before")
                     continue
                 msg = self.transform_messages(msg[8:])
+                if msg["message"]["TEAM"] != self.team:
+                    continue
                 if msg["message"]["TO"] in ["all", str(self.id)] and not self.elevating and (not self.moving_to_incantation or (self.moving_to_incantation and not self.moving_action)):
                     self.msg_received.append(msg)
                     print("added:", len(self.msg_received), "moving_to_incantation:", self.moving_to_incantation, "elevating:", self.elevating)
