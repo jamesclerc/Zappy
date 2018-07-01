@@ -110,6 +110,9 @@ namespace gpc {
 			void initHud();
 			sf::Text _text;
 			sf::Font _font;
+			void initSound();
+			sf::SoundBuffer _buffer;
+			sf::Sound _sound;
 	};
 }
 

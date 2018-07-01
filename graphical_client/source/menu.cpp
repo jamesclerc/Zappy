@@ -219,30 +219,3 @@ bool gpc::Menu::draw()
 	m_window.display();
 	return (false);
 }
-
-// int main(void)
-// {
-// 	sf::RenderWindow m_window;
-// 	m_window.create(sf::VideoMode(1920, 1020, 32), "Menu", sf::Style::Default);
-// 	gpc::Menu menu(m_window);
-// 	bool x = false;
-// 	// sf::SoundBuffer buffer;
-// 	// if (!buffer.loadFromFile("./graphical_client/sounds/pokemonMenu.wav"))
-// 	// {
-// 	// 	std::cout << "Error loading wav" << std::endl;
-// 	// }
-// 	// sf::Sound sound;
-// 	// sound.setBuffer(buffer);
-// 	// sound.play();
-// 	while (m_window.isOpen() && x == false){
-// 		m_window.clear();
-// 		x = menu.draw();
-// 		m_window.display();
-// 	}
-// 	gpc::Game game(m_window);
-// 	while (m_window.isOpen()) {
-// 		m_window.clear();
-// 		game.draw();
-// 		m_window.display();
-// 	}
-// }

@@ -10,12 +10,7 @@
 
 gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 {
-	// sf::SoundBuffer buffer;
-	// if (!buffer.loadFromFile("./graphical_client/sounds/pokemonMenu.wav"))
-	// 	std::cout << "Error loading wav" << std::endl;
-	// sf::Sound sound;
-	// sound.setBuffer(buffer);
-	// sound.play();
+	initSound();
 	initRenderWindow();
 	initRenderTexture();
 	initFloor();
@@ -624,6 +619,15 @@ void gpc::GraphicClient::initHud()
 	_text.setStyle(sf::Text::Bold);
 }
 
+void gpc::GraphicClient::initSound()
+{
+	if (!_buffer.loadFromFile("./graphical_client/sounds/pokemonMenu.wav")) {
+		std::cout << "Error loading wav" << std::endl;
+	}
+	_sound.setBuffer(_buffer);
+	_sound.play();
+}
+
 void gpc::GraphicClient::drawHud()
 {
 	_text.setPosition(800, 20);
@@ -640,7 +644,10 @@ void gpc::GraphicClient::drawHud()
 	for (int i = 0; i < 7; i++) {
 		initialPosX += 86;
 		_material[i].setPosition(initialPosX,initialPosY);
-		_material[i].setScale(1.,1.);
+		if (i == 0)
+			_material[i].setScale(1.8,1.8);
+		else
+			_material[i].setScale(1.,1.);
 		_text.setPosition(initialPosX + 30, initialPosY + 120);
 		_text.setString(std::to_string(nbRessources[i]));
 		_window.draw(_material[i]);

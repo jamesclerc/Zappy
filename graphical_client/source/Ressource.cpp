@@ -14,7 +14,7 @@ gpc::Ressource::Ressource(int x, int y, Entities entity, sf::RenderTexture &wind
 		case FOOD:
 			_pixel_x = 64 * x;
 			_pixel_y = 64 * y;
-			_sprite.setScale(0.22f, 0.22f);
+			_sprite.setScale(0.1f, 0.1f);
 			break;
 		case LINEMATE:
 			_pixel_x = 64 * x + 16;
@@ -61,7 +61,10 @@ gpc::Ressource::~Ressource()
 
 void gpc::Ressource::draw()
 {
-	_sprite.setScale(0.1f, 0.1f);
+	if (_idEntity == Entities::FOOD)
+		_sprite.setScale(0.3f, 0.3f);
+	else
+		_sprite.setScale(0.1f,0.1f);
 	_sprite.setPosition(_pixel_x, _pixel_y);
 	_window.draw(_sprite);
 }
