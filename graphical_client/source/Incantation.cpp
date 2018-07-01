@@ -51,8 +51,8 @@ void gpc::Incantation::finish(bool incantationResult)
 		for(auto it=_players.begin(); it!=_players.end(); ++it)
 		{
 			_players[i]->levelUp();
+			i++;
 		}
-		i++;
 	}
 	_players[0]->getCurrentTile()->setIncantation(false);
 }
