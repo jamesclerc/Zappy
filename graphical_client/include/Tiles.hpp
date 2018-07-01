@@ -18,6 +18,8 @@ namespace gpc {
 			~Tiles();
 			void addRessource(IEntity *);
 			gpc::IEntity *pickRessource(Entities);
+			int getNbRessources(gpc::Entities entity);
+			std::vector<int> getNbRessources();
 			void draw();
 			int getX();
 			int getY();

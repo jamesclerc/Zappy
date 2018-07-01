@@ -78,10 +78,33 @@ void gpc::Tiles::drawEntities()
 void gpc::Tiles::draw()
 {
 	if (_incantation)
-		_floor.setColor(sf::Color(108, 132, 51));
+		_floor.setColor(sf::Color(163, 105, 186));
 	else
 		_floor.setColor(_sol_c);
 	_floor.setPosition(_x * 64., _y * 64.);
 	_window.draw(_floor);
 	drawEntities();
+}
+
+int gpc::Tiles::getNbRessources(gpc::Entities entity)
+{
+	int count = 0;
+	for (size_t i = 0; i < _entities.size(); i++) {
+		if (_entities[i]->is(entity))
+			count++;
+	}
+	return count;
+}
+
+std::vector<int> gpc::Tiles::getNbRessources()
+{
+	std::vector<int> toReturn;
+	toReturn.push_back(getNbRessources(Entities::FOOD));
+	toReturn.push_back(getNbRessources(Entities::LINEMATE));
+	toReturn.push_back(getNbRessources(Entities::DERAUMERE));
+	toReturn.push_back(getNbRessources(Entities::SIBUR));
+	toReturn.push_back(getNbRessources(Entities::MENDIANE));
+	toReturn.push_back(getNbRessources(Entities::PHIRAS));
+	toReturn.push_back(getNbRessources(Entities::THYSTAME));
+	return toReturn;
 }

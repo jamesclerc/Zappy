@@ -29,6 +29,13 @@ void gpc::Communication::setPort(int port)
 	_port = port;
 }
 
+void gpc::Communication::newSpeed(int spd)
+{
+	write(_fd, "tst ",4);
+	write(_fd, std::to_string(spd).c_str(), std::to_string(spd).size());
+	write(_fd, "\n", 1);
+}
+
 int gpc::Communication::firstConnection()
 {
 	if (socketConnect() == -1)

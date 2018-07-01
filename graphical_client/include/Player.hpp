@@ -33,7 +33,8 @@ namespace gpc {
 			void pickToInventory(Entities entitie);
 			void dropInventory(Entities entitie);
 			void deleteInInventoryByEntities(Entities entitie);
-
+			int getNbRessources(gpc::Entities entity);
+			std::vector<int> getNbRessources();
 		private:
 			int _id;
 			Direction _direction;

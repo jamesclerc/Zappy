@@ -47,7 +47,7 @@ namespace gpc {
 		private:
 			int _timer;
 			void runMenu();
-			void initConnection();
+			int initConnection();
 			void mainLoop();
 			void initRenderWindow();
 			void drawPlayers();
@@ -104,6 +104,12 @@ namespace gpc {
 			void initEgg();
 			std::vector<sf::Sprite> _egg;
 			void drawEggs();
+			void drawHud();
+			void changeTilefocus(float x, float y);
+			Tiles *_tileFocus;
+			void initHud();
+			sf::Text _text;
+			sf::Font _font;
 	};
 }
 
@@ -114,5 +120,5 @@ static gpc::Entities entitie[7] = {
 	gpc::Entities::SIBUR,
 	gpc::Entities::MENDIANE,
 	gpc::Entities::PHIRAS,
-	gpc::Entities::THYSTAME,
+	gpc::Entities::THYSTAME
 };

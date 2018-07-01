@@ -176,3 +176,26 @@ void gpc::Player::deleteInInventoryByEntities(gpc::Entities entitie)
 		a++;
 	}
 }
+
+int gpc::Player::getNbRessources(gpc::Entities entity)
+{
+	int count = 0;
+	for (size_t i = 0; i < _inventory.size(); i++) {
+		if (_inventory[i]->is(entity))
+			count++;
+	}
+	return count;
+}
+
+std::vector<int> gpc::Player::getNbRessources()
+{
+	std::vector<int> toReturn;
+	toReturn.push_back(getNbRessources(Entities::FOOD));
+	toReturn.push_back(getNbRessources(Entities::LINEMATE));
+	toReturn.push_back(getNbRessources(Entities::DERAUMERE));
+	toReturn.push_back(getNbRessources(Entities::SIBUR));
+	toReturn.push_back(getNbRessources(Entities::MENDIANE));
+	toReturn.push_back(getNbRessources(Entities::PHIRAS));
+	toReturn.push_back(getNbRessources(Entities::THYSTAME));
+	return toReturn;
+}

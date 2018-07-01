@@ -29,6 +29,7 @@ namespace gpc {
 			~Communication();
 			int firstConnection();
 			void handleCommand(std::string str);
+			void newSpeed(int spd);
 			void handleTgt(std::string str);
 			void handleMsz(std::string str);
 			void handleBct(std::string str);

@@ -23,8 +23,10 @@ namespace gpc {
 		Menu(sf::RenderWindow &window);
 		~Menu();
 		bool draw();
+		void setState(state s);
 		std::string getIp();
 		int getPort();
+		void reset();
 	private:
 		void fillString();
 		void drawFirst();

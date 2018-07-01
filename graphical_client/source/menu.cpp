@@ -60,12 +60,24 @@ void gpc::Menu::init_text(std::string path)
 	ip_txt.setPosition(100, 400);
 }
 
+void gpc::Menu::reset()
+{
+	ip = "Ip -> ";
+	port = "Port -> ";
+	i = 0;
+}
+
+void gpc::Menu::setState(state s)
+{
+	_state = s;
+}
+
 void gpc::Menu::startScale()
 {
 	if (sign)
-		scale = scale + 0.002;
+		scale = scale + 0.010;
 	else if (sign == false)
-		scale = scale - 0.002;
+		scale = scale - 0.010;
 	if (scale >= 1.6)
 		sign = false;
 	else if (scale <= 1.0)
@@ -78,6 +90,7 @@ void gpc::Menu::startScale()
 void gpc::Menu::eventBackground()
 {
 	if (event.key.code == sf::Keyboard::Enter) {
+		reset();
 		_state = SECOND;
 		init_background("./graphical_client/sprite/menu.jpg");
 	}
@@ -93,6 +106,7 @@ void gpc::Menu::drawFirst()
 		}
 	}
 	if (_state == FIRST) {
+		init_background("./graphical_client/sprite/logscreen.jpg");
 		m_window.draw(draco);
 		startScale();
 		m_window.draw(start);
@@ -156,7 +170,12 @@ void gpc::Menu::stringHandle()
 
 void gpc::Menu::fillString()
 {
-	if (static_cast<char>(event.text.unicode) == '\t') {
+	if (i % 2 == 1 && static_cast<char>(event.text.unicode) == '\r') {
+		_state = END;
+		return;
+	}
+	if (static_cast<char>(event.text.unicode) == '\t'
+		|| static_cast<char>(event.text.unicode) == '\r') {
 		i++;
 		if (i % 2 == 0)
 			cursorSprite.setPosition(1200, 400);
@@ -173,12 +192,12 @@ void gpc::Menu::drawSecond()
 {
 	while (m_window.pollEvent(event)) {
 		if (event.type == sf::Event::Closed)
+		{
 			m_window.close();
+			exit(0);
+		}
 		if (event.type == sf::Event::TextEntered) {
-			if (static_cast<char>(event.text.unicode) == '\r')
-				_state = END;
-			else
-				fillString();
+			fillString();
 		}
 	}
 	m_window.draw(draco);

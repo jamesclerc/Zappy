@@ -61,6 +61,7 @@ gpc::Ressource::~Ressource()
 
 void gpc::Ressource::draw()
 {
+	_sprite.setScale(0.1f, 0.1f);
 	_sprite.setPosition(_pixel_x, _pixel_y);
 	_window.draw(_sprite);
 }

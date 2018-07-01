@@ -10,6 +10,12 @@
 
 gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 {
+	// sf::SoundBuffer buffer;
+	// if (!buffer.loadFromFile("./graphical_client/sounds/pokemonMenu.wav"))
+	// 	std::cout << "Error loading wav" << std::endl;
+	// sf::Sound sound;
+	// sound.setBuffer(buffer);
+	// sound.play();
 	initRenderWindow();
 	initRenderTexture();
 	initFloor();
@@ -17,6 +23,7 @@ gpc::GraphicClient::GraphicClient() : _com(*this), _isDrawable(false)
 	initMaterial();
 	initPlayerSprites();
 	initEgg();
+	initHud();
 	_view_is_init = false;
 	_scaling = 1.f;
 	_menu = new Menu(_window);
@@ -26,11 +33,6 @@ void gpc::GraphicClient::initFloor()
 {
 	floor.loadFromFile("./graphical_client/sprite/sprite_floor.png");
 	floor_s.setTexture(floor);
-}
-
-void gpc::GraphicClient::setTimer(int timer)
-{
-	_timer = timer;
 }
 
 void gpc::GraphicClient::constructMap(int x, int y)
@@ -270,24 +272,35 @@ void gpc::GraphicClient::playerBroadcast(int n, std::string msg)
 	std::cout << "Player X:" << std::to_string(p->getX()) << " Y:" << std::to_string(p->getY()) << "Broadcast : " << msg << std::endl;
 }
 
-void gpc::GraphicClient::initConnection()
+int gpc::GraphicClient::initConnection()
 {
 	_com.setIp(_menu->getIp());
 	_com.setPort(_menu->getPort());
 	int x = _com.firstConnection();
 	std::cout << x << std::endl;
+	return x;
 }
 
 void gpc::GraphicClient::run()
 {
 	runMenu();
-	initConnection();
-	_window.clear();
-	mainLoop();
+	if (initConnection() != 0)
+		run();
+	else {
+		_window.clear();
+		mainLoop();
+	}
+}
+
+void gpc::GraphicClient::setTimer(int timer)
+{
+	_com.newSpeed(timer);
+	_timer = timer;
 }
 
 void gpc::GraphicClient::runMenu()
 {
+	_menu->setState(Menu::state::FIRST);
 	bool test = false;
 	while (test == false)
 	{
@@ -339,7 +352,7 @@ void gpc::GraphicClient::handleEvent(sf::Event &event)
 	if (event.type == sf::Event::MouseButtonPressed) {
 		sf::Vector2i pixelPos = sf::Mouse::getPosition(_window);
         	sf::Vector2f worldPos = window_f.mapPixelToCoords(pixelPos);
-        	printf("%f %f\n", worldPos.x / 64.f, worldPos.y / 64.f);
+        	changeTilefocus(worldPos.x / 64.f, worldPos.y / 64.f);
 	}
 	if (event.type == sf::Event::MouseWheelScrolled && !sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) && !sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
 		handleMoveEvent(event);
@@ -347,6 +360,23 @@ void gpc::GraphicClient::handleEvent(sf::Event &event)
 	} else if (event.type == sf::Event::MouseWheelScrolled) {
 		handleZoomEvent(event);
 		window_f.setView(view);
+	}
+	if (event.type == sf::Event::KeyPressed)
+	{
+		if (event.key.code == sf::Keyboard::Right) {
+			_timer += 1;
+		} else if (event.key.code == sf::Keyboard::Left) {
+			_timer -= 1;
+			if (_timer < 2)
+				_timer = 2;
+		}
+	}
+	if (event.type == sf::Event::KeyReleased)
+	{
+		if (event.key.code == sf::Keyboard::Left || event.key.code == sf::Keyboard::Right)
+		{
+			setTimer(_timer);
+		}
 	}
 }
 
@@ -359,7 +389,7 @@ void gpc::GraphicClient::mainLoop()
 		sf::Event event;
 		while (_window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
-				_window.close();
+				_window.close();				
 			}
 			handleEvent(event);
 		}
@@ -377,6 +407,7 @@ void gpc::GraphicClient::mainLoop()
 			sprite.setTexture(texture);
 			_window.draw(sprite);
 			_window.draw(front_s);
+			drawHud();
 			_window.display();
 		}
 	}
@@ -524,6 +555,7 @@ void gpc::GraphicClient::initEgg()
 	sprite_hatch->setTexture(eggHatch_t);
 	_egg.push_back(*sprite_hatch);
 }
+
 void gpc::GraphicClient::initLevelSprites(sf::IntRect rect)
 {
 	sf::Sprite *tmp;
@@ -572,4 +604,47 @@ void gpc::GraphicClient::drawEggs()
 	for (size_t i = 0; i < _eggs.size(); i++) {
 		_eggs[i]->draw();
 	}
+}
+
+void gpc::GraphicClient::changeTilefocus(float x, float y)
+{
+	if (x >= (float)_map->getX() || y >= (float)_map->getY())
+		return;
+	if (x < 0 || y < 0)
+		return;
+	_tileFocus = _map->getTiles(static_cast<int>(x), static_cast<int>(y));
+}
+
+void gpc::GraphicClient::initHud()
+{
+	_font.loadFromFile("./graphical_client/font/Pokemon Classic.ttf");
+	_text.setFont(_font);
+	_text.setCharacterSize(30);
+	_text.setFillColor(sf::Color::Black);
+	_text.setStyle(sf::Text::Bold);
+}
+
+void gpc::GraphicClient::drawHud()
+{
+	_text.setPosition(800, 20);
+	_text.setString(std::string("Speed : " + std::to_string(_timer)));
+	_window.draw(_text);
+	if (_tileFocus == nullptr)
+		return;
+	float initialPosX = 1300 - 86;
+	float initialPosY = 400;
+	_text.setPosition(initialPosX + 86, initialPosY - 40);
+	_text.setString(std::string("X = " + std::to_string(_tileFocus->getX()) + " Y = " + std::to_string(_tileFocus->getY())));
+	_window.draw(_text);
+	std::vector<int> nbRessources = _tileFocus->getNbRessources();
+	for (int i = 0; i < 7; i++) {
+		initialPosX += 86;
+		_material[i].setPosition(initialPosX,initialPosY);
+		_material[i].setScale(1.,1.);
+		_text.setPosition(initialPosX + 30, initialPosY + 120);
+		_text.setString(std::to_string(nbRessources[i]));
+		_window.draw(_material[i]);
+		_window.draw(_text);
+	}
+	_window.draw(_text);
 }
