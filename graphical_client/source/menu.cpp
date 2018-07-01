@@ -99,8 +99,10 @@ void gpc::Menu::eventBackground()
 void gpc::Menu::drawFirst()
 {
 	while (m_window.pollEvent(event)) {
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) {
 			m_window.close();
+			exit(0);
+		}
 		if (event.type == sf::Event::KeyPressed){
 			eventBackground();
 		}
