@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+"""
+<--WELCOME\n
+-->TEAM -NAME\n
+<--CLIENT -NUM\n
+<-- X Y\n
+"""
+
+from ai.args_parser import parse_args
+from ai.Connection import Connection
+from ai.Player import Player
+
+if __name__ == '__main__':
+    port, team, machine = parse_args()
+    print("port:", port, "\nteam:", team, "\nmachine:", machine)
+    player = Player(Connection(machine, port), team)
+    player.connect()
+    print(player)
+    player.run()
+    pass
