@@ -193,6 +193,7 @@ void gpc::GraphicClient::addIncantation(std::vector<int> incantation)
 	int i = 0;
 	for(std::vector<int>::iterator it=incantation.begin(); it!=incantation.end(); it++)
 	{
+		std::cout << "add in incantation player : " << std::to_string(incantation[i]) << std::endl;
 		inc->addPlayer(getPlayer(incantation[i]));
 		i++;
 	}

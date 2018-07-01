@@ -252,12 +252,14 @@ void gpc::Communication::handlePic(std::string str)
 	std::string delimiter = " ";
 	std::string::size_type sz;
 
+	std::cout << "Incantation str : " << str << std::endl;
 	pos = str.find(delimiter);
 	std::cout << "Handle PIC, POS : " << std::to_string(pos) << std::endl;
 	while(pos != std::string::npos)
 	{
 		token = str.substr(0, pos);
 		str.erase(0, pos + delimiter.length());
+		std::cout << "Incantation addtoken : " << token << std::endl;
 		incantations.push_back(std::stoi(token, &sz));
 		pos = str.find(delimiter);
 	}
