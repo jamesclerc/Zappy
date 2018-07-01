@@ -18,3 +18,4 @@ struct incantation_s {
 };
 
 void incantations_check(game_t *game);
+void incantation_send(incantation_t *);

@@ -67,7 +67,7 @@ bool handle_incantation(game_t *game, player_t *p, char *argument)
 			return (false);
 	}
 	list_insert(&game->incantations, new);
-	fprintf(p->stream, "Elevation underway\n");
+	incantation_send(new);
 	send_pic(game->graph_stream, new);
 	return (true);
 }
